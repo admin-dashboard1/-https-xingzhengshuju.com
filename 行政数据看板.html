@@ -7,24 +7,24 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
   :root {
-    --primary: #6366f1; --primary-light: #818cf8; --primary-glow: rgba(99,102,241,0.35);
-    --success: #10b981; --success-glow: rgba(16,185,129,0.3);
-    --warning: #f59e0b; --warning-glow: rgba(245,158,11,0.3);
-    --danger: #ef4444; --danger-glow: rgba(239,68,68,0.3);
-    --bg: #0f172a; --bg-card: rgba(30,41,59,0.75); --bg-card-hover: rgba(30,41,59,0.9);
-    --bg-elevated: rgba(51,65,85,0.6); --text: #f1f5f9; --text-secondary: #94a3b8;
-    --text-muted: #64748b; --border: rgba(148,163,184,0.15);
-    --border-light: rgba(148,163,184,0.08); --radius: 16px; --radius-sm: 10px;
-    --blur: blur(16px); --shadow-card: 0 4px 24px rgba(0,0,0,0.3), 0 1px 4px rgba(0,0,0,0.2);
-    --shadow-elevated: 0 8px 32px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
+    --primary: #6366f1; --primary-light: #818cf8; --primary-glow: rgba(99,102,241,0.2);
+    --success: #10b981; --success-glow: rgba(16,185,129,0.15);
+    --warning: #f59e0b; --warning-glow: rgba(245,158,11,0.15);
+    --danger: #ef4444; --danger-glow: rgba(239,68,68,0.15);
+    --bg: #f0f4f8; --bg-card: rgba(255,255,255,0.85); --bg-card-hover: rgba(255,255,255,0.95);
+    --bg-elevated: rgba(241,245,249,0.8); --text: #1e293b; --text-secondary: #475569;
+    --text-muted: #94a3b8; --border: rgba(148,163,184,0.2);
+    --border-light: rgba(148,163,184,0.1); --radius: 16px; --radius-sm: 10px;
+    --blur: blur(16px); --shadow-card: 0 2px 16px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+    --shadow-elevated: 0 8px 32px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.06);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
     background: var(--bg);
     background-image:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99,102,241,0.15), transparent),
-      radial-gradient(ellipse 60% 40% at 90% 80%, rgba(16,185,129,0.08), transparent);
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99,102,241,0.06), transparent),
+      radial-gradient(ellipse 60% 40% at 90% 80%, rgba(16,185,129,0.04), transparent);
     color: var(--text); line-height: 1.6; padding: 24px; min-height: 100vh;
   }
 
@@ -47,7 +47,7 @@
   }
   .header h1 {
     font-size: 24px; font-weight: 800;
-    background: linear-gradient(135deg, #818cf8, #c084fc);
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     background-clip: text; display: flex; align-items: center; gap: 10px;
     letter-spacing: -0.5px;
@@ -124,19 +124,19 @@
   .year-card.active::before { opacity: 1; }
   .year-card .year-label { font-size: 18px; font-weight: 700; margin-bottom: 6px; color: var(--text-secondary); }
   .year-card .year-amount { font-size: 24px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.5px; }
-  .year-card .year-amount.rank-color-1 { color: #f59e0b; }
-  .year-card .year-amount.rank-color-2 { color: #818cf8; }
-  .year-card .year-amount.rank-color-3 { color: #10b981; }
-  .year-card .year-amount.rank-color-4 { color: #94a3b8; }
+  .year-card .year-amount.rank-color-1 { color: #d97706; }
+  .year-card .year-amount.rank-color-2 { color: #6366f1; }
+  .year-card .year-amount.rank-color-3 { color: #059669; }
+  .year-card .year-amount.rank-color-4 { color: #64748b; }
   .year-card .year-detail { font-size: 11px; color: var(--text-muted); }
   .year-card .year-rank {
     position: absolute; top: 16px; right: 16px;
     font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 12px;
   }
-  .rank-1 { background: rgba(245,158,11,0.15); color: #f59e0b; }
-  .rank-2 { background: rgba(99,102,241,0.15); color: #818cf8; }
-  .rank-3 { background: rgba(16,185,129,0.15); color: #10b981; }
-  .rank-4 { background: rgba(148,163,184,0.15); color: #94a3b8; }
+  .rank-1 { background: rgba(217,119,6,0.12); color: #d97706; }
+  .rank-2 { background: rgba(99,102,241,0.12); color: #6366f1; }
+  .rank-3 { background: rgba(5,150,105,0.12); color: #059669; }
+  .rank-4 { background: rgba(100,116,139,0.12); color: #64748b; }
   .year-card .pct-bar {
     margin-top: 10px; height: 4px; border-radius: 2px;
     background: rgba(148,163,184,0.15); overflow: hidden;
@@ -208,10 +208,10 @@
   .kpi-card.danger .icon-bg { background: rgba(239,68,68,0.15); }
   .kpi-card .label { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
   .kpi-card .value { font-size: 30px; font-weight: 800; color: var(--text); letter-spacing: -0.5px; line-height: 1.1; }
-  .kpi-card.primary .value { color: #818cf8; }
-  .kpi-card.success .value { color: #10b981; }
-  .kpi-card.warning .value { color: #f59e0b; }
-  .kpi-card.danger .value { color: #ef4444; }
+  .kpi-card.primary .value { color: #6366f1; }
+  .kpi-card.success .value { color: #059669; }
+  .kpi-card.warning .value { color: #d97706; }
+  .kpi-card.danger .value { color: #dc2626; }
   .kpi-card .sub { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
 
   /* ===== Charts ===== */
@@ -248,8 +248,8 @@
   tr { transition: background 0.2s; }
   tr:hover td { background: rgba(99,102,241,0.04); }
   .status-tag { display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 600; }
-  .status-paid { background: rgba(16,185,129,0.12); color: #34d399; }
-  .status-pending { background: rgba(245,158,11,0.12); color: #fbbf24; }
+  .status-paid { background: rgba(16,185,129,0.12); color: #059669; }
+  .status-pending { background: rgba(245,158,11,0.12); color: #d97706; }
   .amount { font-weight: 700; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
 
   /* ===== Tabs ===== */
@@ -291,9 +291,9 @@
   .dup-alert-header .badge {
     font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 12px;
   }
-  .badge-high { background: rgba(239,68,68,0.15); color: #f87171; }
-  .badge-medium { background: rgba(245,158,11,0.15); color: #fbbf24; }
-  .badge-clean { background: rgba(16,185,129,0.15); color: #34d399; }
+  .badge-high { background: rgba(220,38,38,0.1); color: #dc2626; }
+  .badge-medium { background: rgba(217,119,6,0.1); color: #d97706; }
+  .badge-clean { background: rgba(5,150,105,0.1); color: #059669; }
   .dup-summary { display: flex; gap: 20px; flex-wrap: wrap; font-size: 12px; color: var(--text-secondary); }
   .dup-summary strong { color: var(--text); }
   .dup-toggle {
@@ -309,13 +309,13 @@
   .dup-table th { background: var(--bg-elevated); color: var(--text-secondary); padding: 8px 12px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--border); }
   .dup-table td { padding: 7px 12px; border-bottom: 1px solid var(--border-light); vertical-align: top; color: var(--text); }
   .dup-table .dup-level { font-weight: 600; font-size: 10px; padding: 2px 7px; border-radius: 8px; display: inline-block; }
-  .level-high { background: rgba(239,68,68,0.15); color: #f87171; }
-  .level-medium { background: rgba(245,158,11,0.15); color: #fbbf24; }
+  .level-high { background: rgba(220,38,38,0.1); color: #dc2626; }
+  .level-medium { background: rgba(217,119,6,0.1); color: #d97706; }
   .dup-table tr:hover td { background: rgba(99,102,241,0.04); }
   .dup-table .dup-items { font-size: 11px; color: var(--text-secondary); line-height: 1.6; }
   .dup-table .dup-item-line { display: flex; gap: 8px; flex-wrap: wrap; padding: 1px 0; }
   .dup-table .dup-item-line .di-date { color: var(--text); font-weight: 500; min-width: 80px; }
-  .dup-table .dup-item-line .di-city { color: #818cf8; min-width: 40px; }
+  .dup-table .dup-item-line .di-city { color: #6366f1; min-width: 40px; }
   .dup-table .dup-item-line .di-cat { color: var(--text-secondary); max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .dup-table .dup-item-line .di-purpose { color: var(--text-secondary); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
@@ -486,9 +486,9 @@
 </div>
 
 <script>
-// ============ Chart.js 暗色主题全局配置 ============
-Chart.defaults.color = '#94a3b8';
-Chart.defaults.borderColor = 'rgba(148,163,184,0.1)';
+// ============ Chart.js 浅色主题全局配置 ============
+Chart.defaults.color = '#64748b';
+Chart.defaults.borderColor = 'rgba(148,163,184,0.15)';
 
 // ============ 实时刷新核心逻辑 ============
 
@@ -669,7 +669,7 @@ function renderDupCheck(data) {
     document.getElementById('dupTitle').textContent = '✅ 未发现疑似重复费用';
     document.getElementById('dupBadgeHigh').style.display = 'none';
     document.getElementById('dupBadgeMedium').style.display = 'none';
-    document.getElementById('dupSummary').innerHTML = '<span style="color:#34d399">当前数据中未检测到同供应商+同金额+同月的疑似重复记录</span>';
+    document.getElementById('dupSummary').innerHTML = '<span style="color:#059669">当前数据中未检测到同供应商+同金额+同月的疑似重复记录</span>';
     document.getElementById('dupDetail').classList.remove('show');
     document.getElementById('dupToggle').style.display = 'none';
     return;
@@ -750,7 +750,7 @@ function renderYearCompareChart(data) {
 
   const labels = sorted.map(x => x.year + '年');
   const amounts = sorted.map(x => x.d.totalAmount);
-  const colors = ['#f59e0b', '#818cf8', '#10b981', '#64748b'];
+  const colors = ['#d97706', '#6366f1', '#059669', '#64748b'];
 
   const ctx1 = document.getElementById('yearCompareChart').getContext('2d');
   if (charts.yearCompare) charts.yearCompare.destroy();
@@ -781,10 +781,10 @@ function renderYearCompareChart(data) {
         }
       },
       scales: {
-        x: { grid: { display: false }, ticks: { font: {size: 12}, color: '#94a3b8' } },
+        x: { grid: { display: false }, ticks: { font: {size: 12}, color: '#64748b' } },
         y: {
-          grid: { color: 'rgba(148,163,184,0.1)' },
-          ticks: { callback: v => (v/10000).toFixed(0) + '万', font: {size: 10}, color: '#94a3b8' }
+          grid: { color: 'rgba(148,163,184,0.12)' },
+          ticks: { callback: v => (v/10000).toFixed(0) + '万', font: {size: 10}, color: '#64748b' }
         }
       }
     }
@@ -801,14 +801,14 @@ function renderYearCompareChart(data) {
         data: amounts,
         backgroundColor: colors.slice(0, sorted.length),
         borderWidth: 2,
-        borderColor: '#0f172a',
+        borderColor: '#f0f4f8',
       }]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
       animation: { duration: 500 },
       plugins: {
-        legend: { position: 'bottom', labels: { font: {size: 11}, padding: 12, usePointStyle: true, color: '#94a3b8' } },
+        legend: { position: 'bottom', labels: { font: {size: 11}, padding: 12, usePointStyle: true, color: '#64748b' } },
         tooltip: {
           callbacks: {
             label: ctx => {
@@ -909,10 +909,10 @@ function render(data) {
       datasets: [{
         label: '月度费用',
         data: monthly.map(m => m.amount),
-        borderColor: '#818cf8',
-        backgroundColor: 'rgba(99,102,241,0.1)',
+        borderColor: '#6366f1',
+        backgroundColor: 'rgba(99,102,241,0.08)',
         fill: true, tension: 0.3, pointRadius: 3,
-        pointBackgroundColor: '#818cf8', borderWidth: 2,
+        pointBackgroundColor: '#6366f1', borderWidth: 2,
       }]
     },
     options: {
@@ -920,15 +920,15 @@ function render(data) {
       animation: { duration: 400 },
       plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => '¥' + ctx.parsed.y.toLocaleString() } } },
       scales: {
-        x: { grid: { display: false }, ticks: { maxTicksLimit: 15, font: {size: 10}, color: '#94a3b8' } },
-        y: { grid: { color: 'rgba(148,163,184,0.1)' }, ticks: { font: {size: 10}, color: '#94a3b8', callback: v => (v/10000).toFixed(0) + '万' } }
+        x: { grid: { display: false }, ticks: { maxTicksLimit: 15, font: {size: 10}, color: '#64748b' } },
+        y: { grid: { color: 'rgba(148,163,184,0.12)' }, ticks: { font: {size: 10}, color: '#64748b', callback: v => (v/10000).toFixed(0) + '万' } }
       }
     }
   });
 
   // --- Category ---
   const cats = e.categoryDistribution.slice(0, 10);
-  const catColors = ['#818cf8','#10b981','#f59e0b','#ef4444','#a78bfa','#06b6d4','#fb923c','#34d399','#60a5fa','#c084fc'];
+  const catColors = ['#6366f1','#059669','#d97706','#dc2626','#8b5cf6','#0891b2','#ea580c','#16a34a','#2563eb','#7c3aed'];
   const ctx2 = document.getElementById('categoryChart').getContext('2d');
   if (charts.category) charts.category.destroy();
   charts.category = new Chart(ctx2, {
@@ -940,7 +940,7 @@ function render(data) {
     options: {
       responsive: true, maintainAspectRatio: false, animation: { duration: 400 },
       plugins: {
-        legend: { position: 'right', labels: { font: {size: 11}, padding: 8, color: '#94a3b8' } },
+        legend: { position: 'right', labels: { font: {size: 11}, padding: 8, color: '#64748b' } },
         tooltip: { callbacks: { label: ctx => ctx.label + ': ¥' + ctx.parsed.toLocaleString() } }
       }
     }
@@ -957,10 +957,10 @@ function render(data) {
     const perBill = c.count > 0 ? c.amount / c.count : 0;
     const allPerBill = cities.reduce((s, cc) => s + (cc.count > 0 ? cc.amount / cc.count : 0), 0) / cities.length;
     const perBillRatio = allPerBill > 0 ? perBill / allPerBill : 1;
-    let level = 'normal', color = '#60a5fa', label = '';
-    if (ratio > 1.5) { level = 'very-high'; color = '#ef4444'; label = '远高于均值'; }
-    else if (ratio > 1.2) { level = 'high'; color = '#fb923c'; label = '偏高'; }
-    else if (ratio < 0.3) { level = 'very-low'; color = '#475569'; label = '远低于均值'; }
+    let level = 'normal', color = '#6366f1', label = '';
+    if (ratio > 1.5) { level = 'very-high'; color = '#dc2626'; label = '远高于均值'; }
+    else if (ratio > 1.2) { level = 'high'; color = '#ea580c'; label = '偏高'; }
+    else if (ratio < 0.3) { level = 'very-low'; color = '#94a3b8'; label = '远低于均值'; }
     else if (ratio < 0.5) { level = 'low'; color = '#64748b'; label = '偏低'; }
     return { ...c, ratio, perBill, level, color, label };
   });
@@ -1002,7 +1002,7 @@ function render(data) {
         }
       },
       scales: {
-        x: { grid: { color: 'rgba(148,163,184,0.1)' }, ticks: { callback: v => (v/10000).toFixed(0) + '万', font: {size: 10}, color: '#94a3b8' } },
+        x: { grid: { color: 'rgba(148,163,184,0.12)' }, ticks: { callback: v => (v/10000).toFixed(0) + '万', font: {size: 10}, color: '#64748b' } },
         y: { grid: { display: false }, ticks: { font: {size: 10} } }
       }
     }
@@ -1019,7 +1019,7 @@ function render(data) {
       datasets: [{
         label: '日支出',
         data: daily.map(d => d.amount),
-        backgroundColor: daily.map(d => d.amount > 50000 ? '#ef4444' : '#818cf8'),
+        backgroundColor: daily.map(d => d.amount > 50000 ? '#dc2626' : '#6366f1'),
         borderRadius: 2,
       }]
     },
@@ -1030,15 +1030,15 @@ function render(data) {
         tooltip: { callbacks: { title: items => items[0].label, label: ctx => '¥' + ctx.parsed.y.toLocaleString() + ' (' + daily[ctx.dataIndex].count + '笔)' } }
       },
       scales: {
-        x: { grid: { display: false }, ticks: { maxTicksLimit: 15, font: {size: 9}, color: '#94a3b8' } },
-        y: { grid: { color: 'rgba(148,163,184,0.1)' }, ticks: { callback: v => (v/10000).toFixed(1) + '万', font: {size: 10}, color: '#94a3b8' } }
+        x: { grid: { display: false }, ticks: { maxTicksLimit: 15, font: {size: 9}, color: '#64748b' } },
+        y: { grid: { color: 'rgba(148,163,184,0.12)' }, ticks: { callback: v => (v/10000).toFixed(1) + '万', font: {size: 10}, color: '#64748b' } }
       }
     }
   });
 
   // --- PC Status ---
   const pcStatus = c.byStatus || [];
-  const pcColors = ['#10b981','#f59e0b','#ef4444','#a78bfa','#fb923c','#34d399'];
+  const pcColors = ['#059669','#d97706','#dc2626','#8b5cf6','#ea580c','#16a34a'];
   const ctx5 = document.getElementById('pcStatusChart').getContext('2d');
   if (charts.pcStatus) charts.pcStatus.destroy();
   charts.pcStatus = new Chart(ctx5, {
@@ -1049,7 +1049,7 @@ function render(data) {
     },
     options: {
       responsive: true, maintainAspectRatio: false, animation: { duration: 400 },
-      plugins: { legend: { position: 'right', labels: { font: {size: 11}, padding: 8, color: '#94a3b8' } }, tooltip: { callbacks: { label: ctx => ctx.label + ': ' + ctx.parsed + ' 台' } } }
+      plugins: { legend: { position: 'right', labels: { font: {size: 11}, padding: 8, color: '#64748b' } }, tooltip: { callbacks: { label: ctx => ctx.label + ': ' + ctx.parsed + ' 台' } } }
     }
   });
 
@@ -1061,14 +1061,14 @@ function render(data) {
     type: 'bar',
     data: {
       labels: pcCities.map(c => c.name),
-      datasets: [{ label: '数量', data: pcCities.map(c => c.count), backgroundColor: '#34d399', borderRadius: 4 }]
+      datasets: [{ label: '数量', data: pcCities.map(c => c.count), backgroundColor: '#16a34a', borderRadius: 4 }]
     },
     options: {
       indexAxis: 'y', responsive: true, maintainAspectRatio: false, animation: { duration: 400 },
       plugins: { legend: { display: false } },
       scales: {
-        x: { grid: { color: 'rgba(148,163,184,0.1)' }, ticks: { font: {size: 10}, stepSize: 50, color: '#94a3b8' } },
-        y: { grid: { display: false }, ticks: { font: {size: 11}, color: '#94a3b8' } }
+        x: { grid: { color: 'rgba(148,163,184,0.12)' }, ticks: { font: {size: 10}, stepSize: 50, color: '#64748b' } },
+        y: { grid: { display: false }, ticks: { font: {size: 11}, color: '#64748b' } }
       }
     }
   });
