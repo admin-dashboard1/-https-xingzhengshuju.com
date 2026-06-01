@@ -7,37 +7,23 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
   :root {
-    --primary: #1a73e8;
-    --success: #34a853;
-    --warning: #fbbc04;
-    --danger: #ea4335;
-    --bg: #f0f2f5;
-    --card-bg: #ffffff;
-    --text: #202124;
-    --text-secondary: #5f6368;
-    --border: #e0e0e0;
-    --shadow: 0 1px 3px rgba(0,0,0,0.08);
-    --radius: 12px;
+    --primary: #1a73e8; --success: #34a853; --warning: #fbbc04; --danger: #ea4335;
+    --bg: #f0f2f5; --card-bg: #ffffff; --text: #202124; --text-secondary: #5f6368;
+    --border: #e0e0e0; --shadow: 0 1px 3px rgba(0,0,0,0.08); --radius: 12px;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.5;
-    padding: 20px;
+    background: var(--bg); color: var(--text); line-height: 1.5; padding: 20px;
   }
 
-  /* Header */
   .header {
     display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 20px; padding-bottom: 14px; border-bottom: 2px solid var(--primary);
+    margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--primary);
     flex-wrap: wrap; gap: 12px;
   }
   .header h1 { font-size: 22px; color: var(--primary); display: flex; align-items: center; gap: 8px; }
   .header-right { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-  
-  /* Refresh controls */
   .refresh-bar {
     display: flex; align-items: center; gap: 10px;
     background: var(--card-bg); border-radius: 20px; padding: 6px 8px 6px 16px;
@@ -61,16 +47,54 @@
   .btn-refresh.loading .spinner { display: inline-block; }
   .btn-refresh.loading .btn-icon { display: none; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
   .update-time { font-size: 12px; color: var(--text-secondary); white-space: nowrap; }
-  .stale-warning {
-    display: none; align-items: center; gap: 4px;
-    font-size: 12px; color: var(--danger); font-weight: 500;
-    background: #fce8e6; padding: 4px 10px; border-radius: 12px;
-  }
+  .stale-warning { display: none; align-items: center; gap: 4px; font-size: 12px; color: var(--danger); font-weight: 500; background: #fce8e6; padding: 4px 10px; border-radius: 12px; }
   .stale-warning.show { display: inline-flex; }
+  .pulse-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--success); margin-right: 4px; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-  /* 年份筛选栏 */
+  /* ===== 年度对比总览 ===== */
+  .section-title {
+    font-size: 15px; font-weight: 700; color: var(--text);
+    margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+  }
+  .section-title::before { content: ''; display: inline-block; width: 4px; height: 18px; background: var(--primary); border-radius: 2px; }
+  .year-overview {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    margin-bottom: 20px;
+  }
+  .year-card {
+    background: var(--card-bg); border-radius: var(--radius); padding: 16px 18px;
+    box-shadow: var(--shadow); cursor: pointer; transition: all 0.2s;
+    border: 2px solid transparent; position: relative; overflow: hidden;
+  }
+  .year-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.1); }
+  .year-card.active { border-color: var(--primary); }
+  .year-card .year-label { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+  .year-card .year-amount { font-size: 22px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+  .year-card .year-detail { font-size: 12px; color: var(--text-secondary); }
+  .year-card .year-rank {
+    position: absolute; top: 12px; right: 14px;
+    font-size: 13px; font-weight: 700; padding: 2px 8px; border-radius: 10px;
+  }
+  .rank-1 { background: #fff3e0; color: #e65100; }
+  .rank-2 { background: #e8eaf6; color: #283593; }
+  .rank-3 { background: #e8f5e9; color: #2e7d32; }
+  .rank-4 { background: #fce4ec; color: #c62828; }
+
+  /* 占比进度条 */
+  .year-card .pct-bar {
+    margin-top: 8px; height: 6px; border-radius: 3px; background: #e8eaed;
+    overflow: hidden;
+  }
+  .year-card .pct-bar-fill {
+    height: 100%; border-radius: 3px; transition: width 0.6s ease;
+  }
+
+  /* ===== 年度对比图 + 年份筛选 ===== */
+  .year-compare-row {
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; margin-bottom: 20px;
+  }
   .year-filter-bar {
     display: flex; align-items: center; gap: 6px;
     margin-bottom: 16px; padding: 8px 14px;
@@ -84,9 +108,7 @@
     transition: all 0.2s;
   }
   .year-btn:hover { border-color: var(--primary); color: var(--primary); }
-  .year-btn.active {
-    background: var(--primary); color: #fff; border-color: var(--primary);
-  }
+  .year-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
 
   /* KPI Cards */
   .kpi-row {
@@ -101,10 +123,7 @@
   }
   .kpi-card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
   .kpi-card .label { font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; }
-  .kpi-card .value {
-    font-size: 26px; font-weight: 700; color: var(--text);
-    transition: color 0.3s;
-  }
+  .kpi-card .value { font-size: 26px; font-weight: 700; color: var(--text); transition: color 0.3s; }
   .kpi-card .value.updated { color: var(--primary); }
   .kpi-card .sub { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
   .kpi-card.danger { border-left-color: var(--danger); }
@@ -131,47 +150,27 @@
   td { padding: 7px 10px; border-bottom: 1px solid var(--border); }
   tr { transition: background 0.15s; }
   tr:hover td { background: #f8f9ff; }
-  .status-tag {
-    display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 500;
-  }
+  .status-tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 500; }
   .status-paid { background: #e6f4ea; color: #1e7e34; }
   .status-pending { background: #fef7e0; color: #e37400; }
   .amount { font-weight: 600; text-align: right; white-space: nowrap; }
 
   /* Tabs */
   .tabs { display: flex; gap: 4px; margin-bottom: 16px; }
-  .tab-btn {
-    padding: 8px 20px; border: 1px solid var(--border); border-radius: 8px;
-    background: #fff; cursor: pointer; font-size: 13px; transition: all .2s;
-  }
+  .tab-btn { padding: 8px 20px; border: 1px solid var(--border); border-radius: 8px; background: #fff; cursor: pointer; font-size: 13px; transition: all .2s; }
   .tab-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
   .tab-btn:hover:not(.active) { background: #f0f4ff; }
   .tab-content { display: none; }
   .tab-content.active { display: block; }
 
-  /* Toast notification */
-  .toast {
-    position: fixed; top: 20px; right: 20px; z-index: 9999;
-    background: var(--success); color: #fff; padding: 10px 20px; border-radius: 8px;
-    font-size: 13px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    transform: translateX(120%); transition: transform 0.3s ease;
-  }
+  /* Toast */
+  .toast { position: fixed; top: 20px; right: 20px; z-index: 9999; background: var(--success); color: #fff; padding: 10px 20px; border-radius: 8px; font-size: 13px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transform: translateX(120%); transition: transform 0.3s ease; }
   .toast.show { transform: translateX(0); }
   .toast.error { background: var(--danger); }
 
-  /* Pulse dot */
-  .pulse-dot {
-    display: inline-block; width: 8px; height: 8px; border-radius: 50%;
-    background: var(--success); margin-right: 4px;
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-
   @media (max-width: 768px) {
-    .grid-2 { grid-template-columns: 1fr; }
+    .grid-2, .year-compare-row { grid-template-columns: 1fr; }
+    .year-overview { grid-template-columns: repeat(2, 1fr); }
     .kpi-row { grid-template-columns: repeat(2, 1fr); }
     body { padding: 12px; }
     .header { flex-direction: column; align-items: flex-start; }
@@ -181,7 +180,6 @@
 </head>
 <body>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <!-- Header -->
@@ -209,10 +207,26 @@
   </div>
 </div>
 
-<!-- 年份筛选器 -->
-<div class="year-filter-bar" id="yearFilterBar" style="display:none">
-  <span style="font-size:13px;color:var(--text-secondary);margin-right:8px;">📅 查看年份：</span>
-  <button class="year-btn active" data-year="all" onclick="switchYear('all')">全部</button>
+<!-- ===== 年度出款总览 ===== -->
+<div class="section-title">📅 年度出款总览（点击年份查看详情）</div>
+<div class="year-overview" id="yearOverview"></div>
+
+<!-- ===== 年度对比图 + KPI ===== -->
+<div class="year-compare-row">
+  <div class="card">
+    <h3>📊 各年度出款对比</h3>
+    <div class="chart-container" style="height:260px"><canvas id="yearCompareChart"></canvas></div>
+  </div>
+  <div class="card">
+    <h3>🍩 年度占比分布</h3>
+    <div class="chart-container" style="height:260px"><canvas id="yearPieChart"></canvas></div>
+  </div>
+</div>
+
+<!-- 年份筛选 + KPI -->
+<div class="year-filter-bar" id="yearFilterBar">
+  <span style="font-size:13px;color:var(--text-secondary);margin-right:8px;">🔍 筛选年份：</span>
+  <button class="year-btn active" data-year="all" onclick="switchYear('all')">全部年份</button>
   <span id="yearBtns"></span>
 </div>
 
@@ -291,41 +305,27 @@
 let charts = {};
 let refreshTimer = null;
 let countdownTimer = null;
-let refreshInterval = 5; // 默认5分钟
+let refreshInterval = 5;
 let secondsLeft = refreshInterval * 60;
 let lastDataTimestamp = null;
-let currentYear = 'all'; // 当前选中的年份
-let allData = null; // 存储全量数据
+let currentYear = 'all';
+let allData = null;
 
 const DATA_URL = './看板数据/dashboard_data.json';
 let dataLoaded = false;
 
-// 尝试从 file:// 加载内嵌数据
-function loadEmbeddedData() {
-  if (typeof EMBEDDED_DATA !== 'undefined' && EMBEDDED_DATA) {
-    render(EMBEDDED_DATA);
-    document.getElementById('updateTime').innerHTML =
-      '<span class="pulse-dot" style="animation:pulse 2s infinite;background:var(--success)"></span> 最后更新: ' + (EMBEDDED_DATA.lastUpdated || '内嵌数据');
-    dataLoaded = true;
-    return true;
-  }
-  return false;
-}
-const STALE_THRESHOLD_MS = 90 * 60 * 1000; // 1.5小时未更新视为过期（配合每小时自动化）
+const STALE_THRESHOLD_MS = 90 * 60 * 1000;
 
-// 格式化金额
 function fmt(num) {
   if (num === undefined || num === null) return '-';
   if (num >= 10000) return (num / 10000).toFixed(2) + ' 万';
   return num.toLocaleString('zh-CN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 }
-
 function fmtNum(num) {
   if (num === undefined || num === null) return '-';
   return num.toLocaleString();
 }
 
-// Toast 提示
 let toastTimer = null;
 function showToast(msg, isError) {
   const el = document.getElementById('toast');
@@ -335,67 +335,39 @@ function showToast(msg, isError) {
   toastTimer = setTimeout(() => { el.classList.remove('show'); }, 2500);
 }
 
-// 更新倒计时显示
 function updateCountdown() {
   const mins = Math.floor(secondsLeft / 60);
   const secs = secondsLeft % 60;
   document.getElementById('countdown').textContent =
     String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
 }
-
-// 重置倒计时
-function resetCountdown() {
-  secondsLeft = refreshInterval * 60;
-  updateCountdown();
-}
-
-// 开始倒计时
+function resetCountdown() { secondsLeft = refreshInterval * 60; updateCountdown(); }
 function startCountdown() {
   clearInterval(countdownTimer);
   updateCountdown();
   countdownTimer = setInterval(() => {
     secondsLeft--;
-    if (secondsLeft <= 0) {
-      resetCountdown();
-      loadData(true); // 静默刷新
-    }
+    if (secondsLeft <= 0) { resetCountdown(); loadData(true); }
     updateCountdown();
   }, 1000);
 }
-
-// 设置刷新间隔
 function startRefreshLoop() {
-  clearInterval(refreshTimer);
-  clearInterval(countdownTimer);
-  resetCountdown();
-  startCountdown();
-  // 主定时器：到点触发刷新
-  refreshTimer = setInterval(() => {
-    loadData(true);
-    resetCountdown();
-  }, refreshInterval * 60 * 1000);
+  clearInterval(refreshTimer); clearInterval(countdownTimer);
+  resetCountdown(); startCountdown();
+  refreshTimer = setInterval(() => { loadData(true); resetCountdown(); }, refreshInterval * 60 * 1000);
 }
-
-// 用户切换刷新间隔
 function changeInterval() {
   refreshInterval = parseInt(document.getElementById('intervalSelect').value);
   startRefreshLoop();
   showToast('刷新间隔已设为 ' + refreshInterval + ' 分钟');
 }
+function manualRefresh() { loadData(false); }
 
-// 手动刷新
-function manualRefresh() {
-  loadData(false);
-}
-
-// 检查数据是否过期
 function checkStaleness() {
   const warning = document.getElementById('staleWarning');
   if (!lastDataTimestamp) return;
-  const now = new Date();
-  const dataTime = new Date(lastDataTimestamp);
-  const diff = now - dataTime;
-  if (diff > STALE_THRESHOLD_MS) {
+  const now = new Date(), dataTime = new Date(lastDataTimestamp);
+  if (now - dataTime > STALE_THRESHOLD_MS) {
     warning.classList.add('show');
     document.getElementById('pulseDot').style.background = 'var(--danger)';
   } else {
@@ -404,81 +376,177 @@ function checkStaleness() {
   }
 }
 
-// 核心：加载数据
 async function loadData(silent) {
   const btn = document.getElementById('btnRefresh');
   btn.classList.add('loading');
-
   try {
-    const resp = await fetch(DATA_URL + '?t=' + Date.now(), {
-      cache: 'no-store',
-      headers: { 'Cache-Control': 'no-cache' }
-    });
-
+    const resp = await fetch(DATA_URL + '?t=' + Date.now(), { cache: 'no-store', headers: {'Cache-Control': 'no-cache'} });
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
-
     const data = await resp.json();
     render(data);
     dataLoaded = true;
-
-    // 记录数据时间戳
-    if (data.lastUpdated) {
-      lastDataTimestamp = data.lastUpdated;
-    }
-
+    if (data.lastUpdated) lastDataTimestamp = data.lastUpdated;
     document.getElementById('updateTime').innerHTML =
       '<span class="pulse-dot" style="animation:pulse 2s infinite;background:var(--success)"></span> 最后更新: ' + data.lastUpdated;
-
     checkStaleness();
-
     if (!silent) {
       showToast('✅ 数据已刷新');
-      // KPI 闪烁效果
-      document.querySelectorAll('.kpi-card .value').forEach(el => {
-        el.classList.add('updated');
-        setTimeout(() => el.classList.remove('updated'), 600);
-      });
+      document.querySelectorAll('.kpi-card .value').forEach(el => { el.classList.add('updated'); setTimeout(() => el.classList.remove('updated'), 600); });
     }
   } catch(e) {
-    console.error('fetch 加载失败，尝试内嵌数据:', e.message);
-    // 如果 fetch 失败且内嵌数据还没加载过，用内嵌数据
-    if (!dataLoaded && loadEmbeddedData()) {
-      if (!silent) showToast('📋 显示内嵌数据（无法连接实时数据源）');
+    console.error('fetch 失败:', e.message);
+    if (!dataLoaded && typeof EMBEDDED_DATA !== 'undefined' && EMBEDDED_DATA) {
+      render(EMBEDDED_DATA);
+      document.getElementById('updateTime').innerHTML = '<span class="pulse-dot" style="animation:pulse 2s infinite;background:var(--success)"></span> 最后更新: ' + (EMBEDDED_DATA.lastUpdated || '内嵌数据');
+      dataLoaded = true;
+      if (!silent) showToast('📋 显示内嵌数据');
     } else if (dataLoaded) {
-      // 之前加载成功过，这次只是刷新失败，保留现有数据
-      console.log('刷新失败，保留现有数据');
-      if (!silent) showToast('⚠️ 刷新失败，显示最近一次数据');
+      if (!silent) showToast('⚠️ 刷新失败，保留最近数据');
     } else {
       document.getElementById('updateTime').textContent = '⚠️ 无法加载数据';
-      document.getElementById('pulseDot').style.background = 'var(--danger)';
-      if (!silent) showToast('❌ 数据加载失败: ' + e.message, true);
+      if (!silent) showToast('❌ 数据加载失败', true);
     }
-  } finally {
-    btn.classList.remove('loading');
-  }
+  } finally { btn.classList.remove('loading'); }
 }
 
-// 切换 Tab
 function switchTab(name) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
-  // 找到被点击的按钮并激活
-  const btns = document.querySelectorAll('.tab-btn');
-  btns.forEach(b => {
-    if (b.textContent.includes(name === 'expense' ? '行政费用' : '资产管理')) {
-      b.classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    if (b.textContent.includes(name === 'expense' ? '行政费用' : '资产管理')) b.classList.add('active');
+  });
+  setTimeout(() => { Object.values(charts).forEach(c => { if (c) c.resize(); }); }, 150);
+}
+
+// ============ 年度总览渲染 ============
+
+function renderYearOverview(data) {
+  const container = document.getElementById('yearOverview');
+  const byYear = data.expenses.byYear || {};
+  const years = data.expenses.availableYears || [];
+  const grandTotal = data.expenses.totalAmount;
+
+  // 排序：按总额降序
+  const sorted = years.map(y => ({ year: y, data: byYear[String(y)] }))
+    .filter(x => x.data)
+    .sort((a, b) => b.data.totalAmount - a.data.totalAmount);
+
+  // 排名
+  const rankColors = ['rank-1', 'rank-2', 'rank-3', 'rank-4'];
+  const barColors = ['#ff9800', '#1a73e8', '#34a853', '#9e9e9e'];
+
+  container.innerHTML = sorted.map((item, idx) => {
+    const pct = grandTotal > 0 ? ((item.data.totalAmount / grandTotal) * 100).toFixed(1) : 0;
+    return `
+      <div class="year-card" onclick="switchYear('${item.year}')" id="yearCard${item.year}">
+        <span class="year-rank ${rankColors[idx] || ''}">#${idx + 1}</span>
+        <div class="year-label" style="color:${barColors[idx]}">${item.year}年</div>
+        <div class="year-amount">¥${(item.data.totalAmount / 10000).toFixed(0)}万</div>
+        <div class="year-detail">${item.data.totalCount} 笔 · 占比 ${pct}%</div>
+        <div class="pct-bar">
+          <div class="pct-bar-fill" style="width:${pct}%;background:${barColors[idx]}"></div>
+        </div>
+      </div>`;
+  }).join('');
+
+  // 高亮当前选中
+  highlightYearCard(currentYear);
+}
+
+function highlightYearCard(year) {
+  document.querySelectorAll('.year-card').forEach(c => c.classList.remove('active'));
+  const card = document.getElementById('yearCard' + year);
+  if (card) card.classList.add('active');
+}
+
+// ============ 年份对比图 ============
+
+function renderYearCompareChart(data) {
+  const byYear = data.expenses.byYear || {};
+  const years = data.expenses.availableYears || [];
+  const sorted = years.map(y => ({ year: String(y), d: byYear[String(y)] }))
+    .filter(x => x.d)
+    .sort((a, b) => a.year.localeCompare(b.year));
+
+  const labels = sorted.map(x => x.year + '年');
+  const amounts = sorted.map(x => x.d.totalAmount);
+  const colors = ['#ff9800', '#1a73e8', '#34a853', '#9e9e9e'];
+
+  const ctx1 = document.getElementById('yearCompareChart').getContext('2d');
+  if (charts.yearCompare) charts.yearCompare.destroy();
+  charts.yearCompare = new Chart(ctx1, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: '年度出款总额',
+        data: amounts,
+        backgroundColor: colors.slice(0, sorted.length),
+        borderRadius: 6,
+        borderWidth: 0,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      animation: { duration: 500 },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const d = sorted[ctx.dataIndex].d;
+              return `¥${d.totalAmount.toLocaleString()} (${d.totalCount}笔)`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: {size: 12} } },
+        y: {
+          grid: { color: 'rgba(0,0,0,0.05)' },
+          ticks: { callback: v => (v/10000).toFixed(0) + '万', font: {size: 10} }
+        }
+      }
     }
   });
-  setTimeout(() => {
-    Object.values(charts).forEach(c => { if (c) c.resize(); });
-  }, 150);
+
+  // 饼图
+  const ctx2 = document.getElementById('yearPieChart').getContext('2d');
+  if (charts.yearPie) charts.yearPie.destroy();
+  charts.yearPie = new Chart(ctx2, {
+    type: 'doughnut',
+    data: {
+      labels: labels,
+      datasets: [{
+        data: amounts,
+        backgroundColor: colors.slice(0, sorted.length),
+        borderWidth: 2,
+        borderColor: '#fff',
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      animation: { duration: 500 },
+      plugins: {
+        legend: { position: 'bottom', labels: { font: {size: 11}, padding: 12, usePointStyle: true } },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+              const pct = ((ctx.parsed / total) * 100).toFixed(1);
+              return ctx.label + ': ¥' + ctx.parsed.toLocaleString() + ' (' + pct + '%)';
+            }
+          }
+        }
+      }
+    }
+  });
 }
 
 // ============ 渲染逻辑 ============
 
 function getExpenseData(data) {
-  // 根据 currentYear 返回对应的费用数据
   if (currentYear === 'all' || !data.expenses.byYear || !data.expenses.byYear[currentYear]) {
     return data.expenses;
   }
@@ -486,11 +554,9 @@ function getExpenseData(data) {
 }
 
 function initYearButtons(data) {
-  const bar = document.getElementById('yearFilterBar');
   const btnsContainer = document.getElementById('yearBtns');
   const years = data.expenses.availableYears || [];
-  if (years.length <= 1) { bar.style.display = 'none'; return; }
-  bar.style.display = 'flex';
+  if (years.length <= 1) return;
   btnsContainer.innerHTML = years.map(y =>
     `<button class="year-btn" data-year="${y}" onclick="switchYear('${y}')">${y}年</button>`
   ).join('');
@@ -498,10 +564,12 @@ function initYearButtons(data) {
 
 function switchYear(year) {
   currentYear = year;
-  // 更新按钮状态
-  document.querySelectorAll('.year-btn').forEach(b => {
+  // 更新筛选栏按钮
+  document.querySelectorAll('#yearFilterBar .year-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.year === year);
   });
+  // 更新总览卡片
+  highlightYearCard(year);
   // 重新渲染
   if (allData) render(allData);
 }
@@ -511,18 +579,23 @@ function render(data) {
   const e = getExpenseData(data);
   const c = data.computers;
 
+  // === 年度总览（始终渲染全量数据） ===
+  renderYearOverview(data);
+
+  // === 年度对比图 ===
+  renderYearCompareChart(data);
+
   // 初始化年份按钮（仅首次）
   if (document.getElementById('yearBtns').children.length === 0) {
     initYearButtons(data);
   }
 
-  // KPI
+  // === KPI ===
   document.getElementById('totalAmount').textContent = fmt(e.totalAmount);
   document.getElementById('avgMonthly').textContent = fmt(e.avgMonthly);
   document.getElementById('thisMonthTotal').textContent = fmt(e.totalCount);
   document.getElementById('thisMonthCount').textContent = e.totalCount;
   document.getElementById('todayAmount').textContent = fmt(e.todayAmount);
-  // 动态标签
   const yrLabel = currentYear === 'all' ? '全量' : (currentYear + '年');
   document.getElementById('totalSub').textContent = yrLabel + ' 累计支出';
   document.getElementById('avgMonthlySub').textContent = yrLabel + ' 月均 (' + (e.filledMonths || '?') + '个月)';
@@ -537,7 +610,6 @@ function render(data) {
   // --- Monthly Trend ---
   let monthly = e.monthlyTrend;
   if (currentYear !== 'all') {
-    // 按年份过滤，且只显示月份标签
     const yr = parseInt(currentYear);
     monthly = monthly.filter(m => m.label.startsWith(currentYear + '-'));
   } else {
@@ -557,48 +629,34 @@ function render(data) {
         data: monthly.map(m => m.amount),
         borderColor: '#1a73e8',
         backgroundColor: 'rgba(26,115,232,0.08)',
-        fill: true,
-        tension: 0.3,
-        pointRadius: 3,
-        pointBackgroundColor: '#1a73e8',
-        borderWidth: 2,
+        fill: true, tension: 0.3, pointRadius: 3,
+        pointBackgroundColor: '#1a73e8', borderWidth: 2,
       }]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
       animation: { duration: 400 },
-      plugins: {
-        legend: { display: false },
-        tooltip: { callbacks: { label: ctx => '¥' + ctx.parsed.y.toLocaleString() } }
-      },
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => '¥' + ctx.parsed.y.toLocaleString() } } },
       scales: {
         x: { grid: { display: false }, ticks: { maxTicksLimit: 15, font: {size: 10} } },
-        y: {
-          grid: { color: 'rgba(0,0,0,0.05)' },
-          ticks: { font: {size: 10}, callback: v => (v/10000).toFixed(0) + '万' }
-        }
+        y: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: {size: 10}, callback: v => (v/10000).toFixed(0) + '万' } }
       }
     }
   });
 
-  // --- Category Distribution ---
+  // --- Category ---
   const cats = e.categoryDistribution.slice(0, 10);
-  const colors = ['#1a73e8','#34a853','#fbbc04','#ea4335','#8e24aa','#00acc1','#ff7043','#9ccc65','#42a5f5','#ab47bc'];
+  const catColors = ['#1a73e8','#34a853','#fbbc04','#ea4335','#8e24aa','#00acc1','#ff7043','#9ccc65','#42a5f5','#ab47bc'];
   const ctx2 = document.getElementById('categoryChart').getContext('2d');
   if (charts.category) charts.category.destroy();
   charts.category = new Chart(ctx2, {
     type: 'doughnut',
     data: {
       labels: cats.map(c => c.name),
-      datasets: [{
-        data: cats.map(c => c.amount),
-        backgroundColor: colors.slice(0, cats.length),
-        borderWidth: 0,
-      }]
+      datasets: [{ data: cats.map(c => c.amount), backgroundColor: catColors.slice(0, cats.length), borderWidth: 0 }]
     },
     options: {
-      responsive: true, maintainAspectRatio: false,
-      animation: { duration: 400 },
+      responsive: true, maintainAspectRatio: false, animation: { duration: 400 },
       plugins: {
         legend: { position: 'right', labels: { font: {size: 11}, padding: 8 } },
         tooltip: { callbacks: { label: ctx => ctx.label + ': ¥' + ctx.parsed.toLocaleString() } }
@@ -606,7 +664,7 @@ function render(data) {
     }
   });
 
-  // --- City Distribution ---
+  // --- City ---
   const cities = e.cityDistribution.slice(0, 10);
   const ctx3 = document.getElementById('cityChart').getContext('2d');
   if (charts.city) charts.city.destroy();
@@ -614,21 +672,11 @@ function render(data) {
     type: 'bar',
     data: {
       labels: cities.map(c => c.name),
-      datasets: [{
-        label: '费用金额',
-        data: cities.map(c => c.amount),
-        backgroundColor: '#42a5f5',
-        borderRadius: 4,
-      }]
+      datasets: [{ label: '费用金额', data: cities.map(c => c.amount), backgroundColor: '#42a5f5', borderRadius: 4 }]
     },
     options: {
-      indexAxis: 'y',
-      responsive: true, maintainAspectRatio: false,
-      animation: { duration: 400 },
-      plugins: {
-        legend: { display: false },
-        tooltip: { callbacks: { label: ctx => '¥' + ctx.parsed.x.toLocaleString() } }
-      },
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false, animation: { duration: 400 },
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => '¥' + ctx.parsed.x.toLocaleString() } } },
       scales: {
         x: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { callback: v => (v/10000).toFixed(0) + '万', font: {size: 10} } },
         y: { grid: { display: false }, ticks: { font: {size: 11} } }
@@ -636,7 +684,7 @@ function render(data) {
     }
   });
 
-  // --- Daily Trend ---
+  // --- Daily ---
   let daily = (currentYear !== 'all' && e.daily) ? e.daily : (e.daily2026 || []);
   const ctx4 = document.getElementById('dailyChart').getContext('2d');
   if (charts.daily) charts.daily.destroy();
@@ -652,49 +700,32 @@ function render(data) {
       }]
     },
     options: {
-      responsive: true, maintainAspectRatio: false,
-      animation: { duration: 400 },
+      responsive: true, maintainAspectRatio: false, animation: { duration: 400 },
       plugins: {
         legend: { display: false },
-        tooltip: {
-          callbacks: {
-            title: items => items[0].label,
-            label: ctx => '¥' + ctx.parsed.y.toLocaleString() + ' (' + daily[ctx.dataIndex].count + '笔)'
-          }
-        }
+        tooltip: { callbacks: { title: items => items[0].label, label: ctx => '¥' + ctx.parsed.y.toLocaleString() + ' (' + daily[ctx.dataIndex].count + '笔)' } }
       },
       scales: {
         x: { grid: { display: false }, ticks: { maxTicksLimit: 15, font: {size: 9} } },
-        y: {
-          grid: { color: 'rgba(0,0,0,0.05)' },
-          ticks: { callback: v => (v/10000).toFixed(1) + '万', font: {size: 10} }
-        }
+        y: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { callback: v => (v/10000).toFixed(1) + '万', font: {size: 10} } }
       }
     }
   });
 
   // --- PC Status ---
   const pcStatus = c.byStatus || [];
-  const colors2 = ['#34a853','#fbbc04','#ea4335','#8e24aa','#ff7043','#9ccc65'];
+  const pcColors = ['#34a853','#fbbc04','#ea4335','#8e24aa','#ff7043','#9ccc65'];
   const ctx5 = document.getElementById('pcStatusChart').getContext('2d');
   if (charts.pcStatus) charts.pcStatus.destroy();
   charts.pcStatus = new Chart(ctx5, {
     type: 'doughnut',
     data: {
       labels: pcStatus.map(s => s.name),
-      datasets: [{
-        data: pcStatus.map(s => s.count),
-        backgroundColor: colors2.slice(0, pcStatus.length),
-        borderWidth: 0,
-      }]
+      datasets: [{ data: pcStatus.map(s => s.count), backgroundColor: pcColors.slice(0, pcStatus.length), borderWidth: 0 }]
     },
     options: {
-      responsive: true, maintainAspectRatio: false,
-      animation: { duration: 400 },
-      plugins: {
-        legend: { position: 'right', labels: { font: {size: 11}, padding: 8 } },
-        tooltip: { callbacks: { label: ctx => ctx.label + ': ' + ctx.parsed + ' 台' } }
-      }
+      responsive: true, maintainAspectRatio: false, animation: { duration: 400 },
+      plugins: { legend: { position: 'right', labels: { font: {size: 11}, padding: 8 } }, tooltip: { callbacks: { label: ctx => ctx.label + ': ' + ctx.parsed + ' 台' } } }
     }
   });
 
@@ -706,17 +737,10 @@ function render(data) {
     type: 'bar',
     data: {
       labels: pcCities.map(c => c.name),
-      datasets: [{
-        label: '数量',
-        data: pcCities.map(c => c.count),
-        backgroundColor: '#66bb6a',
-        borderRadius: 4,
-      }]
+      datasets: [{ label: '数量', data: pcCities.map(c => c.count), backgroundColor: '#66bb6a', borderRadius: 4 }]
     },
     options: {
-      indexAxis: 'y',
-      responsive: true, maintainAspectRatio: false,
-      animation: { duration: 400 },
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false, animation: { duration: 400 },
       plugins: { legend: { display: false } },
       scales: {
         x: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: {size: 10}, stepSize: 50 } },
@@ -725,7 +749,7 @@ function render(data) {
     }
   });
 
-  // --- Latest Expenses Table ---
+  // --- Latest Table ---
   const tbody = document.getElementById('latestTable');
   tbody.innerHTML = '';
   (e.latestExpenses || []).forEach(r => {
@@ -738,92 +762,22 @@ function render(data) {
       <td>${r.category}</td>
       <td class="amount">¥${r.amount.toLocaleString()}</td>
       <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.purpose || '-'}</td>
-      <td><span class="status-tag ${statusClass}">${r.status}</span></td>
-    `;
+      <td><span class="status-tag ${statusClass}">${r.status}</span></td>`;
     tbody.appendChild(tr);
   });
 
   // Chart resize
-  setTimeout(() => {
-    Object.values(charts).forEach(c => { if (c) c.resize(); });
-  }, 200);
+  setTimeout(() => { Object.values(charts).forEach(c => { if (c) c.resize(); }); }, 200);
 }
 
 // ============ 启动 ============
-// 先尝试 fetch 实时数据，失败自动回退到内嵌数据
 startRefreshLoop();
 loadData(false);
 </script>
 
 <script>
 // 内嵌默认数据，确保双击打开即可显示
-const EMBEDDED_DATA = {"expenses": {"totalAmount": 52485409.82, "totalCount": 10030, "avgMonthly": 1336218.68, "thisMonthTotal": 0, "thisMonthCount": 0, "todayAmount": 0.0, "monthlyTrend": [{"label": "2023-01", "amount": 974711.21, "count": 136}, {"label": "2023-02", "amount": 2096808.67, "count": 146}, {"label": "2023-03", "amount": 2563878.06, "count": 222}, {"label": "2023-04", "amount": 1174183.48, "count": 134}, {"label": "2023-05", "amount": 1121664.15, "count": 195}, {"label": "2023-06", "amount": 1479939.67, "count": 135}, {"label": "2023-07", "amount": 1070931.26, "count": 176}, {"label": "2023-08", "amount": 1396887.25, "count": 145}, {"label": "2023-09", "amount": 1747998.02, "count": 150}, {"label": "2023-10", "amount": 997589.97, "count": 140}, {"label": "2023-11", "amount": 690693.69, "count": 154}, {"label": "2023-12", "amount": 1448628.69, "count": 186}, {"label": "2024-01", "amount": 1928352.58, "count": 195}, {"label": "2024-02", "amount": 923288.91, "count": 146}, {"label": "2024-03", "amount": 1876152.2, "count": 166}, {"label": "2024-04", "amount": 1093807.18, "count": 172}, {"label": "2024-05", "amount": 1046822.85, "count": 224}, {"label": "2024-06", "amount": 1498393.36, "count": 268}, {"label": "2024-07", "amount": 1412886.62, "count": 351}, {"label": "2024-08", "amount": 1168992.54, "count": 276}, {"label": "2024-09", "amount": 1569366.7, "count": 207}, {"label": "2024-10", "amount": 1202094.47, "count": 178}, {"label": "2024-11", "amount": 1572707.52, "count": 271}, {"label": "2024-12", "amount": 1659973.05, "count": 313}, {"label": "2025-00", "amount": 87926.55, "count": 54}, {"label": "2025-01", "amount": 1610061.33, "count": 252}, {"label": "2025-02", "amount": 581512.44, "count": 148}, {"label": "2025-03", "amount": 1278106.68, "count": 461}, {"label": "2025-04", "amount": 1631021.85, "count": 483}, {"label": "2025-05", "amount": 677926.31, "count": 330}, {"label": "2025-06", "amount": 914444.77, "count": 367}, {"label": "2025-07", "amount": 1589898.59, "count": 420}, {"label": "2025-08", "amount": 1390116.44, "count": 457}, {"label": "2025-09", "amount": 3285338.41, "count": 663}, {"label": "2025-10", "amount": 2424173.59, "count": 565}, {"label": "2025-11", "amount": 364545.12, "count": 188}, {"label": "2025-12", "amount": 199552.08, "count": 271}, {"label": "2026-01", "amount": 1149562.78, "count": 289}, {"label": "2026-02", "amount": 525324.4, "count": 171}, {"label": "2026-03", "amount": 1059146.38, "count": 207}, {"label": "2026-04", "amount": 0.0, "count": 4}, {"label": "2026-05", "amount": 0.0, "count": 5}, {"label": "2026-06", "amount": 0.0, "count": 3}, {"label": "2026-07", "amount": 0.0, "count": 2}, {"label": "2026-08", "amount": 0.0, "count": 4}], "categoryDistribution": [{"name": "房租费", "amount": 34153425.72, "count": 780}, {"name": "物业费", "amount": 5763734.8, "count": 640}, {"name": "租赁费", "amount": 2980322.2, "count": 357}, {"name": "快递费", "amount": 2808903.13, "count": 1188}, {"name": "办公费", "amount": 1831805.83, "count": 1435}, {"name": "水电费", "amount": 1549454.65, "count": 807}, {"name": "房租保证金", "amount": 1245556.3, "count": 50}, {"name": "IT费用", "amount": 914917.22, "count": 255}, {"name": "邮电通讯费", "amount": 603097.74, "count": 603}, {"name": "招聘费", "amount": 364551.02, "count": 129}, {"name": "装修费", "amount": 169240.12, "count": 45}, {"name": "印刷费", "amount": 68713.79, "count": 187}, {"name": "物业保证金", "amount": 25387.3, "count": 4}, {"name": "经营活动保证金", "amount": 6300.0, "count": 5}, {"name": "装修保证金", "amount": 0.0, "count": 2}], "cityDistribution": [{"name": "杭州", "amount": 12087295.21, "count": 824}, {"name": "上海", "amount": 8330123.79, "count": 609}, {"name": "北京", "amount": 5337576.19, "count": 309}, {"name": "广州", "amount": 3919921.19, "count": 506}, {"name": "深圳", "amount": 3298572.17, "count": 404}, {"name": "全国", "amount": 2445944.46, "count": 227}, {"name": "成都", "amount": 2370829.31, "count": 299}, {"name": "南京", "amount": 2055338.28, "count": 425}, {"name": "苏州", "amount": 1872623.36, "count": 233}, {"name": "青岛", "amount": 1847328.2, "count": 182}, {"name": "武汉", "amount": 1601740.07, "count": 301}, {"name": "天津", "amount": 975134.41, "count": 230}, {"name": "大连", "amount": 941560.1, "count": 125}, {"name": "西安", "amount": 495291.77, "count": 133}, {"name": "厦门", "amount": 465302.57, "count": 142}], "daily2026": [{"date": "2026-01-01", "amount": 0.0, "count": 2}, {"date": "2026-01-02", "amount": 0.0, "count": 1}, {"date": "2026-01-04", "amount": 207726.02, "count": 17}, {"date": "2026-01-05", "amount": 175081.14, "count": 6}, {"date": "2026-01-06", "amount": 83968.13, "count": 7}, {"date": "2026-01-07", "amount": 183113.15, "count": 16}, {"date": "2026-01-08", "amount": 45788.93, "count": 72}, {"date": "2026-01-09", "amount": 30505.58, "count": 20}, {"date": "2026-01-12", "amount": 77734.2, "count": 4}, {"date": "2026-01-13", "amount": 13705.9, "count": 10}, {"date": "2026-01-14", "amount": 44087.57, "count": 6}, {"date": "2026-01-15", "amount": 35.0, "count": 2}, {"date": "2026-01-16", "amount": 27650.04, "count": 20}, {"date": "2026-01-19", "amount": 986.03, "count": 4}, {"date": "2026-01-20", "amount": 1335.58, "count": 2}, {"date": "2026-01-21", "amount": 34905.55, "count": 8}, {"date": "2026-01-22", "amount": 5737.57, "count": 33}, {"date": "2026-01-23", "amount": 173183.62, "count": 43}, {"date": "2026-01-25", "amount": 0.0, "count": 1}, {"date": "2026-01-26", "amount": 242.57, "count": 4}, {"date": "2026-01-27", "amount": 3170.8, "count": 4}, {"date": "2026-01-28", "amount": 0.0, "count": 1}, {"date": "2026-01-30", "amount": 40605.4, "count": 6}, {"date": "2026-02-01", "amount": 0.0, "count": 2}, {"date": "2026-02-02", "amount": 41505.69, "count": 12}, {"date": "2026-02-03", "amount": 6774.47, "count": 6}, {"date": "2026-02-04", "amount": 5358.0, "count": 2}, {"date": "2026-02-06", "amount": 163177.91, "count": 24}, {"date": "2026-02-09", "amount": 46652.94, "count": 56}, {"date": "2026-02-11", "amount": 764.0, "count": 4}, {"date": "2026-02-12", "amount": 0.0, "count": 1}, {"date": "2026-02-22", "amount": 0.0, "count": 1}, {"date": "2026-02-24", "amount": 157867.69, "count": 28}, {"date": "2026-02-25", "amount": 0.0, "count": 1}, {"date": "2026-02-26", "amount": 82968.57, "count": 24}, {"date": "2026-02-27", "amount": 20120.13, "count": 8}, {"date": "2026-02-28", "amount": 135.0, "count": 2}, {"date": "2026-03-01", "amount": 0.0, "count": 2}, {"date": "2026-03-02", "amount": 28885.0, "count": 8}, {"date": "2026-03-03", "amount": 51012.0, "count": 4}, {"date": "2026-03-04", "amount": 51562.52, "count": 10}, {"date": "2026-03-06", "amount": 7150.0, "count": 18}, {"date": "2026-03-09", "amount": 161972.84, "count": 56}, {"date": "2026-03-11", "amount": 15507.63, "count": 4}, {"date": "2026-03-12", "amount": 1432.0, "count": 4}, {"date": "2026-03-13", "amount": 203372.38, "count": 27}, {"date": "2026-03-19", "amount": 239031.23, "count": 10}, {"date": "2026-03-20", "amount": 16002.2, "count": 4}, {"date": "2026-03-22", "amount": 0.0, "count": 1}, {"date": "2026-03-23", "amount": 27694.34, "count": 24}, {"date": "2026-03-24", "amount": 254978.14, "count": 30}, {"date": "2026-03-25", "amount": 0.0, "count": 1}, {"date": "2026-03-26", "amount": 299.0, "count": 2}, {"date": "2026-03-27", "amount": 247.1, "count": 2}, {"date": "2026-04-01", "amount": 0.0, "count": 2}, {"date": "2026-04-22", "amount": 0.0, "count": 1}, {"date": "2026-04-25", "amount": 0.0, "count": 1}, {"date": "2026-05-01", "amount": 0.0, "count": 2}, {"date": "2026-05-22", "amount": 0.0, "count": 1}, {"date": "2026-05-25", "amount": 0.0, "count": 2}, {"date": "2026-06-01", "amount": 0.0, "count": 2}, {"date": "2026-06-22", "amount": 0.0, "count": 1}, {"date": "2026-07-22", "amount": 0.0, "count": 1}, {"date": "2026-07-25", "amount": 0.0, "count": 1}, {"date": "2026-08-22", "amount": 0.0, "count": 3}, {"date": "2026-08-25", "amount": 0.0, "count": 1}], "latestExpenses": [{"date": "2026-08-25", "supplier": "", "city": "日常行政费用/房租费", "category": "现申请支付沈阳分公司第二年租金25116元，周期为2025年9月1日- 2026年8月31日。可开专票，先款后票", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-08-22", "supplier": "", "city": "日常行政费用/物业费", "category": "现申请支付总部2025.10.1-2026.3.31车位费7200元及物业费85851.84元，共计93,051.84元
-1、车位服务费单价100元/位/月，12个车位，1200元/月； 
-2、物业费8元/月/㎡，1788.58㎡，14308.64元/月； 
-3、先票后款，专票", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-08-22", "supplier": "", "city": "日常行政费用/物业费", "category": "现申请支付总部2025.10.1-2026.3.31车位费7200元及物业费85851.84元，共计93,051.84元
-1、车位服务费单价100元/位/月，12个车位，1200元/月； 
-2、物业费8元/月/㎡，1788.58㎡，14308.64元/月； 
-3、先票后款，专票", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-08-22", "supplier": "", "city": "日常行政费用/物业费", "category": "现申请支付总部2025.10.1-2026.3.31车位费7200元及物业费85851.84元，共计93,051.84元
-1、车位服务费单价100元/位/月，12个车位，1200元/月； 
-2、物业费8元/月/㎡，1788.58㎡，14308.64元/月； 
-3、先票后款，专票", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-07-25", "supplier": "", "city": "日常行政费用/房租费", "category": "现申请支付沈阳分公司第二年租金25116元，周期为2025年9月1日- 2026年8月31日。可开专票，先款后票", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-07-22", "supplier": "", "city": "日常行政费用/招聘费", "category": "因下半年进入用工高峰，智联招聘账号即将到期（2025年8月29日），故申请账号续费，用于项目中心项目自招使用【智联账号共计16000元（每个账号4000，最少4个起开）】，使用期限为1年（2025年8月29—2026年8月28）", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-06-22", "supplier": "", "city": "日常行政费用/招聘费", "category": "因下半年进入用工高峰，智联招聘账号即将到期（2025年8月29日），故申请账号续费，用于项目中心项目自招使用【智联账号共计16000元（每个账号4000，最少4个起开）】，使用期限为1年（2025年8月29—2026年8月28）", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-06-01", "supplier": "", "city": "日常行政费用/IT费用", "category": "1.上海宽带费用：2025.7.16-2026.7.15，金额48880
-2.设备维护费用：2025.8.24-2026.8.23，金额7074 
-合计：55954", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-06-01", "supplier": "", "city": "日常行政费用/IT费用", "category": "1.上海宽带费用：2025.7.16-2026.7.15，金额48880
-2.设备维护费用：2025.8.24-2026.8.23，金额7074 
-合计：55954", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-05-25", "supplier": "", "city": "日常行政费用/房租费", "category": "现申请支付沈阳分公司第二年租金25116元，周期为2025年9月1日- 2026年8月31日。可开专票，先款后票", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-05-25", "supplier": "", "city": "日常行政费用/房租费", "category": "现申请支付沈阳分公司第二年租金25116元，周期为2025年9月1日- 2026年8月31日。可开专票，先款后票", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-05-22", "supplier": "", "city": "日常行政费用/招聘费", "category": "因下半年进入用工高峰，智联招聘账号即将到期（2025年8月29日），故申请账号续费，用于项目中心项目自招使用【智联账号共计16000元（每个账号4000，最少4个起开）】，使用期限为1年（2025年8月29—2026年8月28）", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-05-01", "supplier": "", "city": "日常行政费用/IT费用", "category": "1.上海宽带费用：2025.7.16-2026.7.15，金额48880
-2.设备维护费用：2025.8.24-2026.8.23，金额7074 
-合计：55954", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-05-01", "supplier": "", "city": "日常行政费用/IT费用", "category": "1.上海宽带费用：2025.7.16-2026.7.15，金额48880
-2.设备维护费用：2025.8.24-2026.8.23，金额7074 
-合计：55954", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-04-25", "supplier": "", "city": "日常行政费用/房租费", "category": "现申请支付沈阳分公司第二年租金25116元，周期为2025年9月1日- 2026年8月31日。可开专票，先款后票", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-04-22", "supplier": "", "city": "日常行政费用/招聘费", "category": "因下半年进入用工高峰，智联招聘账号即将到期（2025年8月29日），故申请账号续费，用于项目中心项目自招使用【智联账号共计16000元（每个账号4000，最少4个起开）】，使用期限为1年（2025年8月29—2026年8月28）", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-04-01", "supplier": "", "city": "日常行政费用/IT费用", "category": "1.上海宽带费用：2025.7.16-2026.7.15，金额48880
-2.设备维护费用：2025.8.24-2026.8.23，金额7074 
-合计：55954", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-04-01", "supplier": "", "city": "日常行政费用/IT费用", "category": "1.上海宽带费用：2025.7.16-2026.7.15，金额48880
-2.设备维护费用：2025.8.24-2026.8.23，金额7074 
-合计：55954", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-03-27", "supplier": "中国联合网络通信有限公司杭州市分公司", "city": "杭州", "category": "邮电通讯费", "amount": 247.1, "purpose": "现申请2026年2月杭州的联通宽带费用：总金额为247.10元。详见附件联通账单。", "status": "已归档"}, {"date": "2026-03-27", "supplier": "", "city": "日常行政费用/邮电通讯费", "category": "现申请2026年2月杭州的联通宽带费用：总金额为247.10元。详见附件联通账单。", "amount": 0, "purpose": "谢思琪", "status": ""}], "availableYears": [2023, 2024, 2025, 2026], "byYear": {"2023": {"totalAmount": 16763914.12, "totalCount": 1919, "avgMonthly": 1396992.84, "filledMonths": 12, "thisMonthTotal": 0, "todayAmount": 0, "monthlyTrend": [{"label": "2023-01", "amount": 974711.21, "count": 136}, {"label": "2023-02", "amount": 2096808.67, "count": 146}, {"label": "2023-03", "amount": 2563878.06, "count": 222}, {"label": "2023-04", "amount": 1174183.48, "count": 134}, {"label": "2023-05", "amount": 1121664.15, "count": 195}, {"label": "2023-06", "amount": 1479939.67, "count": 135}, {"label": "2023-07", "amount": 1070931.26, "count": 176}, {"label": "2023-08", "amount": 1396887.25, "count": 145}, {"label": "2023-09", "amount": 1747998.02, "count": 150}, {"label": "2023-10", "amount": 997589.97, "count": 140}, {"label": "2023-11", "amount": 690693.69, "count": 154}, {"label": "2023-12", "amount": 1448628.69, "count": 186}], "categoryDistribution": [{"name": "房租费", "amount": 10606495.45, "count": 245}, {"name": "物业费", "amount": 1691575.48, "count": 179}, {"name": "快递费", "amount": 1384341.45, "count": 384}, {"name": "租赁费", "amount": 877308.06, "count": 95}, {"name": "房租保证金", "amount": 573319.98, "count": 19}, {"name": "办公费", "amount": 540245.28, "count": 346}, {"name": "水电费", "amount": 381500.21, "count": 189}, {"name": "IT费用", "amount": 272461.15, "count": 63}, {"name": "邮电通讯费", "amount": 186652.63, "count": 203}, {"name": "装修费", "amount": 111621.07, "count": 21}, {"name": "招聘费", "amount": 98686.67, "count": 53}, {"name": "印刷费", "amount": 35877.49, "count": 87}, {"name": "经营活动保证金", "amount": 2700.0, "count": 2}, {"name": "物业保证金", "amount": 1129.2, "count": 1}, {"name": "装修保证金", "amount": 0.0, "count": 2}], "cityDistribution": [{"name": "杭州", "amount": 3772743.44, "count": 300}, {"name": "上海", "amount": 2787703.01, "count": 171}, {"name": "北京", "amount": 1811909.58, "count": 118}, {"name": "广州", "amount": 1357351.07, "count": 147}, {"name": "全国", "amount": 901696.43, "count": 53}, {"name": "苏州", "amount": 859000.12, "count": 79}, {"name": "青岛", "amount": 843834.14, "count": 62}, {"name": "成都", "amount": 800715.7, "count": 79}, {"name": "深圳", "amount": 800514.75, "count": 96}, {"name": "南京", "amount": 485001.75, "count": 114}, {"name": "天津", "amount": 381200.9, "count": 71}, {"name": "大连", "amount": 361871.38, "count": 24}, {"name": "武汉", "amount": 296752.21, "count": 77}, {"name": "石家庄", "amount": 127180.21, "count": 43}, {"name": "无锡", "amount": 110705.18, "count": 40}], "daily": [{"date": "2023-08-15", "amount": 18638.0, "count": 3}, {"date": "2023-08-16", "amount": 1175.6, "count": 3}, {"date": "2023-08-17", "amount": 126513.25, "count": 4}, {"date": "2023-08-18", "amount": 2264.2, "count": 3}, {"date": "2023-08-21", "amount": 51.77, "count": 1}, {"date": "2023-08-23", "amount": 47684.8, "count": 5}, {"date": "2023-08-24", "amount": 37996.39, "count": 3}, {"date": "2023-08-25", "amount": 48101.33, "count": 35}, {"date": "2023-08-28", "amount": 1097.94, "count": 1}, {"date": "2023-08-29", "amount": 70169.06, "count": 8}, {"date": "2023-08-30", "amount": 151779.91, "count": 9}, {"date": "2023-08-31", "amount": 55159.0, "count": 3}, {"date": "2023-09-01", "amount": 509208.73, "count": 1}, {"date": "2023-09-05", "amount": 13698.0, "count": 5}, {"date": "2023-09-06", "amount": 9381.07, "count": 3}, {"date": "2023-09-07", "amount": 7527.25, "count": 2}, {"date": "2023-09-08", "amount": 16960.08, "count": 25}, {"date": "2023-09-11", "amount": 173984.09, "count": 8}, {"date": "2023-09-12", "amount": 6830.13, "count": 3}, {"date": "2023-09-13", "amount": 6573.5, "count": 5}, {"date": "2023-09-14", "amount": 129623.86, "count": 5}, {"date": "2023-09-15", "amount": 21414.0, "count": 9}, {"date": "2023-09-18", "amount": 1626.5, "count": 3}, {"date": "2023-09-19", "amount": 251524.92, "count": 9}, {"date": "2023-09-20", "amount": 149663.4, "count": 6}, {"date": "2023-09-21", "amount": 71229.89, "count": 6}, {"date": "2023-09-22", "amount": 87097.19, "count": 10}, {"date": "2023-09-25", "amount": 131056.06, "count": 30}, {"date": "2023-09-26", "amount": 24949.4, "count": 4}, {"date": "2023-09-27", "amount": 12957.44, "count": 9}, {"date": "2023-09-28", "amount": 122692.51, "count": 7}, {"date": "2023-10-07", "amount": 16685.1, "count": 5}, {"date": "2023-10-08", "amount": 500.0, "count": 1}, {"date": "2023-10-09", "amount": 31956.1, "count": 6}, {"date": "2023-10-10", "amount": 6489.01, "count": 7}, {"date": "2023-10-11", "amount": 98604.7, "count": 2}, {"date": "2023-10-12", "amount": 75259.08, "count": 4}, {"date": "2023-10-13", "amount": 169768.47, "count": 26}, {"date": "2023-10-16", "amount": 1978.0, "count": 2}, {"date": "2023-10-17", "amount": 177791.84, "count": 9}, {"date": "2023-10-18", "amount": 750.0, "count": 1}, {"date": "2023-10-19", "amount": 50380.5, "count": 1}, {"date": "2023-10-20", "amount": 52147.07, "count": 9}, {"date": "2023-10-24", "amount": 17148.45, "count": 11}, {"date": "2023-10-25", "amount": 130867.27, "count": 37}, {"date": "2023-10-26", "amount": 2560.8, "count": 1}, {"date": "2023-10-27", "amount": 60228.39, "count": 6}, {"date": "2023-10-30", "amount": 90655.35, "count": 9}, {"date": "2023-10-31", "amount": 13819.84, "count": 3}, {"date": "2023-11-01", "amount": 25500.0, "count": 1}, {"date": "2023-11-02", "amount": 70582.12, "count": 2}, {"date": "2023-11-06", "amount": 42601.7, "count": 10}, {"date": "2023-11-07", "amount": 1789.0, "count": 3}, {"date": "2023-11-08", "amount": 10964.68, "count": 5}, {"date": "2023-11-09", "amount": 15864.95, "count": 6}, {"date": "2023-11-10", "amount": 59423.66, "count": 35}, {"date": "2023-11-13", "amount": 26693.48, "count": 7}, {"date": "2023-11-14", "amount": 206720.36, "count": 11}, {"date": "2023-11-15", "amount": 3906.3, "count": 3}, {"date": "2023-11-16", "amount": 53381.3, "count": 8}, {"date": "2023-11-17", "amount": 2802.93, "count": 5}, {"date": "2023-11-20", "amount": 48244.66, "count": 4}, {"date": "2023-11-21", "amount": 7286.8, "count": 4}, {"date": "2023-11-22", "amount": 21452.0, "count": 4}, {"date": "2023-11-23", "amount": 8735.5, "count": 8}, {"date": "2023-11-24", "amount": 6613.37, "count": 17}, {"date": "2023-11-27", "amount": 888.8, "count": 1}, {"date": "2023-11-28", "amount": 6067.8, "count": 8}, {"date": "2023-11-29", "amount": 46534.05, "count": 6}, {"date": "2023-11-30", "amount": 24640.23, "count": 6}, {"date": "2023-12-01", "amount": 509578.61, "count": 3}, {"date": "2023-12-04", "amount": 2960.68, "count": 6}, {"date": "2023-12-05", "amount": 2193.3, "count": 1}, {"date": "2023-12-06", "amount": -50242.0, "count": 6}, {"date": "2023-12-07", "amount": 22564.01, "count": 8}, {"date": "2023-12-08", "amount": 95231.6, "count": 29}, {"date": "2023-12-11", "amount": 36941.6, "count": 2}, {"date": "2023-12-12", "amount": 7243.5, "count": 6}, {"date": "2023-12-14", "amount": 26011.95, "count": 3}, {"date": "2023-12-15", "amount": 86705.85, "count": 21}, {"date": "2023-12-18", "amount": 73012.4, "count": 7}, {"date": "2023-12-19", "amount": 1697.91, "count": 5}, {"date": "2023-12-20", "amount": 346836.62, "count": 5}, {"date": "2023-12-21", "amount": 11439.06, "count": 10}, {"date": "2023-12-22", "amount": 41836.01, "count": 4}, {"date": "2023-12-25", "amount": 25768.54, "count": 35}, {"date": "2023-12-26", "amount": 10925.56, "count": 7}, {"date": "2023-12-27", "amount": 44428.0, "count": 4}, {"date": "2023-12-28", "amount": 116833.87, "count": 9}, {"date": "2023-12-29", "amount": 36661.62, "count": 15}], "latestExpenses": [{"date": "2023-12-29", "supplier": "北京亿捷云信息技术有限公司", "city": "全国", "category": "办公费/其他", "amount": 10000.0, "purpose": "全国分公司12月外呼系统共10000元", "status": "已归档"}, {"date": "2023-12-29", "supplier": "", "city": "杭州", "category": "物业费", "amount": 490.0, "purpose": "现申请支付浙江商会大厦7-12月停车费用490元，先票后款，费用明细可见附件", "status": ""}, {"date": "2023-12-29", "supplier": "", "city": "杭州", "category": "水电费", "amount": 5517.76, "purpose": "现申请浙江商会大厦21楼2023年10月25日到2023年11月25日水电费，总金额为5517.76", "status": ""}, {"date": "2023-12-29", "supplier": "", "city": "杭州", "category": "招聘费", "amount": 3220.0, "purpose": "23年9-12月背调费用，合计7人，费用3220，详细背调名单见附件", "status": ""}, {"date": "2023-12-29", "supplier": "", "city": "杭州", "category": "租赁费", "amount": 150.0, "purpose": "宁波2023年11月打印机租赁费共计150元，对公打款", "status": ""}, {"date": "2023-12-29", "supplier": "", "city": "连云港", "category": "办公费/其他", "amount": 420.0, "purpose": "人才连云港分公司房屋租赁2024年度续租，因个人房东，需我司自行承担发票费用。共计金额：420元。", "status": ""}, {"date": "2023-12-29", "supplier": "", "city": "合肥", "category": "办公费/其他", "amount": 29.9, "purpose": "现申请报销合肥香熏采购费用29.9元，先票后款", "status": ""}, {"date": "2023-12-29", "supplier": "", "city": "青岛", "category": "邮电通讯费", "amount": 300.0, "purpose": "现申请报销济南人才话费300元，先票后款", "status": ""}, {"date": "2023-12-29", "supplier": "", "city": "杭州", "category": "房租费", "amount": 14558.52, "purpose": "现申请报销高管2024年1-3月房租和服务费共计14558.52元，先票后款", "status": ""}, {"date": "2023-12-29", "supplier": "", "city": "南宁", "category": "IT费用", "amount": 370.0, "purpose": "人才南宁分公司2023年9月、10月宽带费用", "status": ""}, {"date": "2023-12-29", "supplier": "", "city": "石家庄", "category": "快递费", "amount": 161.0, "purpose": "1.费用产生时间：2023年10月01日—2023年12月15日
-
-2.费用明细：快递公司：申通7次", "status": ""}, {"date": "2023-12-29", "supplier": "", "city": "石家庄", "category": "邮电通讯费", "amount": 99.49, "purpose": "现申请支付石家庄新增固话1台充值话费100元（减免0.51元），上次充值日期2023-07-14， ", "status": ""}, {"date": "2023-12-29", "supplier": "", "city": "上海", "category": "办公费/其他", "amount": 520.0, "purpose": "上海春汲科技合伙企业(有限合伙)遗失财务章、法人章登报费及财务章、法人章重新刻制费用", "status": ""}, {"date": "2023-12-29", "supplier": "", "city": "广州", "category": "快递费", "amount": 324.95, "purpose": "2023年12月广州站SSC快递费用（共324.95元）。", "status": ""}, {"date": "2023-12-29", "supplier": "", "city": "广州", "category": "办公费/维修维护费", "amount": 500.0, "purpose": "现申请支付电信布置交换机及6条线共计500元，先款后票", "status": ""}, {"date": "2023-12-28", "supplier": "", "city": "西安", "category": "快递费", "amount": 121.0, "purpose": "现申请支付西安人才11月顺丰快递费121元，对公打款，先款后票，费用明细可见附件", "status": ""}, {"date": "2023-12-28", "supplier": "", "city": "洛阳", "category": "房租费", "amount": 300.0, "purpose": "河南今元嘉和人力资源服务有限公司洛阳分公司2024年1月-12月使用中浩德电子商务产业园（洛阳）有限", "status": ""}, {"date": "2023-12-28", "supplier": "", "city": "成都", "category": "办公费/清洁费", "amount": 200.0, "purpose": "现申请支付成都清理建渣（历史遗留）费用200元，先款后票", "status": ""}, {"date": "2023-12-28", "supplier": "", "city": "成都", "category": "房租费", "amount": 88644.0, "purpose": "现申请支付成都2909-10室2024年1-3月房租费88644元，详情如下：
-
-1、地址：成都市总", "status": ""}, {"date": "2023-12-28", "supplier": "", "city": "成都", "category": "物业费", "amount": 22161.0, "purpose": "现申请支付成都2909-10室2024年1-3月物业费22161元，详情如下：
-
-1、地址：成都市总", "status": ""}]}, "2024": {"totalAmount": 16952837.98, "totalCount": 2767, "avgMonthly": 1412736.5, "filledMonths": 12, "thisMonthTotal": 0, "todayAmount": 0, "monthlyTrend": [{"label": "2024-01", "amount": 1928352.58, "count": 195}, {"label": "2024-02", "amount": 923288.91, "count": 146}, {"label": "2024-03", "amount": 1876152.2, "count": 166}, {"label": "2024-04", "amount": 1093807.18, "count": 172}, {"label": "2024-05", "amount": 1046822.85, "count": 224}, {"label": "2024-06", "amount": 1498393.36, "count": 268}, {"label": "2024-07", "amount": 1412886.62, "count": 351}, {"label": "2024-08", "amount": 1168992.54, "count": 276}, {"label": "2024-09", "amount": 1569366.7, "count": 207}, {"label": "2024-10", "amount": 1202094.47, "count": 178}, {"label": "2024-11", "amount": 1572707.52, "count": 271}, {"label": "2024-12", "amount": 1659973.05, "count": 313}], "categoryDistribution": [{"name": "房租费", "amount": 11752168.2, "count": 257}, {"name": "物业费", "amount": 1719103.89, "count": 223}, {"name": "租赁费", "amount": 853378.43, "count": 107}, {"name": "快递费", "amount": 703570.75, "count": 441}, {"name": "办公费", "amount": 555839.86, "count": 472}, {"name": "水电费", "amount": 476313.54, "count": 277}, {"name": "IT费用", "amount": 318310.2, "count": 96}, {"name": "邮电通讯费", "amount": 241446.25, "count": 189}, {"name": "房租保证金", "amount": 198629.99, "count": 16}, {"name": "招聘费", "amount": 94660.97, "count": 38}, {"name": "物业保证金", "amount": 23693.5, "count": 2}, {"name": "印刷费", "amount": 14922.4, "count": 75}, {"name": "装修费", "amount": 1200.0, "count": 1}, {"name": "深圳办公室含2条宽带（人才*1，标矩*1），过往付费为人才名下宽带，标矩名下宽带自2024年6月起未支付过费用，现申请支付标矩2024年6月~2025年7月合计14个月宽带费用14396.42元，其中费用明细如下：
-目前欠费：9590.40元（685元", "amount": 0.0, "count": 7}, {"name": "2024年12月01日到12月31日厦门桶装水共计210元", "amount": 0.0, "count": 1}], "cityDistribution": [{"name": "杭州", "amount": 3327147.44, "count": 238}, {"name": "上海", "amount": 3283877.89, "count": 257}, {"name": "北京", "amount": 1878166.41, "count": 112}, {"name": "广州", "amount": 1300799.03, "count": 189}, {"name": "深圳", "amount": 1246560.91, "count": 136}, {"name": "成都", "amount": 770896.28, "count": 124}, {"name": "南京", "amount": 749905.24, "count": 175}, {"name": "全国", "amount": 677164.6, "count": 65}, {"name": "青岛", "amount": 548627.66, "count": 65}, {"name": "武汉", "amount": 529696.36, "count": 102}, {"name": "天津", "amount": 377598.35, "count": 89}, {"name": "苏州", "amount": 364183.43, "count": 53}, {"name": "大连", "amount": 276817.62, "count": 45}, {"name": "西安", "amount": 172870.27, "count": 52}, {"name": "厦门", "amount": 171566.54, "count": 42}], "daily": [{"date": "2024-08-23", "amount": 2077.13, "count": 13}, {"date": "2024-08-26", "amount": 96122.02, "count": 16}, {"date": "2024-08-27", "amount": 42090.0, "count": 4}, {"date": "2024-08-28", "amount": 4920.71, "count": 6}, {"date": "2024-08-29", "amount": 3259.0, "count": 2}, {"date": "2024-08-30", "amount": 174.0, "count": 2}, {"date": "2024-09-02", "amount": 7760.87, "count": 7}, {"date": "2024-09-03", "amount": 3060.56, "count": 5}, {"date": "2024-09-04", "amount": 3238.4, "count": 2}, {"date": "2024-09-05", "amount": 28442.33, "count": 14}, {"date": "2024-09-06", "amount": -201305.0, "count": 4}, {"date": "2024-09-08", "amount": 0.0, "count": 1}, {"date": "2024-09-09", "amount": 15394.0, "count": 2}, {"date": "2024-09-10", "amount": 107700.67, "count": 30}, {"date": "2024-09-11", "amount": 134583.21, "count": 6}, {"date": "2024-09-12", "amount": 54158.02, "count": 8}, {"date": "2024-09-13", "amount": 6766.14, "count": 9}, {"date": "2024-09-14", "amount": 21876.0, "count": 4}, {"date": "2024-09-18", "amount": 315712.4, "count": 11}, {"date": "2024-09-19", "amount": 59059.85, "count": 13}, {"date": "2024-09-23", "amount": 52401.76, "count": 12}, {"date": "2024-09-24", "amount": 628500.23, "count": 3}, {"date": "2024-09-25", "amount": 6844.21, "count": 23}, {"date": "2024-09-26", "amount": 51498.39, "count": 10}, {"date": "2024-09-27", "amount": 68955.69, "count": 14}, {"date": "2024-09-29", "amount": 51341.18, "count": 12}, {"date": "2024-09-30", "amount": 153377.79, "count": 17}, {"date": "2024-10-08", "amount": 14076.13, "count": 6}, {"date": "2024-10-09", "amount": 2000.0, "count": 1}, {"date": "2024-10-10", "amount": 75304.25, "count": 21}, {"date": "2024-10-11", "amount": 11058.0, "count": 7}, {"date": "2024-10-12", "amount": 120113.4, "count": 9}, {"date": "2024-10-14", "amount": 23426.44, "count": 8}, {"date": "2024-10-15", "amount": 87479.25, "count": 6}, {"date": "2024-10-16", "amount": 59448.43, "count": 10}, {"date": "2024-10-17", "amount": 116762.61, "count": 13}, {"date": "2024-10-18", "amount": 3746.0, "count": 3}, {"date": "2024-10-21", "amount": 142964.75, "count": 10}, {"date": "2024-10-22", "amount": 45813.86, "count": 8}, {"date": "2024-10-23", "amount": 83918.93, "count": 6}, {"date": "2024-10-24", "amount": 151530.85, "count": 11}, {"date": "2024-10-25", "amount": 41736.73, "count": 32}, {"date": "2024-10-28", "amount": 44324.31, "count": 7}, {"date": "2024-10-29", "amount": 66944.0, "count": 2}, {"date": "2024-10-30", "amount": 23471.13, "count": 5}, {"date": "2024-10-31", "amount": 87975.4, "count": 13}, {"date": "2024-11-01", "amount": 9999.1, "count": 7}, {"date": "2024-11-04", "amount": 32901.95, "count": 17}, {"date": "2024-11-05", "amount": 180246.26, "count": 27}, {"date": "2024-11-06", "amount": 71583.51, "count": 19}, {"date": "2024-11-07", "amount": 13468.3, "count": 7}, {"date": "2024-11-08", "amount": 18254.26, "count": 42}, {"date": "2024-11-11", "amount": 28239.3, "count": 12}, {"date": "2024-11-12", "amount": 18868.0, "count": 10}, {"date": "2024-11-13", "amount": 127633.97, "count": 4}, {"date": "2024-11-14", "amount": 257918.36, "count": 20}, {"date": "2024-11-15", "amount": 1421.82, "count": 8}, {"date": "2024-11-18", "amount": 287656.08, "count": 16}, {"date": "2024-11-19", "amount": 75949.84, "count": 20}, {"date": "2024-11-20", "amount": 104126.43, "count": 12}, {"date": "2024-11-21", "amount": 237913.94, "count": 5}, {"date": "2024-11-22", "amount": 20204.85, "count": 6}, {"date": "2024-11-25", "amount": 6750.25, "count": 18}, {"date": "2024-11-26", "amount": 35524.0, "count": 6}, {"date": "2024-11-27", "amount": 41958.0, "count": 1}, {"date": "2024-11-28", "amount": 1795.3, "count": 12}, {"date": "2024-11-29", "amount": 294.0, "count": 2}, {"date": "2024-12-02", "amount": 531672.34, "count": 9}, {"date": "2024-12-03", "amount": 16965.84, "count": 20}, {"date": "2024-12-04", "amount": 252501.13, "count": 16}, {"date": "2024-12-05", "amount": 25176.59, "count": 16}, {"date": "2024-12-06", "amount": 34527.08, "count": 17}, {"date": "2024-12-08", "amount": 0.0, "count": 1}, {"date": "2024-12-09", "amount": 21953.54, "count": 16}, {"date": "2024-12-10", "amount": 12835.18, "count": 30}, {"date": "2024-12-11", "amount": 5897.2, "count": 6}, {"date": "2024-12-12", "amount": 12744.42, "count": 7}, {"date": "2024-12-13", "amount": 29864.56, "count": 9}, {"date": "2024-12-16", "amount": 5295.79, "count": 7}, {"date": "2024-12-17", "amount": 58566.82, "count": 19}, {"date": "2024-12-18", "amount": 249188.06, "count": 11}, {"date": "2024-12-19", "amount": 82405.13, "count": 22}, {"date": "2024-12-20", "amount": 24064.0, "count": 3}, {"date": "2024-12-23", "amount": 145592.15, "count": 22}, {"date": "2024-12-24", "amount": 24645.54, "count": 28}, {"date": "2024-12-25", "amount": 22733.79, "count": 34}, {"date": "2024-12-26", "amount": 64286.0, "count": 3}, {"date": "2024-12-27", "amount": 14500.0, "count": 3}, {"date": "2024-12-30", "amount": 16888.89, "count": 11}, {"date": "2024-12-31", "amount": 7669.0, "count": 3}], "latestExpenses": [{"date": "2024-12-31", "supplier": "", "city": "青岛", "category": "IT费用", "amount": 5394.0, "purpose": "现申请支付青岛2025年1月-6月宽带费5394元，899元/月，先款后票", "status": ""}, {"date": "2024-12-31", "supplier": "", "city": "青岛", "category": "邮电通讯费", "amount": 2016.0, "purpose": "现申请支付青岛2025年1-6月电话费2016元，14部固话，24元/部/月，336元/月，先款后票", "status": ""}, {"date": "2024-12-31", "supplier": "", "city": "川渝", "category": "IT费用", "amount": 259.0, "purpose": "医保系统升级版本原因，我司医保账户无法正常操作人员增减及生账，该款项用于医保经办机构内网专线。每月2", "status": ""}, {"date": "2024-12-30", "supplier": "厦门易米阳光贸易有限公司", "city": "厦门", "category": "办公费/其他", "amount": 210.0, "purpose": "2024年12月01日到12月31日厦门桶装水共计210元", "status": "已归档"}, {"date": "2024-12-30", "supplier": "上海同象图文设计制作有限公司", "city": "上海", "category": "印刷费", "amount": 60.0, "purpose": "上海12月李晶晶名片印刷费共计60元", "status": "已归档"}, {"date": "2024-12-30", "supplier": "深圳市科源智胜科技有限公司", "city": "深圳", "category": "租赁费", "amount": 1200.0, "purpose": "2024年10月1日到2024年12月31日深圳10-12月打印机租赁费1200元", "status": "已归档"}, {"date": "2024-12-30", "supplier": "", "city": "泰州", "category": "印刷费", "amount": 312.0, "purpose": "因人才泰州分公司更换新地址、需做地址变更，涉及银行变更时需上门核实经营场所、公司门头，原公司门头已坏", "status": ""}, {"date": "2024-12-30", "supplier": "", "city": "杭州", "category": "房租费", "amount": 13236.0, "purpose": "现申请报销高管2025年1-3月房租和服务费共计13236元，先票后款", "status": ""}, {"date": "2024-12-30", "supplier": "", "city": "四川", "category": "快递费", "amount": 70.0, "purpose": "加急派送四川今元开户的资料。", "status": ""}, {"date": "2024-12-30", "supplier": "", "city": "广州", "category": "办公费/清洁费", "amount": 800.0, "purpose": "现申请支付12月广州的固定清洁费800元，个人阿姨，无票支出", "status": ""}, {"date": "2024-12-30", "supplier": "", "city": "北京", "category": "水电费", "amount": 1000.89, "purpose": "现申请支付北京一个月电费1000.89元（单价0.99元/度，要求充值金额能够整除），先款后票", "status": ""}, {"date": "2024-12-30", "supplier": "", "city": "日常行政费用/办公费/其他", "category": "2024年12月01日到12月31日厦门桶装水共计210元", "amount": 0, "purpose": "尹钠锘", "status": ""}, {"date": "2024-12-30", "supplier": "", "city": "日常行政费用/印刷费", "category": "上海12月李晶晶名片印刷费共计60元", "amount": 0, "purpose": "尹钠锘", "status": ""}, {"date": "2024-12-30", "supplier": "", "city": "日常行政费用/租赁费", "category": "2024年10月1日到2024年12月31日深圳10-12月打印机租赁费1200元", "amount": 0, "purpose": "尹钠锘", "status": ""}, {"date": "2024-12-27", "supplier": "", "city": "东莞", "category": "保证金/房租保证金", "amount": 7600.0, "purpose": "江苏今元人才科技有限公司东莞分公司注册地址变更，（在办理劳务派遣备案延期时，被东莞市东城区劳监办告知", "status": ""}, {"date": "2024-12-27", "supplier": "", "city": "宿迁", "category": "房租费", "amount": 5300.0, "purpose": "人才宿迁自户截止12月初在保人数574人。因人才宿迁在当地租赁的房屋（实体地址：宿迁市宿城区宝龙城市", "status": ""}, {"date": "2024-12-27", "supplier": "", "city": "深圳", "category": "办公费/办公文具及行政耗材", "amount": 1600.0, "purpose": "现申请支付深圳办公室logo墙制作费用共计1600元，先票后款", "status": ""}, {"date": "2024-12-26", "supplier": "", "city": "石家庄", "category": "IT费用", "amount": 2328.0, "purpose": "石家庄分公司申请支付宽带网络2025.1.1-2025.6.30费用共计2328元，388元/月，付", "status": ""}, {"date": "2024-12-26", "supplier": "", "city": "广州", "category": "房租费", "amount": 41958.0, "purpose": "现申请支付广州2025年1月房租费41958元整，详细信息如下：
-
-1.租房地址：广州市天河区林和西", "status": ""}, {"date": "2024-12-26", "supplier": "", "city": "上海", "category": "保证金/物业保证金", "amount": 20000.0, "purpose": "现申请支付上海办公室电费保证金20000.00元，收款后可提供收据", "status": ""}]}, "2025": {"totalAmount": 16034624.16, "totalCount": 4659, "avgMonthly": 1233432.63, "filledMonths": 13, "thisMonthTotal": 0, "todayAmount": 0, "monthlyTrend": [{"label": "2025-00", "amount": 87926.55, "count": 54}, {"label": "2025-01", "amount": 1610061.33, "count": 252}, {"label": "2025-02", "amount": 581512.44, "count": 148}, {"label": "2025-03", "amount": 1278106.68, "count": 461}, {"label": "2025-04", "amount": 1631021.85, "count": 483}, {"label": "2025-05", "amount": 677926.31, "count": 330}, {"label": "2025-06", "amount": 914444.77, "count": 367}, {"label": "2025-07", "amount": 1589898.59, "count": 420}, {"label": "2025-08", "amount": 1390116.44, "count": 457}, {"label": "2025-09", "amount": 3285338.41, "count": 663}, {"label": "2025-10", "amount": 2424173.59, "count": 565}, {"label": "2025-11", "amount": 364545.12, "count": 188}, {"label": "2025-12", "amount": 199552.08, "count": 271}], "categoryDistribution": [{"name": "房租费", "amount": 10312391.51, "count": 248}, {"name": "物业费", "amount": 1812630.82, "count": 211}, {"name": "租赁费", "amount": 1027061.93, "count": 130}, {"name": "办公费", "amount": 628004.43, "count": 531}, {"name": "快递费", "amount": 581113.4, "count": 322}, {"name": "水电费", "amount": 508376.94, "count": 292}, {"name": "房租保证金", "amount": 473606.33, "count": 15}, {"name": "IT费用", "amount": 290046.56, "count": 85}, {"name": "招聘费", "amount": 171203.38, "count": 38}, {"name": "邮电通讯费", "amount": 151916.31, "count": 171}, {"name": "装修费", "amount": 55819.05, "count": 22}, {"name": "印刷费", "amount": 17888.9, "count": 24}, {"name": "经营活动保证金", "amount": 4000.0, "count": 1}, {"name": "物业保证金", "amount": 564.6, "count": 1}, {"name": "深圳今元人才科技有限公司办公室：公摊电费
-
-费用时间：2025年1月28日至2025年2月21日
-
-费用金额：14.80元
-
-深圳今元人才科技有限公司2月份在保人数为：576人
-
-烦请领导审批，谢谢", "amount": 0.0, "count": 1}], "cityDistribution": [{"name": "杭州", "amount": 4380597.36, "count": 231}, {"name": "上海", "amount": 1962705.74, "count": 163}, {"name": "北京", "amount": 1425267.94, "count": 74}, {"name": "广州", "amount": 1072460.74, "count": 152}, {"name": "深圳", "amount": 924821.41, "count": 151}, {"name": "成都", "amount": 711843.15, "count": 91}, {"name": "全国", "amount": 673913.51, "count": 88}, {"name": "南京", "amount": 671608.08, "count": 118}, {"name": "武汉", "amount": 624524.48, "count": 101}, {"name": "苏州", "amount": 567079.87, "count": 87}, {"name": "青岛", "amount": 348199.72, "count": 49}, {"name": "大连", "amount": 302331.1, "count": 55}, {"name": "西安", "amount": 283805.01, "count": 43}, {"name": "厦门", "amount": 240920.74, "count": 60}, {"name": "天津", "amount": 203319.36, "count": 65}], "daily": [{"date": "2025-08-11", "amount": 50436.0, "count": 10}, {"date": "2025-08-12", "amount": 108186.36, "count": 6}, {"date": "2025-08-13", "amount": 32182.36, "count": 15}, {"date": "2025-08-14", "amount": 18988.1, "count": 16}, {"date": "2025-08-15", "amount": 78574.58, "count": 24}, {"date": "2025-08-18", "amount": 37290.03, "count": 24}, {"date": "2025-08-19", "amount": 2094.0, "count": 6}, {"date": "2025-08-20", "amount": 5603.43, "count": 10}, {"date": "2025-08-21", "amount": 1543.61, "count": 8}, {"date": "2025-08-22", "amount": 219864.88, "count": 74}, {"date": "2025-08-25", "amount": 3589.0, "count": 4}, {"date": "2025-08-26", "amount": 26498.13, "count": 15}, {"date": "2025-08-27", "amount": 21429.0, "count": 14}, {"date": "2025-08-28", "amount": 180815.84, "count": 35}, {"date": "2025-08-29", "amount": 44325.0, "count": 6}, {"date": "2025-09-01", "amount": 46794.69, "count": 25}, {"date": "2025-09-02", "amount": 5497.28, "count": 10}, {"date": "2025-09-03", "amount": 2436.0, "count": 4}, {"date": "2025-09-04", "amount": 85.0, "count": 2}, {"date": "2025-09-05", "amount": 106417.91, "count": 67}, {"date": "2025-09-08", "amount": 10691.72, "count": 14}, {"date": "2025-09-09", "amount": 90385.97, "count": 98}, {"date": "2025-09-10", "amount": 720.0, "count": 2}, {"date": "2025-09-11", "amount": 11589.78, "count": 14}, {"date": "2025-09-12", "amount": 140184.01, "count": 39}, {"date": "2025-09-15", "amount": 4882.02, "count": 5}, {"date": "2025-09-16", "amount": 25850.0, "count": 29}, {"date": "2025-09-17", "amount": 3005.05, "count": 19}, {"date": "2025-09-18", "amount": 191132.42, "count": 38}, {"date": "2025-09-19", "amount": 36879.42, "count": 21}, {"date": "2025-09-22", "amount": 801843.91, "count": 22}, {"date": "2025-09-23", "amount": 339111.09, "count": 25}, {"date": "2025-09-24", "amount": 17282.72, "count": 48}, {"date": "2025-09-26", "amount": 140330.41, "count": 18}, {"date": "2025-09-28", "amount": 891293.0, "count": 23}, {"date": "2025-09-29", "amount": 272953.98, "count": 65}, {"date": "2025-09-30", "amount": 145972.03, "count": 75}, {"date": "2025-10-09", "amount": 1142009.18, "count": 83}, {"date": "2025-10-10", "amount": 3850.97, "count": 8}, {"date": "2025-10-11", "amount": 14740.0, "count": 8}, {"date": "2025-10-13", "amount": 13535.08, "count": 24}, {"date": "2025-10-14", "amount": 41761.78, "count": 19}, {"date": "2025-10-15", "amount": 6492.8, "count": 4}, {"date": "2025-10-16", "amount": 22000.0, "count": 2}, {"date": "2025-10-17", "amount": 125119.83, "count": 46}, {"date": "2025-10-20", "amount": 10959.01, "count": 9}, {"date": "2025-10-21", "amount": 360642.26, "count": 67}, {"date": "2025-10-22", "amount": 115649.23, "count": 46}, {"date": "2025-10-23", "amount": 69410.7, "count": 77}, {"date": "2025-10-24", "amount": 31910.85, "count": 34}, {"date": "2025-10-27", "amount": 64001.44, "count": 49}, {"date": "2025-10-28", "amount": 84671.09, "count": 14}, {"date": "2025-10-29", "amount": 82846.2, "count": 21}, {"date": "2025-10-30", "amount": 110770.69, "count": 18}, {"date": "2025-10-31", "amount": 123802.48, "count": 36}, {"date": "2025-11-03", "amount": 3378.0, "count": 6}, {"date": "2025-11-04", "amount": 68.0, "count": 2}, {"date": "2025-11-05", "amount": 1200.0, "count": 2}, {"date": "2025-11-06", "amount": 221.89, "count": 2}, {"date": "2025-11-07", "amount": 19553.26, "count": 51}, {"date": "2025-11-10", "amount": 907.08, "count": 4}, {"date": "2025-11-11", "amount": 76361.0, "count": 12}, {"date": "2025-11-12", "amount": 19690.06, "count": 10}, {"date": "2025-11-13", "amount": 130955.68, "count": 6}, {"date": "2025-11-14", "amount": 14360.46, "count": 2}, {"date": "2025-11-17", "amount": 928.8, "count": 2}, {"date": "2025-11-18", "amount": 926.39, "count": 4}, {"date": "2025-11-19", "amount": 12314.51, "count": 12}, {"date": "2025-11-20", "amount": 514.44, "count": 2}, {"date": "2025-11-21", "amount": 12325.47, "count": 6}, {"date": "2025-11-24", "amount": 33998.65, "count": 52}, {"date": "2025-11-26", "amount": 14400.0, "count": 4}, {"date": "2025-11-27", "amount": 22441.43, "count": 8}, {"date": "2025-12-01", "amount": 13825.0, "count": 8}, {"date": "2025-12-03", "amount": 987.15, "count": 6}, {"date": "2025-12-08", "amount": 7400.0, "count": 15}, {"date": "2025-12-09", "amount": 16495.92, "count": 72}, {"date": "2025-12-11", "amount": 14909.06, "count": 2}, {"date": "2025-12-12", "amount": 4052.95, "count": 6}, {"date": "2025-12-16", "amount": 2425.0, "count": 2}, {"date": "2025-12-18", "amount": 11705.0, "count": 2}, {"date": "2025-12-19", "amount": 668.49, "count": 4}, {"date": "2025-12-20", "amount": 0.0, "count": 1}, {"date": "2025-12-21", "amount": 0.0, "count": 1}, {"date": "2025-12-22", "amount": 2520.4, "count": 8}, {"date": "2025-12-23", "amount": 1200.0, "count": 3}, {"date": "2025-12-24", "amount": 120227.11, "count": 126}, {"date": "2025-12-25", "amount": 0.0, "count": 5}, {"date": "2025-12-26", "amount": 0.0, "count": 2}, {"date": "2025-12-29", "amount": 3136.0, "count": 6}], "latestExpenses": [{"date": "2025-12-29", "supplier": "中国电信股份有限公司石家庄分公司", "city": "石家庄", "category": "IT费用", "amount": 2328.0, "purpose": "石家庄分公司申请支付宽带网络2026.1.1-2026.6.30费用共计2328元，388元/月，付", "status": "已归档"}, {"date": "2025-12-29", "supplier": "中国电信股份有限公司南京分公司", "city": "南京", "category": "邮电通讯费", "amount": 120.0, "purpose": "申请2026年01月南京固话预充值共计120元，先款后票", "status": "已归档"}, {"date": "2025-12-29", "supplier": "中国电信股份有限公司合肥分公司", "city": "合肥", "category": "IT费用", "amount": 688.0, "purpose": "现申请支付合肥9-12月电信宽带费共计688元，先款后票", "status": "已归档"}, {"date": "2025-12-29", "supplier": "", "city": "日常行政费用/IT费用", "category": "石家庄分公司申请支付宽带网络2026.1.1-2026.6.30费用共计2328元，388元/月，付款时间2025.12.29，先款后票", "amount": 0, "purpose": "谢思琪", "status": ""}, {"date": "2025-12-29", "supplier": "", "city": "日常行政费用/邮电通讯费", "category": "申请2026年01月南京固话预充值共计120元，先款后票", "amount": 0, "purpose": "谢思琪", "status": ""}, {"date": "2025-12-29", "supplier": "", "city": "日常行政费用/IT费用", "category": "现申请支付合肥9-12月电信宽带费共计688元，先款后票", "amount": 0, "purpose": "谢思琪", "status": ""}, {"date": "2025-12-26", "supplier": "", "city": "日常行政费用/办公费/其他", "category": "HR垫付一区三个分公司元旦及新春办公室装饰贴纸共计107元，先票后款", "amount": 0, "purpose": "谢思琪", "status": ""}, {"date": "2025-12-26", "supplier": "", "city": "日常行政费用/房租费", "category": "申请高管2026.2.25-2026.3.24房租与服务费共计3970.8元，替票支出，由HR转给高管", "amount": 0, "purpose": "谢思琪", "status": ""}, {"date": "2025-12-25", "supplier": "", "city": "日常行政费用/办公费/其他", "category": "HR垫付一区三个分公司元旦及新春办公室装饰贴纸共计106元，先票后款", "amount": 0, "purpose": "谢思琪", "status": ""}, {"date": "2025-12-25", "supplier": "", "city": "日常行政费用/快递费", "category": "申请成都11月快递费共计165元，先票后款", "amount": 0, "purpose": "谢思琪", "status": ""}, {"date": "2025-12-25", "supplier": "", "city": "日常行政费用/房租费", "category": "申请高管2026.1.25-2026.2.24房租与服务费共计3970.8元，替票支出，由HR转给高管", "amount": 0, "purpose": "谢思琪", "status": ""}, {"date": "2025-12-25", "supplier": "", "city": "日常行政费用/租赁费", "category": "申请深圳打印机租赁12月费用400元，先票后款", "amount": 0, "purpose": "谢思琪", "status": ""}, {"date": "2025-12-25", "supplier": "", "city": "日常行政费用/水电费", "category": "现申请支付合肥2025年11月1日至2025年11月30日水费23.09元，对公打款，先款后票", "amount": 0, "purpose": "谢思琪", "status": ""}, {"date": "2025-12-24", "supplier": "杭州东展科技服务有限公司物业分公司", "city": "杭州", "category": "水电费", "amount": 599.86, "purpose": "现申请浙江商会大厦2025年10月25日-2025年11月25日，22楼静嘉主体，11月电费289.", "status": "已归档"}, {"date": "2025-12-24", "supplier": "杭州东展科技服务有限公司物业分公司", "city": "杭州", "category": "水电费", "amount": 5398.63, "purpose": "现申请浙江商会大厦2025年10月25日-2025年11月25日，22楼标矩主体，11月电费2603", "status": "已归档"}, {"date": "2025-12-24", "supplier": "杭州东展科技服务有限公司物业分公司", "city": "杭州", "category": "水电费", "amount": 5458.86, "purpose": "现申请浙江商会大厦2025年10月25日-2025年11月25日，23楼网络主体，11月电费2353", "status": "已归档"}, {"date": "2025-12-24", "supplier": "上海晨光科力普办公用品有限公司", "city": "全国", "category": "办公费/办公文具及行政耗材", "amount": 9398.94, "purpose": "1.2025年11月份科力普待付成本总额 RMB 9398.94，较2025年10月增加了 RMB ", "status": "已归档"}, {"date": "2025-12-24", "supplier": "凌雄技术（深圳）有限公司", "city": "全国", "category": "租赁费", "amount": 9545.37, "purpose": "2025年12月份小熊U租电脑租赁待付成本总额RMB 9545.37 
-① 新增设备金额 RMB 3", "status": "已归档"}, {"date": "2025-12-24", "supplier": "毕木兰", "city": "杭州", "category": "印刷费", "amount": 60.9, "purpose": "复刻铜牌花费60.9，申请报销", "status": "已归档"}, {"date": "2025-12-24", "supplier": "毕木兰", "city": "郑州", "category": "办公费/维修维护费", "amount": 150.0, "purpose": "郑州康倩倩柜子抽屉维修，150元，申请报销", "status": "已归档"}]}, "2026": {"totalAmount": 2734033.56, "totalCount": 685, "avgMonthly": 341754.2, "filledMonths": 8, "thisMonthTotal": 0.0, "todayAmount": 0.0, "monthlyTrend": [{"label": "2026-01", "amount": 1149562.78, "count": 289}, {"label": "2026-02", "amount": 525324.4, "count": 171}, {"label": "2026-03", "amount": 1059146.38, "count": 207}, {"label": "2026-04", "amount": 0.0, "count": 4}, {"label": "2026-05", "amount": 0.0, "count": 5}, {"label": "2026-06", "amount": 0.0, "count": 3}, {"label": "2026-07", "amount": 0.0, "count": 2}, {"label": "2026-08", "amount": 0.0, "count": 4}], "categoryDistribution": [{"name": "房租费", "amount": 1482370.56, "count": 30}, {"name": "物业费", "amount": 540424.61, "count": 27}, {"name": "租赁费", "amount": 222573.78, "count": 25}, {"name": "水电费", "amount": 183263.96, "count": 49}, {"name": "快递费", "amount": 139877.53, "count": 41}, {"name": "办公费", "amount": 107716.26, "count": 86}, {"name": "IT费用", "amount": 34099.31, "count": 11}, {"name": "邮电通讯费", "amount": 23082.55, "count": 40}, {"name": "装修费", "amount": 600.0, "count": 1}, {"name": "印刷费", "amount": 25.0, "count": 1}, {"name": "现申请支付济南办公室2025.08.03-2026.02.02物业费6,890.40元，对公打款，先款后票", "amount": 0.0, "count": 1}, {"name": "现申请支付沈阳分公司第二年租金25116元，周期为2025年9月1日- 2026年8月31日。可开专票，先款后票", "amount": 0.0, "count": 8}, {"name": "现申请支付重庆办公地址2025年8月5日至2026年2月4日的租赁费共计18000元，具体如下：
-1、租期：2025年8月5日至2026年2月4日 
-2、租赁地址：重庆市江北区建新北路八支路35号1幢2012室； 
-3、租赁面积：57.27 ㎡ 
-4、租金单价：3000元", "amount": 0.0, "count": 1}, {"name": "1.上海宽带费用：2025.7.16-2026.7.15，金额48880
-2.设备维护费用：2025.8.24-2026.8.23，金额7074 
-合计：55954", "amount": 0.0, "count": 12}, {"name": "重庆25.8.5-26.2.4租金15739 .14元", "amount": 0.0, "count": 1}], "cityDistribution": [{"name": "杭州", "amount": 606806.97, "count": 55}, {"name": "深圳", "amount": 326675.1, "count": 21}, {"name": "上海", "amount": 295837.15, "count": 18}, {"name": "北京", "amount": 222232.26, "count": 5}, {"name": "全国", "amount": 193169.92, "count": 21}, {"name": "广州", "amount": 189310.35, "count": 18}, {"name": "武汉", "amount": 150767.02, "count": 21}, {"name": "南京", "amount": 148823.21, "count": 18}, {"name": "青岛", "amount": 106666.68, "count": 6}, {"name": "成都", "amount": 87374.18, "count": 5}, {"name": "苏州", "amount": 82359.94, "count": 14}, {"name": "无锡", "amount": 76907.36, "count": 13}, {"name": "济南", "amount": 72571.4, "count": 8}, {"name": "厦门", "amount": 40042.0, "count": 8}, {"name": "常熟", "amount": 26280.87, "count": 16}], "daily": [{"date": "2026-01-01", "amount": 0.0, "count": 2}, {"date": "2026-01-02", "amount": 0.0, "count": 1}, {"date": "2026-01-04", "amount": 207726.02, "count": 17}, {"date": "2026-01-05", "amount": 175081.14, "count": 6}, {"date": "2026-01-06", "amount": 83968.13, "count": 7}, {"date": "2026-01-07", "amount": 183113.15, "count": 16}, {"date": "2026-01-08", "amount": 45788.93, "count": 72}, {"date": "2026-01-09", "amount": 30505.58, "count": 20}, {"date": "2026-01-12", "amount": 77734.2, "count": 4}, {"date": "2026-01-13", "amount": 13705.9, "count": 10}, {"date": "2026-01-14", "amount": 44087.57, "count": 6}, {"date": "2026-01-15", "amount": 35.0, "count": 2}, {"date": "2026-01-16", "amount": 27650.04, "count": 20}, {"date": "2026-01-19", "amount": 986.03, "count": 4}, {"date": "2026-01-20", "amount": 1335.58, "count": 2}, {"date": "2026-01-21", "amount": 34905.55, "count": 8}, {"date": "2026-01-22", "amount": 5737.57, "count": 33}, {"date": "2026-01-23", "amount": 173183.62, "count": 43}, {"date": "2026-01-25", "amount": 0.0, "count": 1}, {"date": "2026-01-26", "amount": 242.57, "count": 4}, {"date": "2026-01-27", "amount": 3170.8, "count": 4}, {"date": "2026-01-28", "amount": 0.0, "count": 1}, {"date": "2026-01-30", "amount": 40605.4, "count": 6}, {"date": "2026-02-01", "amount": 0.0, "count": 2}, {"date": "2026-02-02", "amount": 41505.69, "count": 12}, {"date": "2026-02-03", "amount": 6774.47, "count": 6}, {"date": "2026-02-04", "amount": 5358.0, "count": 2}, {"date": "2026-02-06", "amount": 163177.91, "count": 24}, {"date": "2026-02-09", "amount": 46652.94, "count": 56}, {"date": "2026-02-11", "amount": 764.0, "count": 4}, {"date": "2026-02-12", "amount": 0.0, "count": 1}, {"date": "2026-02-22", "amount": 0.0, "count": 1}, {"date": "2026-02-24", "amount": 157867.69, "count": 28}, {"date": "2026-02-25", "amount": 0.0, "count": 1}, {"date": "2026-02-26", "amount": 82968.57, "count": 24}, {"date": "2026-02-27", "amount": 20120.13, "count": 8}, {"date": "2026-02-28", "amount": 135.0, "count": 2}, {"date": "2026-03-01", "amount": 0.0, "count": 2}, {"date": "2026-03-02", "amount": 28885.0, "count": 8}, {"date": "2026-03-03", "amount": 51012.0, "count": 4}, {"date": "2026-03-04", "amount": 51562.52, "count": 10}, {"date": "2026-03-06", "amount": 7150.0, "count": 18}, {"date": "2026-03-09", "amount": 161972.84, "count": 56}, {"date": "2026-03-11", "amount": 15507.63, "count": 4}, {"date": "2026-03-12", "amount": 1432.0, "count": 4}, {"date": "2026-03-13", "amount": 203372.38, "count": 27}, {"date": "2026-03-19", "amount": 239031.23, "count": 10}, {"date": "2026-03-20", "amount": 16002.2, "count": 4}, {"date": "2026-03-22", "amount": 0.0, "count": 1}, {"date": "2026-03-23", "amount": 27694.34, "count": 24}, {"date": "2026-03-24", "amount": 254978.14, "count": 30}, {"date": "2026-03-25", "amount": 0.0, "count": 1}, {"date": "2026-03-26", "amount": 299.0, "count": 2}, {"date": "2026-03-27", "amount": 247.1, "count": 2}, {"date": "2026-04-01", "amount": 0.0, "count": 2}, {"date": "2026-04-22", "amount": 0.0, "count": 1}, {"date": "2026-04-25", "amount": 0.0, "count": 1}, {"date": "2026-05-01", "amount": 0.0, "count": 2}, {"date": "2026-05-22", "amount": 0.0, "count": 1}, {"date": "2026-05-25", "amount": 0.0, "count": 2}, {"date": "2026-06-01", "amount": 0.0, "count": 2}, {"date": "2026-06-22", "amount": 0.0, "count": 1}, {"date": "2026-07-22", "amount": 0.0, "count": 1}, {"date": "2026-07-25", "amount": 0.0, "count": 1}, {"date": "2026-08-22", "amount": 0.0, "count": 3}, {"date": "2026-08-25", "amount": 0.0, "count": 1}], "latestExpenses": [{"date": "2026-08-25", "supplier": "", "city": "日常行政费用/房租费", "category": "现申请支付沈阳分公司第二年租金25116元，周期为2025年9月1日- 2026年8月31日。可开专票，先款后票", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-08-22", "supplier": "", "city": "日常行政费用/物业费", "category": "现申请支付总部2025.10.1-2026.3.31车位费7200元及物业费85851.84元，共计93,051.84元
-1、车位服务费单价100元/位/月，12个车位，1200元/月； 
-2、物业费8元/月/㎡，1788.58㎡，14308.64元/月； 
-3、先票后款，专票", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-08-22", "supplier": "", "city": "日常行政费用/物业费", "category": "现申请支付总部2025.10.1-2026.3.31车位费7200元及物业费85851.84元，共计93,051.84元
-1、车位服务费单价100元/位/月，12个车位，1200元/月； 
-2、物业费8元/月/㎡，1788.58㎡，14308.64元/月； 
-3、先票后款，专票", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-08-22", "supplier": "", "city": "日常行政费用/物业费", "category": "现申请支付总部2025.10.1-2026.3.31车位费7200元及物业费85851.84元，共计93,051.84元
-1、车位服务费单价100元/位/月，12个车位，1200元/月； 
-2、物业费8元/月/㎡，1788.58㎡，14308.64元/月； 
-3、先票后款，专票", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-07-25", "supplier": "", "city": "日常行政费用/房租费", "category": "现申请支付沈阳分公司第二年租金25116元，周期为2025年9月1日- 2026年8月31日。可开专票，先款后票", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-07-22", "supplier": "", "city": "日常行政费用/招聘费", "category": "因下半年进入用工高峰，智联招聘账号即将到期（2025年8月29日），故申请账号续费，用于项目中心项目自招使用【智联账号共计16000元（每个账号4000，最少4个起开）】，使用期限为1年（2025年8月29—2026年8月28）", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-06-22", "supplier": "", "city": "日常行政费用/招聘费", "category": "因下半年进入用工高峰，智联招聘账号即将到期（2025年8月29日），故申请账号续费，用于项目中心项目自招使用【智联账号共计16000元（每个账号4000，最少4个起开）】，使用期限为1年（2025年8月29—2026年8月28）", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-06-01", "supplier": "", "city": "日常行政费用/IT费用", "category": "1.上海宽带费用：2025.7.16-2026.7.15，金额48880
-2.设备维护费用：2025.8.24-2026.8.23，金额7074 
-合计：55954", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-06-01", "supplier": "", "city": "日常行政费用/IT费用", "category": "1.上海宽带费用：2025.7.16-2026.7.15，金额48880
-2.设备维护费用：2025.8.24-2026.8.23，金额7074 
-合计：55954", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-05-25", "supplier": "", "city": "日常行政费用/房租费", "category": "现申请支付沈阳分公司第二年租金25116元，周期为2025年9月1日- 2026年8月31日。可开专票，先款后票", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-05-25", "supplier": "", "city": "日常行政费用/房租费", "category": "现申请支付沈阳分公司第二年租金25116元，周期为2025年9月1日- 2026年8月31日。可开专票，先款后票", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-05-22", "supplier": "", "city": "日常行政费用/招聘费", "category": "因下半年进入用工高峰，智联招聘账号即将到期（2025年8月29日），故申请账号续费，用于项目中心项目自招使用【智联账号共计16000元（每个账号4000，最少4个起开）】，使用期限为1年（2025年8月29—2026年8月28）", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-05-01", "supplier": "", "city": "日常行政费用/IT费用", "category": "1.上海宽带费用：2025.7.16-2026.7.15，金额48880
-2.设备维护费用：2025.8.24-2026.8.23，金额7074 
-合计：55954", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-05-01", "supplier": "", "city": "日常行政费用/IT费用", "category": "1.上海宽带费用：2025.7.16-2026.7.15，金额48880
-2.设备维护费用：2025.8.24-2026.8.23，金额7074 
-合计：55954", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-04-25", "supplier": "", "city": "日常行政费用/房租费", "category": "现申请支付沈阳分公司第二年租金25116元，周期为2025年9月1日- 2026年8月31日。可开专票，先款后票", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-04-22", "supplier": "", "city": "日常行政费用/招聘费", "category": "因下半年进入用工高峰，智联招聘账号即将到期（2025年8月29日），故申请账号续费，用于项目中心项目自招使用【智联账号共计16000元（每个账号4000，最少4个起开）】，使用期限为1年（2025年8月29—2026年8月28）", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-04-01", "supplier": "", "city": "日常行政费用/IT费用", "category": "1.上海宽带费用：2025.7.16-2026.7.15，金额48880
-2.设备维护费用：2025.8.24-2026.8.23，金额7074 
-合计：55954", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-04-01", "supplier": "", "city": "日常行政费用/IT费用", "category": "1.上海宽带费用：2025.7.16-2026.7.15，金额48880
-2.设备维护费用：2025.8.24-2026.8.23，金额7074 
-合计：55954", "amount": 0, "purpose": "", "status": ""}, {"date": "2026-03-27", "supplier": "中国联合网络通信有限公司杭州市分公司", "city": "杭州", "category": "邮电通讯费", "amount": 247.1, "purpose": "现申请2026年2月杭州的联通宽带费用：总金额为247.10元。详见附件联通账单。", "status": "已归档"}, {"date": "2026-03-27", "supplier": "", "city": "日常行政费用/邮电通讯费", "category": "现申请2026年2月杭州的联通宽带费用：总金额为247.10元。详见附件联通账单。", "amount": 0, "purpose": "谢思琪", "status": ""}]}}}, "computers": {"total": 1565, "inUse": 1319, "idle": 88, "retired": 142, "lost": 7, "byStatus": [{"name": "在用", "count": 1319}, {"name": "退租", "count": 138}, {"name": "闲置", "count": 88}, {"name": "未知", "count": 8}, {"name": "丢失", "count": 7}, {"name": "回收", "count": 4}, {"name": "未找到", "count": 1}], "byCity": [{"name": "杭州", "count": 549}, {"name": "上海", "count": 135}, {"name": "深圳", "count": 102}, {"name": "未知", "count": 82}, {"name": "北京", "count": 82}, {"name": "广州", "count": 72}, {"name": "成都", "count": 69}, {"name": "南京", "count": 61}, {"name": "武汉", "count": 60}, {"name": "西安", "count": 55}, {"name": "郑州", "count": 50}, {"name": "苏州", "count": 38}, {"name": "大连", "count": 37}, {"name": "青岛", "count": 37}, {"name": "济南", "count": 27}]}, "lastUpdated": "2026-06-01 18:06", "source": "feishu"};
+const EMBEDDED_DATA = {"expenses":{"totalAmount":52485409.82,"totalCount":10030,"avgMonthly":1336218.68,"thisMonthTotal":0,"thisMonthCount":0,"todayAmount":0,"monthlyTrend":[{"label":"2023-01","amount":974711.21,"count":136},{"label":"2023-02","amount":2096808.67,"count":146},{"label":"2023-03","amount":2563878.06,"count":222},{"label":"2023-04","amount":1174183.48,"count":134},{"label":"2023-05","amount":1121664.15,"count":195},{"label":"2023-06","amount":1479939.67,"count":135},{"label":"2023-07","amount":1070931.26,"count":176},{"label":"2023-08","amount":1396887.25,"count":145},{"label":"2023-09","amount":1747998.02,"count":150},{"label":"2023-10","amount":997589.97,"count":140},{"label":"2023-11","amount":690693.69,"count":154},{"label":"2023-12","amount":1448628.69,"count":186},{"label":"2024-01","amount":1928352.58,"count":195},{"label":"2024-02","amount":923288.91,"count":146},{"label":"2024-03","amount":1876152.2,"count":166},{"label":"2024-04","amount":1093807.18,"count":172},{"label":"2024-05","amount":1046822.85,"count":224},{"label":"2024-06","amount":1498393.36,"count":268},{"label":"2024-07","amount":1412886.62,"count":351},{"label":"2024-08","amount":1168992.54,"count":276},{"label":"2024-09","amount":1569366.7,"count":207},{"label":"2024-10","amount":1202094.47,"count":178},{"label":"2024-11","amount":1572707.52,"count":271},{"label":"2024-12","amount":1659973.05,"count":313},{"label":"2025-00","amount":87926.55,"count":54},{"label":"2025-01","amount":1610061.33,"count":252},{"label":"2025-02","amount":581512.44,"count":148},{"label":"2025-03","amount":1278106.68,"count":461},{"label":"2025-04","amount":1631021.85,"count":483},{"label":"2025-05","amount":677926.31,"count":330},{"label":"2025-06","amount":914444.77,"count":367},{"label":"2025-07","amount":1589898.59,"count":420},{"label":"2025-08","amount":1390116.44,"count":457},{"label":"2025-09","amount":3285338.41,"count":663},{"label":"2025-10","amount":2424173.59,"count":565},{"label":"2025-11","amount":364545.12,"count":188},{"label":"2025-12","amount":199552.08,"count":271},{"label":"2026-01","amount":1149562.78,"count":289},{"label":"2026-02","amount":525324.4,"count":171},{"label":"2026-03","amount":1059146.38,"count":207},{"label":"2026-04","amount":0,"count":4},{"label":"2026-05","amount":0,"count":5},{"label":"2026-06","amount":0,"count":3},{"label":"2026-07","amount":0,"count":2},{"label":"2026-08","amount":0,"count":4}],"categoryDistribution":[{"name":"房租费","amount":38469425.72,"count":780},{"name":"物业费","amount":5763734.8,"count":640},{"name":"快递费","amount":2808903.13,"count":1188},{"name":"租赁费","amount":2980322.2,"count":357},{"name":"办公费","amount":1831805.83,"count":1435},{"name":"水电费","amount":1549454.61,"count":807},{"name":"房租保证金","amount":1247796.3,"count":50},{"name":"IT费用","amount":914917.22,"count":255},{"name":"邮电通讯费","amount":603097.74,"count":603},{"name":"招聘费","amount":364550.98,"count":129},{"name":"装修费","amount":169240.12,"count":45},{"name":"印刷费","amount":68713.79,"count":187},{"name":"物业保证金","amount":24258.1,"count":3},{"name":"经营活动保证金","amount":6700,"count":2},{"name":"深圳今元人才科技有限公司办公室：公摊电费 费用时间：2025年1月28日至2025年2月21日 费用金额：14.80元 深圳今元人才科技有限公司2月份在保人数为：576人 烦请领导审批，谢谢","amount":0,"count":1}],"cityDistribution":[{"name":"杭州","amount":8927674.19,"count":731},{"name":"上海","amount":5746156.2,"count":495},{"name":"北京","amount":3922373.25,"count":218},{"name":"广州","amount":2830384.59,"count":408},{"name":"深圳","amount":2554935.04,"count":329},{"name":"南京","amount":1904825.36,"count":370},{"name":"全国","amount":1627603.63,"count":181},{"name":"成都","amount":1626435.11,"count":249},{"name":"武汉","amount":1467656.96,"count":249},{"name":"青岛","amount":1003494.06,"count":120},{"name":"苏州","amount":1013623.24,"count":154},{"name":"大连","amount":660687.69,"count":116},{"name":"西安","amount":587967.92,"count":123},{"name":"天津","amount":580917.71,"count":154},{"name":"厦门","amount":569874.96,"count":135}],"daily2026":[{"date":"2026-01-01","amount":0,"count":2},{"date":"2026-01-02","amount":0,"count":1},{"date":"2026-01-04","amount":207726.02,"count":17},{"date":"2026-01-05","amount":175081.14,"count":6},{"date":"2026-01-06","amount":83968.13,"count":7},{"date":"2026-01-07","amount":183113.15,"count":16},{"date":"2026-01-08","amount":45788.93,"count":72},{"date":"2026-01-09","amount":30505.58,"count":20},{"date":"2026-01-12","amount":77734.2,"count":4},{"date":"2026-01-13","amount":13705.9,"count":10},{"date":"2026-01-14","amount":44087.57,"count":6},{"date":"2026-01-15","amount":35,"count":2},{"date":"2026-01-16","amount":27650.04,"count":20},{"date":"2026-01-19","amount":986.03,"count":4},{"date":"2026-01-20","amount":1335.58,"count":2},{"date":"2026-01-21","amount":34905.55,"count":8},{"date":"2026-01-22","amount":5737.57,"count":33},{"date":"2026-01-23","amount":173183.62,"count":43},{"date":"2026-01-25","amount":0,"count":1},{"date":"2026-01-26","amount":242.57,"count":4}],"latestExpenses":[{"date":"2026-03-27","supplier":"中国联合网络通信有限公司杭州市分公司","city":"杭州","category":"邮电通讯费","amount":247.1,"purpose":"现申请2026年2月杭州的联通宽带费用：总金额为247.10元。详见附件联通账单。","status":"已归档"}],"availableYears":[2023,2024,2025,2026],"byYear":{"2023":{"totalAmount":16763914.12,"totalCount":1919,"avgMonthly":1396992.84,"filledMonths":12,"monthlyTrend":[{"label":"2023-01","amount":974711.21,"count":136},{"label":"2023-02","amount":2096808.67,"count":146},{"label":"2023-03","amount":2563878.06,"count":222},{"label":"2023-04","amount":1174183.48,"count":134},{"label":"2023-05","amount":1121664.15,"count":195},{"label":"2023-06","amount":1479939.67,"count":135},{"label":"2023-07","amount":1070931.26,"count":176},{"label":"2023-08","amount":1396887.25,"count":145},{"label":"2023-09","amount":1747998.02,"count":150},{"label":"2023-10","amount":997589.97,"count":140},{"label":"2023-11","amount":690693.69,"count":154},{"label":"2023-12","amount":1448628.69,"count":186}]},"2024":{"totalAmount":16952837.98,"totalCount":2767,"avgMonthly":1412736.5,"filledMonths":12,"monthlyTrend":[{"label":"2024-01","amount":1928352.58,"count":195},{"label":"2024-02","amount":923288.91,"count":146},{"label":"2024-03","amount":1876152.2,"count":166},{"label":"2024-04","amount":1093807.18,"count":172},{"label":"2024-05","amount":1046822.85,"count":224},{"label":"2024-06","amount":1498393.36,"count":268},{"label":"2024-07","amount":1412886.62,"count":351},{"label":"2024-08","amount":1168992.54,"count":276},{"label":"2024-09","amount":1569366.7,"count":207},{"label":"2024-10","amount":1202094.47,"count":178},{"label":"2024-11","amount":1572707.52,"count":271},{"label":"2024-12","amount":1659973.05,"count":313}]},"2025":{"totalAmount":16034624.16,"totalCount":4659,"avgMonthly":1233432.63,"filledMonths":13,"monthlyTrend":[{"label":"2025-00","amount":87926.55,"count":54},{"label":"2025-01","amount":1610061.33,"count":252},{"label":"2025-02","amount":581512.44,"count":148},{"label":"2025-03","amount":1278106.68,"count":461},{"label":"2025-04","amount":1631021.85,"count":483},{"label":"2025-05","amount":677926.31,"count":330},{"label":"2025-06","amount":914444.77,"count":367},{"label":"2025-07","amount":1589898.59,"count":420},{"label":"2025-08","amount":1390116.44,"count":457},{"label":"2025-09","amount":3285338.41,"count":663},{"label":"2025-10","amount":2424173.59,"count":565},{"label":"2025-11","amount":364545.12,"count":188},{"label":"2025-12","amount":199552.08,"count":271}]},"2026":{"totalAmount":2734033.56,"totalCount":685,"avgMonthly":341754.2,"filledMonths":8,"monthlyTrend":[{"label":"2026-01","amount":1149562.78,"count":289},{"label":"2026-02","amount":525324.4,"count":171},{"label":"2026-03","amount":1059146.38,"count":207},{"label":"2026-04","amount":0,"count":4},{"label":"2026-05","amount":0,"count":5},{"label":"2026-06","amount":0,"count":3},{"label":"2026-07","amount":0,"count":2},{"label":"2026-08","amount":0,"count":4}]}}},"computers":{"total":1565,"inUse":1319,"idle":88,"retired":142,"lost":7,"byStatus":[{"name":"在用","count":1319},{"name":"退租","count":138},{"name":"闲置","count":88},{"name":"未知","count":8},{"name":"丢失","count":7},{"name":"回收","count":4},{"name":"未找到","count":1}],"byCity":[{"name":"杭州","count":549},{"name":"上海","count":135},{"name":"深圳","count":102},{"name":"未知","count":82},{"name":"北京","count":82},{"name":"广州","count":72},{"name":"成都","count":69},{"name":"南京","count":61},{"name":"武汉","count":60},{"name":"西安","count":55},{"name":"郑州","count":50},{"name":"苏州","count":38},{"name":"大连","count":37},{"name":"青岛","count":37},{"name":"济南","count":27}]},"lastUpdated":"2026-06-01 18:12","source":"feishu"};
 </script>
 
 </body>
