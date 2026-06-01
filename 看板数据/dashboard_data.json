@@ -4205,6 +4205,2094 @@
           }
         ]
       }
+    },
+    "dupCheck": {
+      "summary": {
+        "totalGroups": 423,
+        "totalRecords": 958,
+        "totalAmount": 3866993.46,
+        "highGroups": 357,
+        "mediumGroups": 66,
+        "lowGroups": 0
+      },
+      "byYear": {
+        "2023": {
+          "groups": 128,
+          "records": 314,
+          "amount": 951182.2000000001
+        },
+        "2024": {
+          "groups": 169,
+          "records": 380,
+          "amount": 1691051.82
+        },
+        "2025": {
+          "groups": 118,
+          "records": 250,
+          "amount": 1144218.44
+        },
+        "2026": {
+          "groups": 8,
+          "records": 16,
+          "amount": 80541.0
+        }
+      },
+      "groups": [
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 300.0,
+          "year": 2023,
+          "month": 3,
+          "count": 7,
+          "totalAmount": 2100.0,
+          "items": [
+            {
+              "date": "2023-03-03",
+              "city": "北京",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "现申请支付北京人才通讯充值费用300元，对公打款，先款后票",
+              "supplier": ""
+            },
+            {
+              "date": "2023-03-07",
+              "city": "青岛",
+              "category": "办公费/其他",
+              "amount": 300.0,
+              "purpose": "现申请支付青岛水票押金300元，提供押金条\n\n注：原HR垫付，现改为公司支付，员工款项退回",
+              "supplier": ""
+            },
+            {
+              "date": "2023-03-09",
+              "city": "杭州",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "1.费用说明：2023年2月1日-2月28日移动电话费用300元\n\n2.付款方式：对外付款\n\n3.付",
+              "supplier": ""
+            },
+            {
+              "date": "2023-03-13",
+              "city": "北京",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "北京座机话费充值",
+              "supplier": ""
+            },
+            {
+              "date": "2023-03-21",
+              "city": "济南",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "济南电话费充值：300元，HR垫付报销到工资卡\n\n充值停机号码\n\n58192205 \n\n581938",
+              "supplier": ""
+            },
+            {
+              "date": "2023-03-30",
+              "city": "无锡",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "无锡分公司申请外呼费用300元，报销到工资卡",
+              "supplier": ""
+            },
+            {
+              "date": "2023-03-31",
+              "city": "北京",
+              "category": "水电费",
+              "amount": 300.0,
+              "purpose": "北京3月初电费临时用完，HR临时垫付300元，报销到工资卡",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 500.0,
+          "year": 2023,
+          "month": 5,
+          "count": 6,
+          "totalAmount": 3000.0,
+          "items": [
+            {
+              "date": "2023-05-09",
+              "city": "重庆",
+              "category": "办公费/清洁费",
+              "amount": 500.0,
+              "purpose": "重庆月度保洁费500元，HR垫付报销到工资卡",
+              "supplier": ""
+            },
+            {
+              "date": "2023-05-09",
+              "city": "无锡",
+              "category": "邮电通讯费",
+              "amount": 500.0,
+              "purpose": "无锡分公司申请电信话费500元（含宽带），报销到工资卡",
+              "supplier": ""
+            },
+            {
+              "date": "2023-05-09",
+              "city": "上海",
+              "category": "办公费/清洁费",
+              "amount": 500.0,
+              "purpose": "现申请支付上海4月保洁费500元，为个人阿姨，无票支出",
+              "supplier": ""
+            },
+            {
+              "date": "2023-05-23",
+              "city": "南京",
+              "category": "邮电通讯费",
+              "amount": 500.0,
+              "purpose": "现申请报销南京外呼系统预充值500元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-05-30",
+              "city": "无锡",
+              "category": "邮电通讯费",
+              "amount": 500.0,
+              "purpose": "无锡分公司申请电信话费500元（含宽带），报销到工资卡",
+              "supplier": ""
+            },
+            {
+              "date": "2023-05-30",
+              "city": "苏州",
+              "category": "邮电通讯费",
+              "amount": 500.0,
+              "purpose": "现申请报销苏州外呼充值费用500元，先票后款",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 500.0,
+          "year": 2023,
+          "month": 7,
+          "count": 6,
+          "totalAmount": 3000.0,
+          "items": [
+            {
+              "date": "2023-07-10",
+              "city": "南京",
+              "category": "邮电通讯费",
+              "amount": 500.0,
+              "purpose": "现申请报销无锡外呼系统预充值500元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-07-10",
+              "city": "苏州",
+              "category": "邮电通讯费",
+              "amount": 500.0,
+              "purpose": "现申请报销苏州外呼充值费用500元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-07-10",
+              "city": "无锡",
+              "category": "邮电通讯费",
+              "amount": 500.0,
+              "purpose": "无锡分公司申请电信话费500元（含宽带），报销到工资卡",
+              "supplier": ""
+            },
+            {
+              "date": "2023-07-10",
+              "city": "南京",
+              "category": "邮电通讯费",
+              "amount": 500.0,
+              "purpose": "现申请报销南京外呼系统预充值500元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-07-14",
+              "city": "上海",
+              "category": "办公费/清洁费",
+              "amount": 500.0,
+              "purpose": "现申请支付上海6月保洁费500元，为个人阿姨，无票支出",
+              "supplier": ""
+            },
+            {
+              "date": "2023-07-25",
+              "city": "上海",
+              "category": "邮电通讯费",
+              "amount": 500.0,
+              "purpose": "现申请报销苏州外呼充值费用500元，先票后款",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 500.0,
+          "year": 2023,
+          "month": 9,
+          "count": 6,
+          "totalAmount": 3000.0,
+          "items": [
+            {
+              "date": "2023-09-08",
+              "city": "杭州",
+              "category": "招聘费",
+              "amount": 500.0,
+              "purpose": "人才8月份外部推荐奖金费用，合计500元，主要是8月份入职的1人（西安销售）和8月份转正的1人（深圳",
+              "supplier": ""
+            },
+            {
+              "date": "2023-09-08",
+              "city": "北京",
+              "category": "邮电通讯费",
+              "amount": 500.0,
+              "purpose": "现申请报销北京新办理5张电话卡费用500元，开卡费250元，话费250元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-09-15",
+              "city": "上海",
+              "category": "办公费/清洁费",
+              "amount": 500.0,
+              "purpose": "现申请支付上海8月保洁费500元，为个人阿姨，无票支出",
+              "supplier": ""
+            },
+            {
+              "date": "2023-09-25",
+              "city": "北京",
+              "category": "邮电通讯费",
+              "amount": 500.0,
+              "purpose": "现申请报销北京广电卡话费充值500元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-09-25",
+              "city": "杭州",
+              "category": "招聘费",
+              "amount": 500.0,
+              "purpose": "招聘组8月话费充值，移动电话充值500元，详情见附件",
+              "supplier": ""
+            },
+            {
+              "date": "2023-09-26",
+              "city": "杭州",
+              "category": "办公费/其他",
+              "amount": 500.0,
+              "purpose": "1.采购明细：蓝蓝饮用水，单价10元每桶，数量50桶，总价500元，含税\n\n2.发票说明：有，桶装水",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 500.0,
+          "year": 2024,
+          "month": 4,
+          "count": 6,
+          "totalAmount": 3000.0,
+          "items": [
+            {
+              "date": "2024-04-09",
+              "city": "上海",
+              "category": "租赁费",
+              "amount": 500.0,
+              "purpose": "现申请支付苏州人才打印机3月租赁费500元（含超印费）\n\n1、名称：京瓷数码彩色复印机\n\n2、租赁期",
+              "supplier": ""
+            },
+            {
+              "date": "2024-04-09",
+              "city": "上海",
+              "category": "办公费/清洁费",
+              "amount": 500.0,
+              "purpose": "现申请支付上海3月保洁费500元，为个人阿姨，无票支出",
+              "supplier": ""
+            },
+            {
+              "date": "2024-04-10",
+              "city": "上海",
+              "category": "邮电通讯费",
+              "amount": 500.0,
+              "purpose": "现申请报销苏州外呼充值费用500元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2024-04-10",
+              "city": "石家庄",
+              "category": "办公费/其他",
+              "amount": 500.0,
+              "purpose": "1.费用时间：2024年3月25日\n\n2.费用明细：桶装水；500元80桶。\n\n3.发票说明：有发票",
+              "supplier": ""
+            },
+            {
+              "date": "2024-04-10",
+              "city": "南京",
+              "category": "IT费用",
+              "amount": 500.0,
+              "purpose": "现申请报销无锡宽带费用500元（含固话），先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2024-04-24",
+              "city": "杭州",
+              "category": "办公费/其他",
+              "amount": 500.0,
+              "purpose": "1.采购明细：蓝蓝饮用水，单价10元每桶，数量50桶，总价500元，含税\n\n2.发票说明：有，桶装水",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 500.0,
+          "year": 2023,
+          "month": 4,
+          "count": 5,
+          "totalAmount": 2500.0,
+          "items": [
+            {
+              "date": "2023-04-13",
+              "city": "南京",
+              "category": "邮电通讯费",
+              "amount": 500.0,
+              "purpose": "现申请报销南京外呼系统预充值500元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-04-20",
+              "city": "无锡",
+              "category": "办公费/维修维护费",
+              "amount": 500.0,
+              "purpose": "现申请报销无锡灯管为欸修费用500元，共修了22个，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-04-20",
+              "city": "杭州",
+              "category": "招聘费",
+              "amount": 500.0,
+              "purpose": "此次费用属于2023年3月外部推荐奖金",
+              "supplier": ""
+            },
+            {
+              "date": "2023-04-21",
+              "city": "上海",
+              "category": "办公费/清洁费",
+              "amount": 500.0,
+              "purpose": "现申请支付上海3月保洁费500元，为个人阿姨，无票支出",
+              "supplier": ""
+            },
+            {
+              "date": "2023-04-26",
+              "city": "杭州",
+              "category": "办公费/其他",
+              "amount": 500.0,
+              "purpose": "1.采购明细：蓝蓝饮用水，单价10元每桶，数量50桶，总价500元，含税\n\n2.发票说明：有，桶装水",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 50.0,
+          "year": 2025,
+          "month": 1,
+          "count": 4,
+          "totalAmount": 200.0,
+          "items": [
+            {
+              "date": "2025-01-10",
+              "city": "南京",
+              "category": "邮电通讯费",
+              "amount": 50.0,
+              "purpose": "现申请报销无锡SSC固话充值费50元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2025-01-15",
+              "city": "青岛",
+              "category": "办公费/其他",
+              "amount": 50.0,
+              "purpose": "现申请报销济南固话安装费用50元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2025-01-24",
+              "city": "青岛",
+              "category": "邮电通讯费",
+              "amount": 50.0,
+              "purpose": "现申请报销济南1月固话充值费50元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2025-01-24",
+              "city": "宁波",
+              "category": "邮电通讯费",
+              "amount": 50.0,
+              "purpose": "现申请报销宁波1月固话充值费50元，先票后款",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 500.0,
+          "year": 2025,
+          "month": 3,
+          "count": 4,
+          "totalAmount": 2000.0,
+          "items": [
+            {
+              "date": "2025-03-10",
+              "city": "南京",
+              "category": "IT费用",
+              "amount": 500.0,
+              "purpose": "现申请报销无锡宽带费用500元（含固话），先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2025-03-10",
+              "city": "杭州",
+              "category": "招聘费",
+              "amount": 500.0,
+              "purpose": "1、人才25年2月份外部推荐奖金费用，合计500元，主要是25年2月份入职的2人（青岛服务和郑州销售",
+              "supplier": ""
+            },
+            {
+              "date": "2025-03-25",
+              "city": "沈阳",
+              "category": "邮电通讯费",
+              "amount": 500.0,
+              "purpose": "现申请报销沈阳3-8月预付电话费500元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2025-03-25",
+              "city": "长沙",
+              "category": "邮电通讯费",
+              "amount": 500.0,
+              "purpose": "现申请报销长沙SSC邮电通讯预存费用200元，武汉SSC邮电通讯费300元，共计500元，先款后票",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 300.0,
+          "year": 2023,
+          "month": 5,
+          "count": 4,
+          "totalAmount": 1200.0,
+          "items": [
+            {
+              "date": "2023-05-08",
+              "city": "北京",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "现申请支付北京人才通讯充值费用300元，对公打款，先款后票",
+              "supplier": ""
+            },
+            {
+              "date": "2023-05-09",
+              "city": "北京",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "北京电话费充值，垫付300元。",
+              "supplier": ""
+            },
+            {
+              "date": "2023-05-09",
+              "city": "杭州",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "1.费用说明：2023年4月1日-4月30日移动电话费用300元\n\n2.付款方式：对外付款\n\n3.付",
+              "supplier": ""
+            },
+            {
+              "date": "2023-05-26",
+              "city": "北京",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "北京5月座机话费充值300元",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 800.0,
+          "year": 2023,
+          "month": 5,
+          "count": 4,
+          "totalAmount": 3200.0,
+          "items": [
+            {
+              "date": "2023-05-08",
+              "city": "成都",
+              "category": "办公费/清洁费",
+              "amount": 800.0,
+              "purpose": "成都4月清洁费，附件为发票",
+              "supplier": ""
+            },
+            {
+              "date": "2023-05-10",
+              "city": "广州",
+              "category": "办公费/清洁费",
+              "amount": 800.0,
+              "purpose": "现申请支付4月广州的固定清洁费800元，无票支出",
+              "supplier": ""
+            },
+            {
+              "date": "2023-05-26",
+              "city": "深圳",
+              "category": "办公费/清洁费",
+              "amount": 800.0,
+              "purpose": "深圳分公司申请⽀付科兴科学园A2单元1401保洁费⽤800元/⽉\n\n费⽤周期：2023年4月\n\n⽆票",
+              "supplier": ""
+            },
+            {
+              "date": "2023-05-26",
+              "city": "上海",
+              "category": "办公费/其他",
+              "amount": 800.0,
+              "purpose": "现申请支付上海饮用水采购费用800元，16元/桶，50桶，对公打款，先票后款",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 320.0,
+          "year": 2023,
+          "month": 3,
+          "count": 4,
+          "totalAmount": 1280.0,
+          "items": [
+            {
+              "date": "2023-03-03",
+              "city": "天津",
+              "category": "办公费/其他",
+              "amount": 320.0,
+              "purpose": "天津饮用水水票20张，共计320元，单价16元/桶，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-03-08",
+              "city": "天津",
+              "category": "办公费/其他",
+              "amount": 320.0,
+              "purpose": "天津分公司2月桶装水费用，共计320元",
+              "supplier": ""
+            },
+            {
+              "date": "2023-03-30",
+              "city": "天津",
+              "category": "办公费/其他",
+              "amount": 320.0,
+              "purpose": "天津分公司3月桶装水费用，共计320元",
+              "supplier": ""
+            },
+            {
+              "date": "2023-03-31",
+              "city": "天津",
+              "category": "办公费/其他",
+              "amount": 320.0,
+              "purpose": "天津饮用水水票20张，共计320元，单价16元/桶，先票后款",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 300.0,
+          "year": 2023,
+          "month": 2,
+          "count": 4,
+          "totalAmount": 1200.0,
+          "items": [
+            {
+              "date": "2023-02-08",
+              "city": "北京",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "现申请支付北京人才通讯充值费用300元，对公打款，先款后票",
+              "supplier": ""
+            },
+            {
+              "date": "2023-02-08",
+              "city": "杭州",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "1.费用说明：2023年1月1日-1月31日移动电话费用300元\n\n2.付款方式：对外付款\n\n3.付",
+              "supplier": ""
+            },
+            {
+              "date": "2023-02-09",
+              "city": "厦门",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "厦门2月电话费300元，HR垫付报销到工资卡",
+              "supplier": ""
+            },
+            {
+              "date": "2023-02-24",
+              "city": "杭州",
+              "category": "水电费",
+              "amount": 300.0,
+              "purpose": "现申请报销沈洁总租赁房屋暖气费300元，先票后款",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 500.0,
+          "year": 2023,
+          "month": 3,
+          "count": 4,
+          "totalAmount": 2000.0,
+          "items": [
+            {
+              "date": "2023-03-07",
+              "city": "石家庄",
+              "category": "办公费/其他",
+              "amount": 500.0,
+              "purpose": "1.费用时间：2023年2月21日\n\n2.费用明细：桶装水；500元70桶。\n\n3.发票说明：有发票",
+              "supplier": ""
+            },
+            {
+              "date": "2023-03-10",
+              "city": "南京",
+              "category": "邮电通讯费",
+              "amount": 500.0,
+              "purpose": "现申请报销南京外呼系统预充值500元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-03-10",
+              "city": "无锡",
+              "category": "邮电通讯费",
+              "amount": 500.0,
+              "purpose": "无锡分公司申请电信话费500元（含宽带），报销到工资卡",
+              "supplier": ""
+            },
+            {
+              "date": "2023-03-23",
+              "city": "杭州",
+              "category": "招聘费",
+              "amount": 500.0,
+              "purpose": "2023年2月外部推荐费用，共计500元，是2022年3月21日入职的1人，漏发奖金，本次补发入职和",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 150.0,
+          "year": 2023,
+          "month": 7,
+          "count": 4,
+          "totalAmount": 600.0,
+          "items": [
+            {
+              "date": "2023-07-10",
+              "city": "沈阳",
+              "category": "快递费",
+              "amount": 150.0,
+              "purpose": "沈阳分公司2023年4月10日至2023年6月1 3日快递费用",
+              "supplier": ""
+            },
+            {
+              "date": "2023-07-19",
+              "city": "广州",
+              "category": "印刷费",
+              "amount": 150.0,
+              "purpose": "现申请支付广州固定资产标签贴纸打印费用150元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-07-20",
+              "city": "深圳",
+              "category": "印刷费",
+              "amount": 150.0,
+              "purpose": "现申请支付深圳固定资产标签贴纸打印费用150元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-07-24",
+              "city": "杭州",
+              "category": "租赁费",
+              "amount": 150.0,
+              "purpose": "浙江分公司-宁波2023年6月打印机租赁费共计150元，对公打款",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 400.0,
+          "year": 2023,
+          "month": 7,
+          "count": 4,
+          "totalAmount": 1600.0,
+          "items": [
+            {
+              "date": "2023-07-10",
+              "city": "吴江",
+              "category": "办公费/办公文具及行政耗材",
+              "amount": 400.0,
+              "purpose": "人才吴江/太仓/昆山/张家港4家分公司 各刻一枚新法人章，共400元。",
+              "supplier": ""
+            },
+            {
+              "date": "2023-07-17",
+              "city": "上海",
+              "category": "租赁费",
+              "amount": 400.0,
+              "purpose": "现在申请支付上海2023.6.6-2023.7.6打印机租赁费400元，详情如下：\n\n1.月基础租赁",
+              "supplier": ""
+            },
+            {
+              "date": "2023-07-17",
+              "city": "上海",
+              "category": "办公费/清洁费",
+              "amount": 400.0,
+              "purpose": "现申请支付苏州办公室玻璃爆裂清扫费用400元，先款后票",
+              "supplier": ""
+            },
+            {
+              "date": "2023-07-21",
+              "city": "上海",
+              "category": "装修费",
+              "amount": 400.0,
+              "purpose": "现申请支付上海人才新址空气治理尾款400元，详情如下：\n\n1、治理面积：532.59㎡\n\n2、单价：",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 30.0,
+          "year": 2023,
+          "month": 7,
+          "count": 4,
+          "totalAmount": 120.0,
+          "items": [
+            {
+              "date": "2023-07-10",
+              "city": "杭州",
+              "category": "办公费/其他",
+              "amount": 30.0,
+              "purpose": "现申请报销宁波离职员工门禁卡补卡费用30元，30元/张，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-07-10",
+              "city": "石家庄",
+              "category": "办公费/维修维护费",
+              "amount": 30.0,
+              "purpose": "现申请报销石家庄灯管更换人工费用30元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-07-19",
+              "city": "南宁",
+              "category": "印刷费",
+              "amount": 30.0,
+              "purpose": "现申请支付南宁固定资产标签贴纸打印费用30元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-07-20",
+              "city": "厦门",
+              "category": "印刷费",
+              "amount": 30.0,
+              "purpose": "现申请支付福州固定资产标签贴纸打印费用30元，先票后款",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 500.0,
+          "year": 2023,
+          "month": 8,
+          "count": 4,
+          "totalAmount": 2000.0,
+          "items": [
+            {
+              "date": "2023-08-10",
+              "city": "南京",
+              "category": "邮电通讯费",
+              "amount": 500.0,
+              "purpose": "现申请报销南京外呼系统预充值500元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-08-23",
+              "city": "上海",
+              "category": "办公费/清洁费",
+              "amount": 500.0,
+              "purpose": "现申请支付上海7月保洁费500元，为个人阿姨，无票支出",
+              "supplier": ""
+            },
+            {
+              "date": "2023-08-25",
+              "city": "上海",
+              "category": "邮电通讯费",
+              "amount": 500.0,
+              "purpose": "现申请报销苏州外呼充值费用500元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-08-25",
+              "city": "石家庄",
+              "category": "办公费/其他",
+              "amount": 500.0,
+              "purpose": "1.费用时间：2023年8月9日\n\n2.费用明细：桶装水；500元80桶。\n\n3.发票说明：有发票，",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 500.0,
+          "year": 2023,
+          "month": 10,
+          "count": 4,
+          "totalAmount": 2000.0,
+          "items": [
+            {
+              "date": "2023-10-08",
+              "city": "上海",
+              "category": "租赁费",
+              "amount": 500.0,
+              "purpose": "现申请支付苏州人才打印机9月租赁费500元（含超印费）\n\n1、名称：京瓷数码彩色复印机\n\n2、租赁期",
+              "supplier": ""
+            },
+            {
+              "date": "2023-10-10",
+              "city": "杭州",
+              "category": "办公费/维修维护费",
+              "amount": 500.0,
+              "purpose": "23楼茶水间两处漏水，找原装修师傅拆卸装饰物，上门及拆卸合计费用500元。",
+              "supplier": ""
+            },
+            {
+              "date": "2023-10-13",
+              "city": "上海",
+              "category": "办公费/清洁费",
+              "amount": 500.0,
+              "purpose": "现申请支付上海9月保洁费500元，为个人阿姨，无票支出",
+              "supplier": ""
+            },
+            {
+              "date": "2023-10-25",
+              "city": "上海",
+              "category": "邮电通讯费",
+              "amount": 500.0,
+              "purpose": "现申请报销苏州外呼充值费用500元，先票后款",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 500.0,
+          "year": 2023,
+          "month": 12,
+          "count": 4,
+          "totalAmount": 2000.0,
+          "items": [
+            {
+              "date": "2023-12-08",
+              "city": "上海",
+              "category": "租赁费",
+              "amount": 500.0,
+              "purpose": "现申请支付苏州人才打印机11月租赁费500元（含超印费）\n\n1、名称：京瓷数码彩色复印机\n\n2、租赁",
+              "supplier": ""
+            },
+            {
+              "date": "2023-12-08",
+              "city": "上海",
+              "category": "邮电通讯费",
+              "amount": 500.0,
+              "purpose": "现申请报销苏州外呼充值费用500元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-12-27",
+              "city": "上海",
+              "category": "办公费/清洁费",
+              "amount": 500.0,
+              "purpose": "现申请支付上海11月保洁费500元，为个人阿姨，无票支出",
+              "supplier": ""
+            },
+            {
+              "date": "2023-12-29",
+              "city": "广州",
+              "category": "办公费/维修维护费",
+              "amount": 500.0,
+              "purpose": "现申请支付电信布置交换机及6条线共计500元，先款后票",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 500.0,
+          "year": 2024,
+          "month": 1,
+          "count": 4,
+          "totalAmount": 2000.0,
+          "items": [
+            {
+              "date": "2024-01-08",
+              "city": "上海",
+              "category": "办公费/清洁费",
+              "amount": 500.0,
+              "purpose": "现申请支付上海12月保洁费500元，为个人阿姨，无票支出",
+              "supplier": ""
+            },
+            {
+              "date": "2024-01-08",
+              "city": "上海",
+              "category": "租赁费",
+              "amount": 500.0,
+              "purpose": "现申请支付苏州人才打印机12月租赁费500元（含超印费）\n\n1、名称：京瓷数码彩色复印机\n\n2、租赁",
+              "supplier": ""
+            },
+            {
+              "date": "2024-01-10",
+              "city": "南京",
+              "category": "IT费用",
+              "amount": 500.0,
+              "purpose": "现申请报销无锡宽带费用500元（含固话），先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2024-01-25",
+              "city": "杭州",
+              "category": "招聘费",
+              "amount": 500.0,
+              "purpose": "此次费用属于2023年12月外部推荐奖金",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 800.0,
+          "year": 2024,
+          "month": 1,
+          "count": 4,
+          "totalAmount": 3200.0,
+          "items": [
+            {
+              "date": "2024-01-29",
+              "city": "深圳",
+              "category": "办公费/清洁费",
+              "amount": 800.0,
+              "purpose": "深圳分公司申请⽀付科兴科学园A2单元1401保洁费⽤800元/⽉\n\n费⽤周期：2023年12月\n\n⽆",
+              "supplier": ""
+            },
+            {
+              "date": "2024-01-30",
+              "city": "上海",
+              "category": "办公费/其他",
+              "amount": 800.0,
+              "purpose": "现申请支付上海饮用水采购费用800元，16元/桶，50桶，对公打款，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2024-01-30",
+              "city": "杭州",
+              "category": "办公费/维修维护费",
+              "amount": 800.0,
+              "purpose": "两层楼地板维修共计花费1600元，22F和21F分摊金额各800元；",
+              "supplier": ""
+            },
+            {
+              "date": "2024-01-31",
+              "city": "杭州",
+              "category": "办公费/维修维护费",
+              "amount": 800.0,
+              "purpose": "现申请支付21楼地板维修费800元，21-22F共计花费1600元，各楼层分摊。",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 400.0,
+          "year": 2024,
+          "month": 2,
+          "count": 4,
+          "totalAmount": 1600.0,
+          "items": [
+            {
+              "date": "2024-02-06",
+              "city": "上海",
+              "category": "邮电通讯费",
+              "amount": 400.0,
+              "purpose": "现申请报销苏州外呼充值费用400元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2024-02-23",
+              "city": "上海",
+              "category": "邮电通讯费",
+              "amount": 400.0,
+              "purpose": "现申请报销苏州外呼充值费用400元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2024-02-23",
+              "city": "上海",
+              "category": "邮电通讯费",
+              "amount": 400.0,
+              "purpose": "现申请报销苏州服务固话充值费用400元，首次充值每个号码100起充，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2024-02-23",
+              "city": "上海",
+              "category": "办公费/办公文具及行政耗材",
+              "amount": 400.0,
+              "purpose": "苏州服务增加固话，无库存座机需新采购，4个，100元/个，共计400元，现申请报销，先票后款。",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 300.0,
+          "year": 2024,
+          "month": 4,
+          "count": 4,
+          "totalAmount": 1200.0,
+          "items": [
+            {
+              "date": "2024-04-07",
+              "city": "杭州",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "1.费用说明：2024年3月移动电话费用300元\n\n2.付款方式：对外付款\n\n3.付款时间：尽早支付",
+              "supplier": ""
+            },
+            {
+              "date": "2024-04-25",
+              "city": "青岛",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "现申请报销济南人才话费300元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2024-04-25",
+              "city": "杭州",
+              "category": "水电费",
+              "amount": 300.0,
+              "purpose": "现申请报销高管租赁房屋电费充值300元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2024-04-25",
+              "city": "长沙",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "现申请报销长沙SSC1-3月邮电通讯费300元，先票后款",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 500.0,
+          "year": 2024,
+          "month": 5,
+          "count": 4,
+          "totalAmount": 2000.0,
+          "items": [
+            {
+              "date": "2024-05-11",
+              "city": "上海",
+              "category": "租赁费",
+              "amount": 500.0,
+              "purpose": "现申请支付苏州人才打印机4月租赁费500元（含超印费）\n\n1、名称：京瓷数码彩色复印机\n\n2、租赁期",
+              "supplier": ""
+            },
+            {
+              "date": "2024-05-13",
+              "city": "上海",
+              "category": "办公费/清洁费",
+              "amount": 500.0,
+              "purpose": "现申请支付上海4月保洁费500元，为个人阿姨，无票支出",
+              "supplier": ""
+            },
+            {
+              "date": "2024-05-24",
+              "city": "上海",
+              "category": "邮电通讯费",
+              "amount": 500.0,
+              "purpose": "现申请报销苏州外呼充值费用500元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2024-05-24",
+              "city": "南京",
+              "category": "IT费用",
+              "amount": 500.0,
+              "purpose": "现申请报销无锡宽带费用500元（含固话），先票后款",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 500.0,
+          "year": 2024,
+          "month": 6,
+          "count": 4,
+          "totalAmount": 2000.0,
+          "items": [
+            {
+              "date": "2024-06-07",
+              "city": "南京",
+              "category": "IT费用",
+              "amount": 500.0,
+              "purpose": "现申请报销无锡宽带费用500元（含固话），先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2024-06-13",
+              "city": "上海",
+              "category": "租赁费",
+              "amount": 500.0,
+              "purpose": "现申请支付苏州人才打印机5月租赁费500元（含超印费）\n\n1、名称：京瓷数码彩色复印机\n\n2、租赁期",
+              "supplier": ""
+            },
+            {
+              "date": "2024-06-14",
+              "city": "上海",
+              "category": "办公费/清洁费",
+              "amount": 500.0,
+              "purpose": "现申请支付上海5月保洁费500元，为个人阿姨，无票支出",
+              "supplier": ""
+            },
+            {
+              "date": "2024-06-25",
+              "city": "上海",
+              "category": "邮电通讯费",
+              "amount": 500.0,
+              "purpose": "现申请报销苏州外呼充值费用500元，先票后款",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 150.0,
+          "year": 2024,
+          "month": 12,
+          "count": 4,
+          "totalAmount": 600.0,
+          "items": [
+            {
+              "date": "2024-12-06",
+              "city": "宁波",
+              "category": "租赁费",
+              "amount": 150.0,
+              "purpose": "现申请支付宁波11月打印机租赁费用150元，对公打款，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2024-12-10",
+              "city": "南京",
+              "category": "邮电通讯费",
+              "amount": 150.0,
+              "purpose": "现申请报销无锡SSC固话充值费50元，南京SSC固话充值费用100元，共计150元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2024-12-24",
+              "city": "杭州",
+              "category": "物业费",
+              "amount": 150.0,
+              "purpose": "现申支付浙江商会大厦22-23楼物业维修服务费用150元，先票后款，费用明细可见附录",
+              "supplier": ""
+            },
+            {
+              "date": "2024-12-25",
+              "city": "武汉",
+              "category": "办公费/其他",
+              "amount": 150.0,
+              "purpose": "武汉子公司（武汉今元人才人力资源有限公司）\n\n新制合同章，合计：￥150",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 800.0,
+          "year": 2025,
+          "month": 1,
+          "count": 3,
+          "totalAmount": 2400.0,
+          "items": [
+            {
+              "date": "2025-01-03",
+              "city": "深圳",
+              "category": "办公费/清洁费",
+              "amount": 800.0,
+              "purpose": "深圳分公司申请⽀付科兴科学园A2单元1401保洁费⽤800元/⽉\n\n费⽤周期：2024年12月\n\n⽆",
+              "supplier": ""
+            },
+            {
+              "date": "2025-01-24",
+              "city": "深圳",
+              "category": "办公费/清洁费",
+              "amount": 800.0,
+              "purpose": "深圳分公司申请⽀付科兴科学园A2单元1401保洁费⽤800元/⽉\n\n费⽤周期：2025年1月\n\n⽆票",
+              "supplier": ""
+            },
+            {
+              "date": "2025-01-24",
+              "city": "广州",
+              "category": "办公费/清洁费",
+              "amount": 800.0,
+              "purpose": "现申请支付1月广州的固定清洁费800元，个人阿姨，无票支出",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 1500.0,
+          "year": 2025,
+          "month": 1,
+          "count": 3,
+          "totalAmount": 4500.0,
+          "items": [
+            {
+              "date": "2025-01-03",
+              "city": "上海",
+              "category": "办公费/清洁费",
+              "amount": 1500.0,
+              "purpose": "现申请支付上海12月保洁费1500元，为个人阿姨，无票支出",
+              "supplier": ""
+            },
+            {
+              "date": "2025-01-08",
+              "city": "梅州",
+              "category": "房租费",
+              "amount": 1500.0,
+              "purpose": "现申请江苏今元人才科技有限公司梅州分公司2025年1月份办公地址租金费用，房子租期：2024年2月1",
+              "supplier": ""
+            },
+            {
+              "date": "2025-01-24",
+              "city": "上海",
+              "category": "办公费/清洁费",
+              "amount": 1500.0,
+              "purpose": "现申请支付上海1月保洁费1500元，为个人阿姨，无票支出",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 100.0,
+          "year": 2025,
+          "month": 1,
+          "count": 3,
+          "totalAmount": 300.0,
+          "items": [
+            {
+              "date": "2025-01-10",
+              "city": "南京",
+              "category": "邮电通讯费",
+              "amount": 100.0,
+              "purpose": "现申请报销南京销售的固话费用100元，先票后款\n\n注：此次充值100元，总余额为129元",
+              "supplier": ""
+            },
+            {
+              "date": "2025-01-10",
+              "city": "武汉",
+              "category": "邮电通讯费",
+              "amount": 100.0,
+              "purpose": "现申请报销武汉销售固话充值费用100元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2025-01-21",
+              "city": "宁波",
+              "category": "办公费/维修维护费",
+              "amount": 100.0,
+              "purpose": "现申请支付宁波办公室顶灯更换和物业服务费用共计100元，先票后款",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 300.0,
+          "year": 2025,
+          "month": 1,
+          "count": 3,
+          "totalAmount": 900.0,
+          "items": [
+            {
+              "date": "2025-01-10",
+              "city": "合肥",
+              "category": "IT费用",
+              "amount": 300.0,
+              "purpose": "因合肥11月专线拆机较迟，导致12月宽带欠费，现由员工垫付预存费用300元。下月电信会把账单调整好，",
+              "supplier": ""
+            },
+            {
+              "date": "2025-01-13",
+              "city": "杭州",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "1.费用说明：2024年12月移动电话费用300元\n\n2.付款方式：对外付款\n\n3.付款时间：尽早支",
+              "supplier": ""
+            },
+            {
+              "date": "2025-01-16",
+              "city": "厦门",
+              "category": "办公费/其他",
+              "amount": 300.0,
+              "purpose": "现申请支付厦门采购桶装水费用300元，20桶，15元/桶，先票后款",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 500.0,
+          "year": 2025,
+          "month": 2,
+          "count": 3,
+          "totalAmount": 1500.0,
+          "items": [
+            {
+              "date": "2025-02-10",
+              "city": "南京",
+              "category": "IT费用",
+              "amount": 500.0,
+              "purpose": "现申请报销无锡宽带费用500元（含固话），先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2025-02-13",
+              "city": "上海",
+              "category": "租赁费",
+              "amount": 500.0,
+              "purpose": "现在申请支付上海2025.1.6-2025.2.6打印机租赁费500元，详情如下：\n\n1.月基础租赁",
+              "supplier": ""
+            },
+            {
+              "date": "2025-02-25",
+              "city": "南京",
+              "category": "IT费用",
+              "amount": 500.0,
+              "purpose": "现申请报销无锡宽带费用500元（含固话），先票后款",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 150.0,
+          "year": 2025,
+          "month": 3,
+          "count": 3,
+          "totalAmount": 450.0,
+          "items": [
+            {
+              "date": "2025-03-06",
+              "city": "宁波",
+              "category": "租赁费",
+              "amount": 150.0,
+              "purpose": "现申请支付宁波2月打印机租赁费用150元，对公打款，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2025-03-10",
+              "city": "南京",
+              "category": "邮电通讯费",
+              "amount": 150.0,
+              "purpose": "现申请报销南京SSC固话充值费用150元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2025-03-13",
+              "city": "合肥",
+              "category": "邮电通讯费",
+              "amount": 150.0,
+              "purpose": "1.费用说明：合肥2025年3月移动电话费用150元（更换电信固话，额外开3个副卡，内含语音包3个，",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 1500.0,
+          "year": 2025,
+          "month": 3,
+          "count": 3,
+          "totalAmount": 4500.0,
+          "items": [
+            {
+              "date": "2025-03-10",
+              "city": "梅州",
+              "category": "房租费",
+              "amount": 1500.0,
+              "purpose": "现申请江苏今元人才科技有限公司梅州分公司2025年3月份办公地址租金费用，房子租期：2024年2月1",
+              "supplier": ""
+            },
+            {
+              "date": "2025-03-12",
+              "city": "昆明",
+              "category": "办公费/其他",
+              "amount": 1500.0,
+              "purpose": "涉及到昆明分公司地址租赁的综合服务费：1500/年，截至本周，昆明人才自户在保人数为 2041 人。",
+              "supplier": ""
+            },
+            {
+              "date": "2025-03-31",
+              "city": "上海",
+              "category": "办公费/清洁费",
+              "amount": 1500.0,
+              "purpose": "现申请支付上海3月保洁费1500元，为个人阿姨，无票支出",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 100.0,
+          "year": 2025,
+          "month": 4,
+          "count": 3,
+          "totalAmount": 300.0,
+          "items": [
+            {
+              "date": "2025-04-03",
+              "city": "青岛",
+              "category": "邮电通讯费",
+              "amount": 100.0,
+              "purpose": "现申请报销济南3月固话充值费100元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2025-04-10",
+              "city": "武汉",
+              "category": "邮电通讯费",
+              "amount": 100.0,
+              "purpose": "现申请报销武汉销售固话充值费用100元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2025-04-18",
+              "city": "郑州",
+              "category": "办公费/清洁费",
+              "amount": 100.0,
+              "purpose": "现申请给郑州3月保洁费用再打款100元，为个人阿姨，无票支出\n\n\n\n\n\n注：因保洁阿姨每月清洁费共计",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 320.0,
+          "year": 2023,
+          "month": 5,
+          "count": 3,
+          "totalAmount": 960.0,
+          "items": [
+            {
+              "date": "2023-05-05",
+              "city": "天津",
+              "category": "办公费/其他",
+              "amount": 320.0,
+              "purpose": "天津饮用水水票20张，共计320元，单价16元/桶，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-05-26",
+              "city": "天津",
+              "category": "办公费/其他",
+              "amount": 320.0,
+              "purpose": "天津分公司4月桶装水费用，共计320元",
+              "supplier": ""
+            },
+            {
+              "date": "2023-05-30",
+              "city": "天津",
+              "category": "办公费/其他",
+              "amount": 320.0,
+              "purpose": "天津饮用水水票20张，共计320元，单价16元/桶，先票后款",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 200.0,
+          "year": 2023,
+          "month": 5,
+          "count": 3,
+          "totalAmount": 600.0,
+          "items": [
+            {
+              "date": "2023-05-09",
+              "city": "厦门",
+              "category": "IT费用",
+              "amount": 200.0,
+              "purpose": "厦门5月宽带费垫付200，申请支付到工资卡",
+              "supplier": ""
+            },
+            {
+              "date": "2023-05-10",
+              "city": "杭州",
+              "category": "招聘费",
+              "amount": 200.0,
+              "purpose": "招聘组使用的呼叫电话，中国移动-话费充值，本次共充值200元",
+              "supplier": ""
+            },
+            {
+              "date": "2023-05-17",
+              "city": "杭州",
+              "category": "办公费/维修维护费",
+              "amount": 200.0,
+              "purpose": "现申请支付21楼固话故障维修费200元，先款后票",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 100.0,
+          "year": 2023,
+          "month": 5,
+          "count": 3,
+          "totalAmount": 300.0,
+          "items": [
+            {
+              "date": "2023-05-05",
+              "city": "重庆",
+              "category": "IT费用",
+              "amount": 100.0,
+              "purpose": "重庆新址宽带布线费用：1600元;\n\n上次支付1500，少支付100元，现申请支付",
+              "supplier": ""
+            },
+            {
+              "date": "2023-05-09",
+              "city": "济南",
+              "category": "邮电通讯费",
+              "amount": 100.0,
+              "purpose": "现申请济南4月的电话费充值100元垫付报销。",
+              "supplier": ""
+            },
+            {
+              "date": "2023-05-11",
+              "city": "南京",
+              "category": "邮电通讯费",
+              "amount": 100.0,
+              "purpose": "现申请报销南京SSC固话充值费用100元，先票后款",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 1500.0,
+          "year": 2023,
+          "month": 4,
+          "count": 3,
+          "totalAmount": 4500.0,
+          "items": [
+            {
+              "date": "2023-04-04",
+              "city": "大连",
+              "category": "邮电通讯费",
+              "amount": 1500.0,
+              "purpose": "大连分公司座机话费余额不足 申请4月座机费用1500元\n\n对公打款 先款后票\n\n附件为付款通知书",
+              "supplier": ""
+            },
+            {
+              "date": "2023-04-10",
+              "city": "重庆",
+              "category": "IT费用",
+              "amount": 1500.0,
+              "purpose": "重庆新址宽带布线费用：1500元",
+              "supplier": ""
+            },
+            {
+              "date": "2023-04-27",
+              "city": "重庆",
+              "category": "IT费用",
+              "amount": 1500.0,
+              "purpose": "重庆新址宽带布线费用：1500元\n\n备注：因之前费用打错，付给了移动宽带1500，已与移动宽带供应商",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 150.9,
+          "year": 2023,
+          "month": 3,
+          "count": 3,
+          "totalAmount": 452.7,
+          "items": [
+            {
+              "date": "2023-03-20",
+              "city": "南京",
+              "category": "水电费",
+              "amount": 150.9,
+              "purpose": "现申请支付南京分公司水费：150.9元\n\n1、22年10月21日-22年12月31日 水费：150.",
+              "supplier": ""
+            },
+            {
+              "date": "2023-03-21",
+              "city": "南京",
+              "category": "水电费",
+              "amount": 150.9,
+              "purpose": "现申请支付南京10.21-12.31水费150.9元，对公打款，先款后票",
+              "supplier": ""
+            },
+            {
+              "date": "2023-03-23",
+              "city": "南京",
+              "category": "水电费",
+              "amount": 150.9,
+              "purpose": "南京办公室2月水费，共计：150.9元",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 800.0,
+          "year": 2023,
+          "month": 3,
+          "count": 3,
+          "totalAmount": 2400.0,
+          "items": [
+            {
+              "date": "2023-03-07",
+              "city": "成都",
+              "category": "办公费/清洁费",
+              "amount": 800.0,
+              "purpose": "成都3月清洁费800元，附件为发票",
+              "supplier": ""
+            },
+            {
+              "date": "2023-03-13",
+              "city": "深圳",
+              "category": "办公费/清洁费",
+              "amount": 800.0,
+              "purpose": "深圳分公司申请⽀付科兴科学园A2单元1401保洁费⽤800元/⽉\n\n费⽤周期：2023年2月\n\n⽆票",
+              "supplier": ""
+            },
+            {
+              "date": "2023-03-16",
+              "city": "上海",
+              "category": "办公费/其他",
+              "amount": 800.0,
+              "purpose": "现申请支付上海饮用水采购费用800元，16元/桶，50桶，对公打款，先票后款",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 1000.0,
+          "year": 2023,
+          "month": 7,
+          "count": 3,
+          "totalAmount": 3000.0,
+          "items": [
+            {
+              "date": "2023-07-03",
+              "city": "青岛",
+              "category": "水电费",
+              "amount": 1000.0,
+              "purpose": "现申请充值济南分公司电费1000元，对公打款，先款后票",
+              "supplier": ""
+            },
+            {
+              "date": "2023-07-18",
+              "city": "沈阳",
+              "category": "水电费",
+              "amount": 1000.0,
+              "purpose": "沈阳城市站申请充值1000元电费，对公打款，先款后票，烦请尽早支付谢谢",
+              "supplier": ""
+            },
+            {
+              "date": "2023-07-31",
+              "city": "合肥",
+              "category": "水电费",
+              "amount": 1000.0,
+              "purpose": "合肥分公司申请充值1000元电费，对公打款，先款后票",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 300.0,
+          "year": 2023,
+          "month": 7,
+          "count": 3,
+          "totalAmount": 900.0,
+          "items": [
+            {
+              "date": "2023-07-04",
+              "city": "北京",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "现申请支付北京人才通讯充值费用300元，对公打款，先款后票",
+              "supplier": ""
+            },
+            {
+              "date": "2023-07-10",
+              "city": "青岛",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "现申请报销济南人才话费300元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-07-12",
+              "city": "杭州",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "1.费用说明：2023年6月移动电话费用300元\n\n2.付款方式：对外付款\n\n3.付款时间：尽早支付",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 300.0,
+          "year": 2023,
+          "month": 8,
+          "count": 3,
+          "totalAmount": 900.0,
+          "items": [
+            {
+              "date": "2023-08-03",
+              "city": "北京",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "现申请支付北京人才通讯充值费用300元，对公打款，先款后票",
+              "supplier": ""
+            },
+            {
+              "date": "2023-08-07",
+              "city": "杭州",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "1.费用说明：2023年7月移动电话费用300元\n\n2.付款方式：对外付款\n\n3.付款时间：尽早支付",
+              "supplier": ""
+            },
+            {
+              "date": "2023-08-25",
+              "city": "杭州",
+              "category": "办公费/维修维护费",
+              "amount": 300.0,
+              "purpose": "GSC罗心玥工位电话线故障，弱电师傅上门费用120元，维修费用145元，电话插孔面板35元，合计30",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 300.0,
+          "year": 2023,
+          "month": 9,
+          "count": 3,
+          "totalAmount": 900.0,
+          "items": [
+            {
+              "date": "2023-09-11",
+              "city": "杭州",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "1.费用说明：2023年8月移动电话费用300元\n\n2.付款方式：对外付款\n\n3.付款时间：尽早支付",
+              "supplier": ""
+            },
+            {
+              "date": "2023-09-15",
+              "city": "南京",
+              "category": "装修费",
+              "amount": 300.0,
+              "purpose": "现申请支付无锡新办公地址LOGO墙射灯采购安装费300元，先款后票",
+              "supplier": ""
+            },
+            {
+              "date": "2023-09-18",
+              "city": "杭州",
+              "category": "租赁费",
+              "amount": 300.0,
+              "purpose": "浙江分公司-宁波2023年7-8月打印机租赁费共计300元，150元/月，对公打款",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 500.0,
+          "year": 2023,
+          "month": 11,
+          "count": 3,
+          "totalAmount": 1500.0,
+          "items": [
+            {
+              "date": "2023-11-06",
+              "city": "重庆",
+              "category": "办公费/其他",
+              "amount": 500.0,
+              "purpose": "现申请支付重庆饮用水采购费用500元，10元/张，采购50张，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-11-10",
+              "city": "福州",
+              "category": "办公费/维修维护费",
+              "amount": 500.0,
+              "purpose": "现申请报销福州网络线路维修费500元，先款后票",
+              "supplier": ""
+            },
+            {
+              "date": "2023-11-13",
+              "city": "上海",
+              "category": "办公费/清洁费",
+              "amount": 500.0,
+              "purpose": "现申请支付上海10月保洁费500元，为个人阿姨，无票支出",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 300.0,
+          "year": 2023,
+          "month": 11,
+          "count": 3,
+          "totalAmount": 900.0,
+          "items": [
+            {
+              "date": "2023-11-07",
+              "city": "杭州",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "1.费用说明：2023年10月移动电话费用300元\n\n2.付款方式：对外付款\n\n3.付款时间：尽早支",
+              "supplier": ""
+            },
+            {
+              "date": "2023-11-10",
+              "city": "杭州",
+              "category": "水电费",
+              "amount": 300.0,
+              "purpose": "现申请报销高管租赁房屋电费300元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-11-10",
+              "city": "宜昌",
+              "category": "办公费/其他",
+              "amount": 300.0,
+              "purpose": "成立宜昌人才分公司，刻公章、财务章、法人私章，共计300元。",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 200.0,
+          "year": 2023,
+          "month": 11,
+          "count": 3,
+          "totalAmount": 600.0,
+          "items": [
+            {
+              "date": "2023-11-10",
+              "city": "广州",
+              "category": "邮电通讯费",
+              "amount": 200.0,
+              "purpose": "现申请报销广州销售办理电话卡开卡费用200元，审批可见附件，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-11-10",
+              "city": "北京",
+              "category": "邮电通讯费",
+              "amount": 200.0,
+              "purpose": "现申请报销北京广电卡话费及开卡费用200元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-11-10",
+              "city": "襄阳",
+              "category": "办公费/其他",
+              "amount": 200.0,
+              "purpose": "成立襄阳人才分公司，刻财务章、法人私章，共计200元（公章免费）。",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 800.0,
+          "year": 2023,
+          "month": 11,
+          "count": 3,
+          "totalAmount": 2400.0,
+          "items": [
+            {
+              "date": "2023-11-10",
+              "city": "南京",
+              "category": "邮电通讯费",
+              "amount": 800.0,
+              "purpose": "现申请报销无锡外呼系统预充值300元和电信话费500元（含宽带），先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-11-22",
+              "city": "西安",
+              "category": "办公费/其他",
+              "amount": 800.0,
+              "purpose": "因西安无线网络信号差，现采购两台AP设备，含设备调试800元，对公打款，先款后票",
+              "supplier": ""
+            },
+            {
+              "date": "2023-11-28",
+              "city": "深圳",
+              "category": "办公费/清洁费",
+              "amount": 800.0,
+              "purpose": "深圳分公司申请⽀付科兴科学园A2单元1401保洁费⽤800元/⽉\n\n费⽤周期：2023年10月\n\n⽆",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 1000.0,
+          "year": 2023,
+          "month": 11,
+          "count": 3,
+          "totalAmount": 3000.0,
+          "items": [
+            {
+              "date": "2023-11-17",
+              "city": "上海",
+              "category": "办公费/清洁费",
+              "amount": 1000.0,
+              "purpose": "现申请支付上海办公室灭鼠消杀蟑螂费用1000元，先票后款",
+              "supplier": ""
+            },
+            {
+              "date": "2023-11-20",
+              "city": "合肥",
+              "category": "水电费",
+              "amount": 1000.0,
+              "purpose": "合肥分公司申请充值1000元电费，对公打款，先款后票",
+              "supplier": ""
+            },
+            {
+              "date": "2023-11-30",
+              "city": "青岛",
+              "category": "水电费",
+              "amount": 1000.0,
+              "purpose": "现申请充值济南办公室电费1000元，对公打款，先款后票",
+              "supplier": ""
+            }
+          ]
+        },
+        {
+          "level": "high",
+          "supplier": "",
+          "amount": 300.0,
+          "year": 2023,
+          "month": 12,
+          "count": 3,
+          "totalAmount": 900.0,
+          "items": [
+            {
+              "date": "2023-12-08",
+              "city": "杭州",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "1.费用说明：2023年11月移动电话费用300元\n\n2.付款方式：对外付款\n\n3.付款时间：尽早支",
+              "supplier": ""
+            },
+            {
+              "date": "2023-12-28",
+              "city": "洛阳",
+              "category": "房租费",
+              "amount": 300.0,
+              "purpose": "河南今元嘉和人力资源服务有限公司洛阳分公司2024年1月-12月使用中浩德电子商务产业园（洛阳）有限",
+              "supplier": ""
+            },
+            {
+              "date": "2023-12-29",
+              "city": "青岛",
+              "category": "邮电通讯费",
+              "amount": 300.0,
+              "purpose": "现申请报销济南人才话费300元，先票后款",
+              "supplier": ""
+            }
+          ]
+        }
+      ]
     }
   },
   "computers": {
@@ -4306,6 +6394,6 @@
       }
     ]
   },
-  "lastUpdated": "2026-06-01 18:12",
+  "lastUpdated": "2026-06-01 18:23",
   "source": "feishu"
 }

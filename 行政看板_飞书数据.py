@@ -337,9 +337,141 @@ def _aggregate_for_year(records, year):
     }
 
 
+def detect_duplicates(records):
+    """检测疑似重复费用记录。
+
+    分级规则：
+    - 高危(high)：同供应商 + 同金额(分) + 同月 + 不同流程编号
+    - 中危(medium)：同城市 + 同类别 + 同金额 + 同月 + 不同流程编号
+    - 低危(low)：同供应商 + 同金额 + 同季度
+
+    返回: { "summary": {...}, "byYear": {...}, "groups": [...] }
+    """
+    if not records:
+        return {"summary": {"totalGroups": 0, "totalRecords": 0, "totalAmount": 0, "highGroups": 0, "mediumGroups": 0, "lowGroups": 0}, "byYear": {}, "groups": []}
+
+    # 过滤掉金额为 0 的记录
+    valid = [r for r in records if r["amount"] > 0]
+
+    # 高危：同供应商 + 同金额 + 同月
+    high_map = defaultdict(list)
+    for r in valid:
+        key = (r["supplier"], round(r["amount"], 2), r["year"], r["month"])
+        high_map[key].append(r)
+
+    high_groups = []
+    for key, recs in high_map.items():
+        if len(recs) < 2:
+            continue
+        flow_ids = set(r["flow_id"] for r in recs)
+        if len(flow_ids) < 2:
+            continue
+        high_groups.append(recs)
+
+    # 中危：同城市 + 同类别(前两级) + 同金额 + 同月（排除已在高危中的）
+    high_flow_ids = set()
+    for g in high_groups:
+        for r in g:
+            high_flow_ids.add(r["flow_id"])
+
+    medium_map = defaultdict(list)
+    for r in valid:
+        if r["flow_id"] in high_flow_ids:
+            continue
+        cat_short = r["category"].split("/")[0] if "/" in r["category"] else r["category"]
+        key = (r["city"], cat_short, round(r["amount"], 2), r["year"], r["month"])
+        medium_map[key].append(r)
+
+    medium_groups = []
+    for key, recs in medium_map.items():
+        if len(recs) < 2:
+            continue
+        flow_ids = set(r["flow_id"] for r in recs)
+        if len(flow_ids) < 2:
+            continue
+        medium_groups.append(recs)
+
+    # 合并并按记录数排序
+    all_groups = []
+    for g in high_groups:
+        all_groups.append({"level": "high", "records": g})
+    for g in medium_groups:
+        all_groups.append({"level": "medium", "records": g})
+
+    all_groups.sort(key=lambda x: -len(x["records"]))
+
+    # 构建输出（TOP 50 组）
+    groups_out = []
+    for g in all_groups[:50]:
+        recs = g["records"]
+        supplier = recs[0]["supplier"][:30]
+        amt = round(recs[0]["amount"], 2)
+        yr = recs[0]["year"]
+        mo = recs[0]["month"]
+        total_amt = round(sum(r["amount"] for r in recs), 2)
+        items = []
+        for r in sorted(recs, key=lambda x: x["date"]):
+            items.append({
+                "date": r["date"],
+                "city": r["city"],
+                "category": r["category"].replace("日常行政费用/", ""),
+                "amount": round(r["amount"], 2),
+                "purpose": r["purpose"][:50],
+                "supplier": r["supplier"][:20],
+            })
+        groups_out.append({
+            "level": g["level"],
+            "supplier": supplier,
+            "amount": amt,
+            "year": yr,
+            "month": mo,
+            "count": len(recs),
+            "totalAmount": total_amt,
+            "items": items,
+        })
+
+    # 汇总统计
+    all_recs = set()
+    total_amt = 0
+    high_count = 0
+    medium_count = 0
+    for g in all_groups:
+        for r in g["records"]:
+            all_recs.add(r["flow_id"])
+            total_amt += r["amount"]
+        if g["level"] == "high":
+            high_count += 1
+        else:
+            medium_count += 1
+
+    # 按年份统计
+    by_year = defaultdict(lambda: {"groups": 0, "records": 0, "amount": 0})
+    for g in all_groups:
+        yr = str(g["records"][0]["year"])
+        by_year[yr]["groups"] += 1
+        by_year[yr]["records"] += len(g["records"])
+        by_year[yr]["amount"] += round(sum(r["amount"] for r in g["records"]), 2)
+
+    return {
+        "summary": {
+            "totalGroups": len(all_groups),
+            "totalRecords": len(all_recs),
+            "totalAmount": round(total_amt, 2),
+            "highGroups": high_count,
+            "mediumGroups": medium_count,
+            "lowGroups": 0,
+        },
+        "byYear": {yr: by_year[yr] for yr in sorted(by_year)},
+        "groups": groups_out,
+    }
+
+
 def aggregate_expenses(records):
     """聚合费用数据 — 全量 + 按年份"""
     all_years = sorted(set(r["year"] for r in records if r["year"] >= 2023))
+
+    # 重复检测
+    dup_check = detect_duplicates(records)
 
     # 按年份分别聚合
     by_year = {}
@@ -431,6 +563,7 @@ def aggregate_expenses(records):
         "latestExpenses": latest,
         "availableYears": all_years,
         "byYear": by_year,
+        "dupCheck": dup_check,
     }
 
 
