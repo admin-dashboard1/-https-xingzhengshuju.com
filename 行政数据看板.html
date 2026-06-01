@@ -327,6 +327,13 @@
     <div class="card">
       <h3>📍 全国各城市费用分布</h3>
       <div class="chart-container" style="height:380px"><canvas id="cityChart"></canvas></div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;font-size:11px;color:var(--text-secondary);padding:0 4px;">
+        <span>🔴 远高于城市均值（&gt;1.5x）</span>
+        <span>🟠 偏高（1.2-1.5x）</span>
+        <span style="color:#42a5f5">● 正常范围</span>
+        <span>🔵 偏低（0.3-0.5x）</span>
+        <span>⬇️ 远低于均值（&lt;0.3x）</span>
+      </div>
     </div>
     <div class="card">
       <h3>📊 每日出款趋势（近90天）</h3>
@@ -823,19 +830,61 @@ function render(data) {
     }
   });
 
-  // --- City ---
+  // --- City (with anomaly detection) ---
   const cities = e.cityDistribution;
+  // 计算城市均额和中位数，用于异常检测
+  const cityAmounts = cities.map(c => c.amount);
+  const cityAvg = cityAmounts.reduce((a, b) => a + b, 0) / cityAmounts.length;
+  // 计算每个城市的异常等级和单笔金额
+  const cityAnomalies = cities.map(c => {
+    const ratio = c.amount / cityAvg;
+    const perBill = c.count > 0 ? c.amount / c.count : 0;
+    const allPerBill = cities.reduce((s, cc) => s + (cc.count > 0 ? cc.amount / cc.count : 0), 0) / cities.length;
+    const perBillRatio = allPerBill > 0 ? perBill / allPerBill : 1;
+    let level = 'normal', color = '#42a5f5', label = '';
+    if (ratio > 1.5) { level = 'very-high'; color = '#e53935'; label = '远高于均值'; }
+    else if (ratio > 1.2) { level = 'high'; color = '#fb8c00'; label = '偏高'; }
+    else if (ratio < 0.3) { level = 'very-low'; color = '#90a4ae'; label = '远低于均值'; }
+    else if (ratio < 0.5) { level = 'low'; color = '#78909c'; label = '偏低'; }
+    return { ...c, ratio, perBill, level, color, label };
+  });
+
   const ctx3 = document.getElementById('cityChart').getContext('2d');
   if (charts.city) charts.city.destroy();
   charts.city = new Chart(ctx3, {
     type: 'bar',
     data: {
-      labels: cities.map(c => c.name),
-      datasets: [{ label: '费用金额', data: cities.map(c => c.amount), backgroundColor: '#42a5f5', borderRadius: 4 }]
+      labels: cityAnomalies.map(c => {
+        const tag = c.label ? ' ' + (c.level === 'very-high' ? '🔴' : c.level === 'high' ? '🟠' : c.level === 'very-low' ? '⬇️' : '🔵') : '';
+        return c.name + tag;
+      }),
+      datasets: [{
+        label: '费用金额',
+        data: cityAnomalies.map(c => c.amount),
+        backgroundColor: cityAnomalies.map(c => c.color),
+        borderRadius: 4
+      }]
     },
     options: {
       indexAxis: 'y', responsive: true, maintainAspectRatio: false, animation: { duration: 400 },
-      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => '¥' + ctx.parsed.x.toLocaleString() } } },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(ctx) {
+              const c = cityAnomalies[ctx.dataIndex];
+              let lines = ['💰 总额: ¥' + c.amount.toLocaleString()];
+              lines.push('📝 笔数: ' + c.count + ' 笔');
+              lines.push('💵 单笔均价: ¥' + Math.round(c.perBill).toLocaleString());
+              if (c.label) {
+                const emoji = c.level === 'very-high' ? '🔴' : c.level === 'high' ? '🟠' : c.level === 'very-low' ? '⬇️' : '🔵';
+                lines.push(emoji + ' ' + c.label + ' (为城市均值的 ' + c.ratio.toFixed(1) + ' 倍)');
+              }
+              return lines;
+            }
+          }
+        }
+      },
       scales: {
         x: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { callback: v => (v/10000).toFixed(0) + '万', font: {size: 10} } },
         y: { grid: { display: false }, ticks: { font: {size: 10} } }
