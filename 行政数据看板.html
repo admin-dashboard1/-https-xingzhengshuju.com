@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>行政管理数据看板 · 实时版</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --primary: #1a73e8;
+    --success: #34a853;
+    --warning: #fbbc04;
+    --danger: #ea4335;
+    --bg: #f0f2f5;
+    --card-bg: #ffffff;
+    --text: #202124;
+    --text-secondary: #5f6368;
+    --border: #e0e0e0;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08);
+    --radius: 12px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    padding: 20px;
+  }
+
+  /* Header */
+  .header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px; padding-bottom: 14px; border-bottom: 2px solid var(--primary);
+    flex-wrap: wrap; gap: 12px;
+  }
+  .header h1 { font-size: 22px; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+  .header-right { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  
+  /* Refresh controls */
+  .refresh-bar {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--card-bg); border-radius: 20px; padding: 6px 8px 6px 16px;
+    box-shadow: var(--shadow); font-size: 12px; color: var(--text-secondary);
+  }
+  .refresh-bar .countdown { font-variant-numeric: tabular-nums; min-width: 40px; text-align: center; font-weight: 600; color: var(--text); }
+  .refresh-bar select {
+    border: 1px solid var(--border); border-radius: 6px; padding: 3px 6px;
+    font-size: 12px; background: #fff; color: var(--text); cursor: pointer;
+  }
+  .btn-refresh {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 6px 14px; border: none; border-radius: 16px;
+    background: var(--primary); color: #fff; cursor: pointer;
+    font-size: 12px; font-weight: 500; transition: all 0.2s;
+  }
+  .btn-refresh:hover { background: #1557b0; }
+  .btn-refresh:active { transform: scale(0.96); }
+  .btn-refresh.loading { opacity: 0.7; pointer-events: none; }
+  .spinner { display: none; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; }
+  .btn-refresh.loading .spinner { display: inline-block; }
+  .btn-refresh.loading .btn-icon { display: none; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .update-time { font-size: 12px; color: var(--text-secondary); white-space: nowrap; }
+  .stale-warning {
+    display: none; align-items: center; gap: 4px;
+    font-size: 12px; color: var(--danger); font-weight: 500;
+    background: #fce8e6; padding: 4px 10px; border-radius: 12px;
+  }
+  .stale-warning.show { display: inline-flex; }
+
+  /* KPI Cards */
+  .kpi-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px; margin-bottom: 20px;
+  }
+  .kpi-card {
+    background: var(--card-bg); border-radius: var(--radius); padding: 18px 20px;
+    box-shadow: var(--shadow); border-left: 4px solid var(--primary);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .kpi-card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+  .kpi-card .label { font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; }
+  .kpi-card .value {
+    font-size: 26px; font-weight: 700; color: var(--text);
+    transition: color 0.3s;
+  }
+  .kpi-card .value.updated { color: var(--primary); }
+  .kpi-card .sub { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+  .kpi-card.danger { border-left-color: var(--danger); }
+  .kpi-card.success { border-left-color: var(--success); }
+  .kpi-card.warning { border-left-color: var(--warning); }
+  .kpi-card.today { border-left-color: #8e24aa; }
+
+  /* Charts grid */
+  .grid-2 {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;
+  }
+  .card {
+    background: var(--card-bg); border-radius: var(--radius); padding: 18px;
+    box-shadow: var(--shadow);
+  }
+  .card h3 { font-size: 14px; color: var(--text-secondary); margin-bottom: 14px; font-weight: 600; }
+  .chart-container { position: relative; width: 100%; }
+  .chart-container canvas { width: 100% !important; }
+
+  /* Table */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { background: #f0f4ff; color: var(--primary); padding: 9px 10px; text-align: left; font-weight: 600; white-space: nowrap; }
+  td { padding: 7px 10px; border-bottom: 1px solid var(--border); }
+  tr { transition: background 0.15s; }
+  tr:hover td { background: #f8f9ff; }
+  .status-tag {
+    display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 500;
+  }
+  .status-paid { background: #e6f4ea; color: #1e7e34; }
+  .status-pending { background: #fef7e0; color: #e37400; }
+  .amount { font-weight: 600; text-align: right; white-space: nowrap; }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 4px; margin-bottom: 16px; }
+  .tab-btn {
+    padding: 8px 20px; border: 1px solid var(--border); border-radius: 8px;
+    background: #fff; cursor: pointer; font-size: 13px; transition: all .2s;
+  }
+  .tab-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .tab-btn:hover:not(.active) { background: #f0f4ff; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Toast notification */
+  .toast {
+    position: fixed; top: 20px; right: 20px; z-index: 9999;
+    background: var(--success); color: #fff; padding: 10px 20px; border-radius: 8px;
+    font-size: 13px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateX(120%); transition: transform 0.3s ease;
+  }
+  .toast.show { transform: translateX(0); }
+  .toast.error { background: var(--danger); }
+
+  /* Pulse dot */
+  .pulse-dot {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--success); margin-right: 4px;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  @media (max-width: 768px) {
+    .grid-2 { grid-template-columns: 1fr; }
+    .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    body { padding: 12px; }
+    .header { flex-direction: column; align-items: flex-start; }
+    .refresh-bar { width: 100%; justify-content: space-between; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Header -->
+<div class="header">
+  <h1>📊 行政管理数据看板 <span style="font-size:12px;color:var(--text-secondary);font-weight:400;">实时版</span></h1>
+  <div class="header-right">
+    <div class="stale-warning" id="staleWarning">⚠️ 数据可能已过期</div>
+    <div class="refresh-bar">
+      <span class="pulse-dot" id="pulseDot"></span>
+      <span>下次刷新</span>
+      <span class="countdown" id="countdown">--:--</span>
+      <select id="intervalSelect" onchange="changeInterval()">
+        <option value="5" selected>5分钟</option>
+        <option value="15">15分钟</option>
+        <option value="30">30分钟</option>
+        <option value="60">60分钟</option>
+      </select>
+      <button class="btn-refresh" id="btnRefresh" onclick="manualRefresh()">
+        <span class="btn-icon">🔄</span>
+        <span class="spinner"></span>
+        刷新
+      </button>
+    </div>
+    <div class="update-time" id="updateTime">加载中...</div>
+  </div>
+</div>
+
+<!-- KPI Cards -->
+<div class="kpi-row" id="kpiCards">
+  <div class="kpi-card"><div class="label">💰 历史总费用</div><div class="value" id="totalAmount">-</div><div class="sub">累计支出总额</div></div>
+  <div class="kpi-card success"><div class="label">📈 月均费用 (2025)</div><div class="value" id="avgMonthly">-</div><div class="sub">全年月平均</div></div>
+  <div class="kpi-card warning"><div class="label">📅 本月费用 (6月)</div><div class="value" id="thisMonthTotal">-</div><div class="sub">含 <span id="thisMonthCount">0</span> 笔</div></div>
+  <div class="kpi-card today"><div class="label">🕐 今日出款</div><div class="value" id="todayAmount">-</div><div class="sub" id="todayLabel">-</div></div>
+</div>
+
+<!-- Tabs -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('expense')">💳 行政费用</button>
+  <button class="tab-btn" onclick="switchTab('asset')">💻 资产管理</button>
+</div>
+
+<!-- Tab 1: 费用 -->
+<div class="tab-content active" id="tab-expense">
+  <div class="grid-2">
+    <div class="card">
+      <h3>📈 月度费用趋势</h3>
+      <div class="chart-container" style="height:280px"><canvas id="monthlyTrendChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>🧩 费用类别分布（TOP 10）</h3>
+      <div class="chart-container" style="height:280px"><canvas id="categoryChart"></canvas></div>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <h3>📍 各城市费用分布（TOP 10）</h3>
+      <div class="chart-container" style="height:280px"><canvas id="cityChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>📊 2026年每日出款趋势（近90天）</h3>
+      <div class="chart-container" style="height:280px"><canvas id="dailyChart"></canvas></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>📋 最新出款记录</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>日期</th><th>供应商</th><th>城市</th><th>费用类别</th><th>金额(元)</th><th>用途</th><th>状态</th>
+        </tr></thead>
+        <tbody id="latestTable"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Tab 2: 资产 -->
+<div class="tab-content" id="tab-asset">
+  <div class="kpi-row" style="margin-bottom:14px">
+    <div class="kpi-card success"><div class="label">💻 电脑总数</div><div class="value" id="pcTotal">-</div><div class="sub">全部资产</div></div>
+    <div class="kpi-card success"><div class="label">✅ 在用</div><div class="value" id="pcInUse">-</div><div class="sub">正常使用</div></div>
+    <div class="kpi-card warning"><div class="label">💤 闲置</div><div class="value" id="pcIdle">-</div><div class="sub">待分配</div></div>
+    <div class="kpi-card danger"><div class="label">📦 退租/回收</div><div class="value" id="pcRetired">-</div><div class="sub">已处置</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <h3>🔄 电脑使用状态分布</h3>
+      <div class="chart-container" style="height:280px"><canvas id="pcStatusChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>📍 各城市电脑分布（TOP 10）</h3>
+      <div class="chart-container" style="height:280px"><canvas id="pcCityChart"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============ 实时刷新核心逻辑 ============
+
+let charts = {};
+let refreshTimer = null;
+let countdownTimer = null;
+let refreshInterval = 5; // 默认5分钟
+let secondsLeft = refreshInterval * 60;
+let lastDataTimestamp = null;
+
+const DATA_URL = './看板数据/dashboard_data.json';
+let dataLoaded = false;
+
+// 尝试从 file:// 加载内嵌数据
+function loadEmbeddedData() {
+  if (typeof EMBEDDED_DATA !== 'undefined' && EMBEDDED_DATA) {
+    render(EMBEDDED_DATA);
+    document.getElementById('updateTime').innerHTML =
+      '<span class="pulse-dot" style="animation:pulse 2s infinite;background:var(--success)"></span> 最后更新: ' + (EMBEDDED_DATA.lastUpdated || '内嵌数据');
+    dataLoaded = true;
+    return true;
+  }
+  return false;
+}
+const STALE_THRESHOLD_MS = 90 * 60 * 1000; // 1.5小时未更新视为过期（配合每小时自动化）
+
+// 格式化金额
+function fmt(num) {
+  if (num === undefined || num === null) return '-';
+  if (num >= 10000) return (num / 10000).toFixed(2) + ' 万';
+  return num.toLocaleString('zh-CN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+}
+
+function fmtNum(num) {
+  if (num === undefined || num === null) return '-';
+  return num.toLocaleString();
+}
+
+// Toast 提示
+let toastTimer = null;
+function showToast(msg, isError) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show' + (isError ? ' error' : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { el.classList.remove('show'); }, 2500);
+}
+
+// 更新倒计时显示
+function updateCountdown() {
+  const mins = Math.floor(secondsLeft / 60);
+  const secs = secondsLeft % 60;
+  document.getElementById('countdown').textContent =
+    String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+}
+
+// 重置倒计时
+function resetCountdown() {
+  secondsLeft = refreshInterval * 60;
+  updateCountdown();
+}
+
+// 开始倒计时
+function startCountdown() {
+  clearInterval(countdownTimer);
+  updateCountdown();
+  countdownTimer = setInterval(() => {
+    secondsLeft--;
+    if (secondsLeft <= 0) {
+      resetCountdown();
+      loadData(true); // 静默刷新
+    }
+    updateCountdown();
+  }, 1000);
+}
+
+// 设置刷新间隔
+function startRefreshLoop() {
+  clearInterval(refreshTimer);
+  clearInterval(countdownTimer);
+  resetCountdown();
+  startCountdown();
+  // 主定时器：到点触发刷新
+  refreshTimer = setInterval(() => {
+    loadData(true);
+    resetCountdown();
+  }, refreshInterval * 60 * 1000);
+}
+
+// 用户切换刷新间隔
+function changeInterval() {
+  refreshInterval = parseInt(document.getElementById('intervalSelect').value);
+  startRefreshLoop();
+  showToast('刷新间隔已设为 ' + refreshInterval + ' 分钟');
+}
+
+// 手动刷新
+function manualRefresh() {
+  loadData(false);
+}
+
+// 检查数据是否过期
+function checkStaleness() {
+  const warning = document.getElementById('staleWarning');
+  if (!lastDataTimestamp) return;
+  const now = new Date();
+  const dataTime = new Date(lastDataTimestamp);
+  const diff = now - dataTime;
+  if (diff > STALE_THRESHOLD_MS) {
+    warning.classList.add('show');
+    document.getElementById('pulseDot').style.background = 'var(--danger)';
+  } else {
+    warning.classList.remove('show');
+    document.getElementById('pulseDot').style.background = 'var(--success)';
+  }
+}
+
+// 核心：加载数据
+async function loadData(silent) {
+  const btn = document.getElementById('btnRefresh');
+  btn.classList.add('loading');
+
+  try {
+    const resp = await fetch(DATA_URL + '?t=' + Date.now(), {
+      cache: 'no-store',
+      headers: { 'Cache-Control': 'no-cache' }
+    });
+
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+
+    const data = await resp.json();
+    render(data);
+    dataLoaded = true;
+
+    // 记录数据时间戳
+    if (data.lastUpdated) {
+      lastDataTimestamp = data.lastUpdated;
+    }
+
+    document.getElementById('updateTime').innerHTML =
+      '<span class="pulse-dot" style="animation:pulse 2s infinite;background:var(--success)"></span> 最后更新: ' + data.lastUpdated;
+
+    checkStaleness();
+
+    if (!silent) {
+      showToast('✅ 数据已刷新');
+      // KPI 闪烁效果
+      document.querySelectorAll('.kpi-card .value').forEach(el => {
+        el.classList.add('updated');
+        setTimeout(() => el.classList.remove('updated'), 600);
+      });
+    }
+  } catch(e) {
+    console.error('fetch 加载失败，尝试内嵌数据:', e.message);
+    // 如果 fetch 失败且内嵌数据还没加载过，用内嵌数据
+    if (!dataLoaded && loadEmbeddedData()) {
+      if (!silent) showToast('📋 显示内嵌数据（无法连接实时数据源）');
+    } else if (dataLoaded) {
+      // 之前加载成功过，这次只是刷新失败，保留现有数据
+      console.log('刷新失败，保留现有数据');
+      if (!silent) showToast('⚠️ 刷新失败，显示最近一次数据');
+    } else {
+      document.getElementById('updateTime').textContent = '⚠️ 无法加载数据';
+      document.getElementById('pulseDot').style.background = 'var(--danger)';
+      if (!silent) showToast('❌ 数据加载失败: ' + e.message, true);
+    }
+  } finally {
+    btn.classList.remove('loading');
+  }
+}
+
+// 切换 Tab
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  // 找到被点击的按钮并激活
+  const btns = document.querySelectorAll('.tab-btn');
+  btns.forEach(b => {
+    if (b.textContent.includes(name === 'expense' ? '行政费用' : '资产管理')) {
+      b.classList.add('active');
+    }
+  });
+  setTimeout(() => {
+    Object.values(charts).forEach(c => { if (c) c.resize(); });
+  }, 150);
+}
+
+// ============ 渲染逻辑 ============
+
+function render(data) {
+  const e = data.expenses;
+  const c = data.computers;
+
+  // KPI
+  document.getElementById('totalAmount').textContent = fmt(e.totalAmount);
+  document.getElementById('avgMonthly').textContent = fmt(e.avgMonthly);
+  document.getElementById('thisMonthTotal').textContent = fmt(e.thisMonthTotal);
+  document.getElementById('thisMonthCount').textContent = e.thisMonthCount;
+  document.getElementById('todayAmount').textContent = fmt(e.todayAmount);
+  document.getElementById('todayLabel').textContent =
+    '2026-' + String(new Date().getMonth() + 1).padStart(2, '0') + '-' + String(new Date().getDate()).padStart(2, '0');
+
+  // Asset KPIs
+  document.getElementById('pcTotal').textContent = fmtNum(c.total);
+  document.getElementById('pcInUse').textContent = fmtNum(c.inUse);
+  document.getElementById('pcIdle').textContent = fmtNum(c.idle);
+  document.getElementById('pcRetired').textContent = fmtNum(c.retired);
+
+  // --- Monthly Trend ---
+  const monthly = e.monthlyTrend.filter(m => {
+    const [y] = m.label.split('-').map(Number);
+    return y >= 2025;
+  });
+  const ctx1 = document.getElementById('monthlyTrendChart').getContext('2d');
+  if (charts.monthly) charts.monthly.destroy();
+  charts.monthly = new Chart(ctx1, {
+    type: 'line',
+    data: {
+      labels: monthly.map(m => m.label),
+      datasets: [{
+        label: '月度费用',
+        data: monthly.map(m => m.amount),
+        borderColor: '#1a73e8',
+        backgroundColor: 'rgba(26,115,232,0.08)',
+        fill: true,
+        tension: 0.3,
+        pointRadius: 3,
+        pointBackgroundColor: '#1a73e8',
+        borderWidth: 2,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      animation: { duration: 400 },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => '¥' + ctx.parsed.y.toLocaleString() } }
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { maxTicksLimit: 15, font: {size: 10} } },
+        y: {
+          grid: { color: 'rgba(0,0,0,0.05)' },
+          ticks: { font: {size: 10}, callback: v => (v/10000).toFixed(0) + '万' }
+        }
+      }
+    }
+  });
+
+  // --- Category Distribution ---
+  const cats = e.categoryDistribution.slice(0, 10);
+  const colors = ['#1a73e8','#34a853','#fbbc04','#ea4335','#8e24aa','#00acc1','#ff7043','#9ccc65','#42a5f5','#ab47bc'];
+  const ctx2 = document.getElementById('categoryChart').getContext('2d');
+  if (charts.category) charts.category.destroy();
+  charts.category = new Chart(ctx2, {
+    type: 'doughnut',
+    data: {
+      labels: cats.map(c => c.name),
+      datasets: [{
+        data: cats.map(c => c.amount),
+        backgroundColor: colors.slice(0, cats.length),
+        borderWidth: 0,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      animation: { duration: 400 },
+      plugins: {
+        legend: { position: 'right', labels: { font: {size: 11}, padding: 8 } },
+        tooltip: { callbacks: { label: ctx => ctx.label + ': ¥' + ctx.parsed.toLocaleString() } }
+      }
+    }
+  });
+
+  // --- City Distribution ---
+  const cities = e.cityDistribution.slice(0, 10);
+  const ctx3 = document.getElementById('cityChart').getContext('2d');
+  if (charts.city) charts.city.destroy();
+  charts.city = new Chart(ctx3, {
+    type: 'bar',
+    data: {
+      labels: cities.map(c => c.name),
+      datasets: [{
+        label: '费用金额',
+        data: cities.map(c => c.amount),
+        backgroundColor: '#42a5f5',
+        borderRadius: 4,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true, maintainAspectRatio: false,
+      animation: { duration: 400 },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => '¥' + ctx.parsed.x.toLocaleString() } }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { callback: v => (v/10000).toFixed(0) + '万', font: {size: 10} } },
+        y: { grid: { display: false }, ticks: { font: {size: 11} } }
+      }
+    }
+  });
+
+  // --- Daily 2026 ---
+  const daily = e.daily2026 || [];
+  const ctx4 = document.getElementById('dailyChart').getContext('2d');
+  if (charts.daily) charts.daily.destroy();
+  charts.daily = new Chart(ctx4, {
+    type: 'bar',
+    data: {
+      labels: daily.map(d => d.date.slice(5)),
+      datasets: [{
+        label: '日支出',
+        data: daily.map(d => d.amount),
+        backgroundColor: daily.map(d => d.amount > 50000 ? '#ea4335' : '#1a73e8'),
+        borderRadius: 2,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      animation: { duration: 400 },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            title: items => items[0].label,
+            label: ctx => '¥' + ctx.parsed.y.toLocaleString() + ' (' + daily[ctx.dataIndex].count + '笔)'
+          }
+        }
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { maxTicksLimit: 15, font: {size: 9} } },
+        y: {
+          grid: { color: 'rgba(0,0,0,0.05)' },
+          ticks: { callback: v => (v/10000).toFixed(1) + '万', font: {size: 10} }
+        }
+      }
+    }
+  });
+
+  // --- PC Status ---
+  const pcStatus = c.byStatus || [];
+  const colors2 = ['#34a853','#fbbc04','#ea4335','#8e24aa','#ff7043','#9ccc65'];
+  const ctx5 = document.getElementById('pcStatusChart').getContext('2d');
+  if (charts.pcStatus) charts.pcStatus.destroy();
+  charts.pcStatus = new Chart(ctx5, {
+    type: 'doughnut',
+    data: {
+      labels: pcStatus.map(s => s.name),
+      datasets: [{
+        data: pcStatus.map(s => s.count),
+        backgroundColor: colors2.slice(0, pcStatus.length),
+        borderWidth: 0,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      animation: { duration: 400 },
+      plugins: {
+        legend: { position: 'right', labels: { font: {size: 11}, padding: 8 } },
+        tooltip: { callbacks: { label: ctx => ctx.label + ': ' + ctx.parsed + ' 台' } }
+      }
+    }
+  });
+
+  // --- PC City ---
+  const pcCities = c.byCity || [];
+  const ctx6 = document.getElementById('pcCityChart').getContext('2d');
+  if (charts.pcCity) charts.pcCity.destroy();
+  charts.pcCity = new Chart(ctx6, {
+    type: 'bar',
+    data: {
+      labels: pcCities.map(c => c.name),
+      datasets: [{
+        label: '数量',
+        data: pcCities.map(c => c.count),
+        backgroundColor: '#66bb6a',
+        borderRadius: 4,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true, maintainAspectRatio: false,
+      animation: { duration: 400 },
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: {size: 10}, stepSize: 50 } },
+        y: { grid: { display: false }, ticks: { font: {size: 11} } }
+      }
+    }
+  });
+
+  // --- Latest Expenses Table ---
+  const tbody = document.getElementById('latestTable');
+  tbody.innerHTML = '';
+  (e.latestExpenses || []).forEach(r => {
+    const tr = document.createElement('tr');
+    const statusClass = r.status === '已归档' ? 'status-paid' : 'status-pending';
+    tr.innerHTML = `
+      <td>${r.date}</td>
+      <td>${r.supplier}</td>
+      <td>${r.city}</td>
+      <td>${r.category}</td>
+      <td class="amount">¥${r.amount.toLocaleString()}</td>
+      <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.purpose || '-'}</td>
+      <td><span class="status-tag ${statusClass}">${r.status}</span></td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  // Chart resize
+  setTimeout(() => {
+    Object.values(charts).forEach(c => { if (c) c.resize(); });
+  }, 200);
+}
+
+// ============ 启动 ============
+// 先尝试 fetch 实时数据，失败自动回退到内嵌数据
+startRefreshLoop();
+loadData(false);
+</script>
+
+<script>
+// 内嵌默认数据，确保双击打开即可显示
+const EMBEDDED_DATA = {"expenses": {"totalAmount": 52485409.82, "totalCount": 6485, "avgMonthly": 1336456.69, "thisMonthTotal": 0, "thisMonthCount": 0, "todayAmount": 0, "monthlyTrend": [{"label": "2023-01", "amount": 974711.21, "count": 133}, {"label": "2023-02", "amount": 2096808.67, "count": 143}, {"label": "2023-03", "amount": 2563878.06, "count": 217}, {"label": "2023-04", "amount": 1174183.48, "count": 131}, {"label": "2023-05", "amount": 1121664.15, "count": 192}, {"label": "2023-06", "amount": 1479939.67, "count": 132}, {"label": "2023-07", "amount": 1070931.26, "count": 171}, {"label": "2023-08", "amount": 1396887.25, "count": 140}, {"label": "2023-09", "amount": 1747998.02, "count": 150}, {"label": "2023-10", "amount": 997589.97, "count": 140}, {"label": "2023-11", "amount": 690693.69, "count": 154}, {"label": "2023-12", "amount": 1448628.69, "count": 186}, {"label": "2024-01", "amount": 1928352.58, "count": 195}, {"label": "2024-02", "amount": 923288.91, "count": 146}, {"label": "2024-03", "amount": 1876152.2, "count": 166}, {"label": "2024-04", "amount": 1093807.18, "count": 172}, {"label": "2024-05", "amount": 1046822.85, "count": 162}, {"label": "2024-06", "amount": 1498393.36, "count": 193}, {"label": "2024-07", "amount": 1412886.62, "count": 207}, {"label": "2024-08", "amount": 1168992.54, "count": 183}, {"label": "2024-09", "amount": 1569366.7, "count": 206}, {"label": "2024-10", "amount": 1202094.47, "count": 177}, {"label": "2024-11", "amount": 1572707.52, "count": 172}, {"label": "2024-12", "amount": 1659973.05, "count": 217}, {"label": "2025-00", "amount": 87926.55, "count": 24}, {"label": "2025-01", "amount": 1610061.33, "count": 248}, {"label": "2025-02", "amount": 581512.44, "count": 146}, {"label": "2025-03", "amount": 1278106.68, "count": 218}, {"label": "2025-04", "amount": 1631021.85, "count": 175}, {"label": "2025-05", "amount": 677926.31, "count": 135}, {"label": "2025-06", "amount": 914444.77, "count": 146}, {"label": "2025-07", "amount": 1589898.59, "count": 164}, {"label": "2025-08", "amount": 1390116.44, "count": 181}, {"label": "2025-09", "amount": 3285338.41, "count": 239}, {"label": "2025-10", "amount": 2424173.59, "count": 204}, {"label": "2025-11", "amount": 364761.42, "count": 91}, {"label": "2025-12", "amount": 202191.84, "count": 124}, {"label": "2026-01", "amount": 1146706.72, "count": 132}, {"label": "2026-02", "amount": 526203.4, "count": 86}, {"label": "2026-03", "amount": 1058093.38, "count": 86}, {"label": "2026-04", "amount": 174.0, "count": 1}], "categoryDistribution": [{"name": "房租费", "amount": 34153425.72, "count": 778}, {"name": "物业费", "amount": 5763734.8, "count": 640}, {"name": "租赁费", "amount": 2980322.2, "count": 357}, {"name": "快递费", "amount": 2808903.13, "count": 1188}, {"name": "办公费", "amount": 1831805.83, "count": 1435}, {"name": "水电费", "amount": 1549454.65, "count": 807}, {"name": "房租保证金", "amount": 1245556.3, "count": 50}, {"name": "IT费用", "amount": 914917.22, "count": 255}, {"name": "邮电通讯费", "amount": 603097.74, "count": 603}, {"name": "招聘费", "amount": 364551.02, "count": 129}, {"name": "装修费", "amount": 169240.12, "count": 45}, {"name": "印刷费", "amount": 68713.79, "count": 187}, {"name": "物业保证金", "amount": 25387.3, "count": 4}, {"name": "经营活动保证金", "amount": 6300.0, "count": 5}, {"name": "装修保证金", "amount": 0.0, "count": 2}], "cityDistribution": [{"name": "杭州", "amount": 12087295.21, "count": 824}, {"name": "上海", "amount": 8330123.79, "count": 609}, {"name": "北京", "amount": 5337576.19, "count": 309}, {"name": "广州", "amount": 3919921.19, "count": 506}, {"name": "深圳", "amount": 3298572.17, "count": 404}, {"name": "全国", "amount": 2445944.46, "count": 227}, {"name": "成都", "amount": 2370829.31, "count": 299}, {"name": "南京", "amount": 2055338.28, "count": 425}, {"name": "苏州", "amount": 1872623.36, "count": 233}, {"name": "青岛", "amount": 1847328.2, "count": 182}, {"name": "武汉", "amount": 1601740.07, "count": 301}, {"name": "天津", "amount": 975134.41, "count": 230}, {"name": "大连", "amount": 941560.1, "count": 125}, {"name": "西安", "amount": 495291.77, "count": 133}, {"name": "厦门", "amount": 465302.57, "count": 142}], "daily2026": [{"date": "2026-01-04", "amount": 207726.02, "count": 8}, {"date": "2026-01-05", "amount": 175081.14, "count": 3}, {"date": "2026-01-06", "amount": 81823.13, "count": 3}, {"date": "2026-01-07", "amount": 183113.15, "count": 8}, {"date": "2026-01-08", "amount": 45077.87, "count": 29}, {"date": "2026-01-09", "amount": 30505.58, "count": 10}, {"date": "2026-01-12", "amount": 77734.2, "count": 2}, {"date": "2026-01-13", "amount": 13705.9, "count": 5}, {"date": "2026-01-14", "amount": 44087.57, "count": 3}, {"date": "2026-01-15", "amount": 35.0, "count": 1}, {"date": "2026-01-16", "amount": 27650.04, "count": 10}, {"date": "2026-01-19", "amount": 986.03, "count": 2}, {"date": "2026-01-20", "amount": 1335.58, "count": 1}, {"date": "2026-01-21", "amount": 34905.55, "count": 4}, {"date": "2026-01-22", "amount": 5737.57, "count": 16}, {"date": "2026-01-23", "amount": 173183.62, "count": 20}, {"date": "2026-01-26", "amount": 242.57, "count": 2}, {"date": "2026-01-27", "amount": 3170.8, "count": 2}, {"date": "2026-01-30", "amount": 40605.4, "count": 3}, {"date": "2026-02-02", "amount": 41505.69, "count": 6}, {"date": "2026-02-03", "amount": 6774.47, "count": 3}, {"date": "2026-02-04", "amount": 5358.0, "count": 1}, {"date": "2026-02-06", "amount": 163177.91, "count": 12}, {"date": "2026-02-09", "amount": 46652.94, "count": 28}, {"date": "2026-02-11", "amount": 764.0, "count": 2}, {"date": "2026-02-24", "amount": 157867.69, "count": 14}, {"date": "2026-02-26", "amount": 82968.57, "count": 11}, {"date": "2026-02-27", "amount": 20120.13, "count": 4}, {"date": "2026-02-28", "amount": 135.0, "count": 1}, {"date": "2026-03-02", "amount": 28885.0, "count": 3}, {"date": "2026-03-03", "amount": 51012.0, "count": 2}, {"date": "2026-03-04", "amount": 51562.52, "count": 5}, {"date": "2026-03-06", "amount": 7150.0, "count": 8}, {"date": "2026-03-09", "amount": 161972.84, "count": 27}, {"date": "2026-03-11", "amount": 15507.63, "count": 2}, {"date": "2026-03-12", "amount": 1432.0, "count": 2}, {"date": "2026-03-13", "amount": 203372.38, "count": 6}, {"date": "2026-03-19", "amount": 239031.23, "count": 5}, {"date": "2026-03-20", "amount": 16002.2, "count": 2}, {"date": "2026-03-23", "amount": 27694.34, "count": 12}, {"date": "2026-03-24", "amount": 254978.14, "count": 15}, {"date": "2026-03-26", "amount": 299.0, "count": 1}, {"date": "2026-03-27", "amount": 247.1, "count": 1}], "latestExpenses": [{"date": "2026-03-27", "supplier": "中国联合网络通信有限公司杭州市分公司", "city": "杭州", "category": "邮电通讯费", "amount": 247.1, "purpose": "现申请2026年2月杭州的联通宽带费用：总金额为247.10元。详见附件联通账单。", "status": "已归档"}, {"date": "2026-03-26", "supplier": "中国电信股份有限公司苏州分公司", "city": "常熟", "category": "IT费用", "amount": 299.0, "purpose": "现申请常熟3月宽带费用，合计299元，先款后票", "status": "已归档"}, {"date": "2026-03-24", "supplier": "陈禄薪", "city": "南宁", "category": "邮电通讯费", "amount": 100.0, "purpose": "南宁申请预存固话费用，合计100", "status": "已归档"}, {"date": "2026-03-24", "supplier": "陈禄薪", "city": "沈阳", "category": "邮电通讯费", "amount": 1200.0, "purpose": "沈阳申请缴纳一年的宽带费用，沈阳宽带100/月，总计1200", "status": "已归档"}, {"date": "2026-03-24", "supplier": "张悦", "city": "上海", "category": "装修费", "amount": 600.0, "purpose": "上海会议室灯改线路垫付600元申请报销。\n原无线遥控电源无法关灯现在已经改成有线开关控制电路，现已经", "status": "已归档"}, {"date": "2026-03-24", "supplier": "韩柏泉", "city": "杭州", "category": "房租费", "amount": 22500.0, "purpose": "现申请支付高管房屋租赁费共计22500元，具体如下：\r\n1、租期为2026年1月1日到2026年6月", "status": "已归档"}, {"date": "2026-03-24", "supplier": "谢静", "city": "无锡", "category": "房租费", "amount": 36000.0, "purpose": "现申请支付无锡办公室19层23-25室2026.3.18-2026.9.17房租费36000元，详情", "status": "已归档"}, {"date": "2026-03-24", "supplier": "张万磊", "city": "无锡", "category": "房租费", "amount": 18000.0, "purpose": "现申请支付无锡办公室19楼1922室2026.3.18—2026.9.17房租费18000元，详情如", "status": "已归档"}, {"date": "2026-03-24", "supplier": "湖北世聚信息咨询有限公司", "city": "武汉", "category": "水电费", "amount": 1064.52, "purpose": "现申请武汉二月电费1064.52元，先款后票", "status": "已归档"}, {"date": "2026-03-24", "supplier": "厦门天地和诚物业集团有限公司", "city": "厦门", "category": "水电费", "amount": 430.0, "purpose": "现申请支付厦门26.2.1-26.2.28水电费共计430元，先款后票。", "status": "已归档"}, {"date": "2026-03-24", "supplier": "湖北世聚信息咨询有限公司", "city": "武汉", "category": "水电费", "amount": 70467.21, "purpose": "现申请武汉2026.4.16-2026.7.15房租合计70467.21元，先款后票", "status": "已归档"}, {"date": "2026-03-24", "supplier": "谢思琪", "city": "杭州", "category": "办公费/其他", "amount": 67.5, "purpose": "HR垫付高管显示器转接头共计67.5元，先票后款", "status": "已归档"}, {"date": "2026-03-24", "supplier": "谢思琪", "city": "全国", "category": "快递费", "amount": 18.0, "purpose": "二月员工快递费垫付共计 18 元，先票后款", "status": "已归档"}, {"date": "2026-03-24", "supplier": "谢思琪", "city": "全国", "category": "快递费", "amount": 1517.12, "purpose": "二月员工快递费垫付共计  1517.12  元，先票后款", "status": "已归档"}, {"date": "2026-03-24", "supplier": "深圳市广海投资有限公司", "city": "深圳", "category": "水电费", "amount": 687.7, "purpose": "现申请支付深圳汉国中心F4603-09单元2026年2月电费430.1元及服务费257.6元，费用合", "status": "已归档"}, {"date": "2026-03-24", "supplier": "深圳市广海投资有限公司", "city": "深圳", "category": "物业费", "amount": 18107.09, "purpose": "现申请支付深圳汉国中心F4603-09单元2026年4月物业管理费17966.72元及专项维修资金1", "status": "已归档"}, {"date": "2026-03-24", "supplier": "深圳市广海投资有限公司", "city": "深圳", "category": "房租费", "amount": 84219.0, "purpose": "现申请支付深圳办公室2026年4月租金，费用84219元", "status": "已归档"}, {"date": "2026-03-23", "supplier": "苏州顺丰速运有限公司", "city": "常熟", "category": "快递费", "amount": 1139.0, "purpose": "现申请常熟2月顺丰合计1139元，先票后款。", "status": "已归档"}, {"date": "2026-03-23", "supplier": "顺丰速运有限公司", "city": "广州", "category": "快递费", "amount": 3053.25, "purpose": "现申请支付广州2月快递费3053.25元，明细可见附件，先票后款", "status": "已归档"}, {"date": "2026-03-23", "supplier": "顺丰速运有限公司", "city": "深圳", "category": "快递费", "amount": 1601.0, "purpose": "现申请支付深圳2月快递费1601元，明细可见附件，先票后款", "status": "已归档"}]}, "computers": {"total": 1565, "inUse": 1319, "idle": 88, "retired": 142, "lost": 7, "byStatus": [{"name": "在用", "count": 1319}, {"name": "退租", "count": 138}, {"name": "闲置", "count": 88}, {"name": "未知", "count": 8}, {"name": "丢失", "count": 7}, {"name": "回收", "count": 4}, {"name": "未找到", "count": 1}], "byCity": [{"name": "杭州", "count": 549}, {"name": "上海", "count": 135}, {"name": "深圳", "count": 102}, {"name": "未知", "count": 82}, {"name": "北京", "count": 82}, {"name": "广州", "count": 72}, {"name": "成都", "count": 69}, {"name": "南京", "count": 61}, {"name": "武汉", "count": 60}, {"name": "西安", "count": 55}, {"name": "郑州", "count": 50}, {"name": "苏州", "count": 38}, {"name": "大连", "count": 37}, {"name": "青岛", "count": 37}, {"name": "济南", "count": 27}]}, "lastUpdated": "2026-06-01 16:36"};
+</script>
+
+</body>
+</html>

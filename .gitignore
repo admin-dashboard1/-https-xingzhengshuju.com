@@ -1,0 +1,10 @@
+# Python
+__pycache__/
+*.pyc
+.DS_Store
+
+# Excel 源数据（敏感，不上传）
+资产管理台账字段.xlsx
+
+# 临时文件
+*.tmp
