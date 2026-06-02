@@ -1372,7 +1372,7 @@ function renderCityEfficiency(data) {
     }
     return `<div class="eff-row">
       <span class="eff-city">${r.city}</span>
-      <span class="eff-track"><span class="eff-fill" style="width:${pct}%;background:${color}">${r.pcs}台</span></span>
+      <span class="eff-track"><span class="eff-fill" style="width:${pct}%;background:${color}"></span></span>
       <span class="eff-val">${(r.perCapita / 10000).toFixed(2)}万/人</span>
     </div>`;
   }).join('');
