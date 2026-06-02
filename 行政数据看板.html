@@ -356,6 +356,41 @@
     font-size: 10px; color: var(--text-muted); padding: 0 2px;
   }
 
+  /* ===== 异常预警 ===== */
+  .alert-bar {
+    background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25);
+    border-radius: var(--radius-sm); padding: 12px 18px; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--text);
+    transition: all 0.3s;
+  }
+  .alert-bar.none { background: rgba(16,185,129,0.06); border-color: rgba(16,185,129,0.2); }
+  .alert-bar .alert-icon { font-size: 18px; flex-shrink: 0; }
+  .alert-bar .alert-list { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; }
+  .alert-bar .alert-tag {
+    background: rgba(239,68,68,0.1); color: #b91c1c; padding: 2px 10px;
+    border-radius: 12px; font-weight: 600; font-size: 11px; white-space: nowrap;
+  }
+  .alert-bar.none .alert-tag { background: rgba(16,185,129,0.1); color: #0f6e56; }
+
+  /* ===== 城市效率排行 ===== */
+  .eff-bar-wrap { display: flex; flex-direction: column; gap: 4px; }
+  .eff-row { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+  .eff-row .eff-label { width: 50px; text-align: right; color: var(--text-secondary); flex-shrink: 0; }
+  .eff-row .eff-city { width: 56px; text-align: right; font-weight: 600; flex-shrink: 0; }
+  .eff-row .eff-track {
+    flex: 1; height: 20px; background: var(--bg-elevated); border-radius: 4px;
+    position: relative; overflow: hidden; min-width: 60px;
+  }
+  .eff-row .eff-fill {
+    height: 100%; border-radius: 4px; transition: width 0.6s ease;
+    display: flex; align-items: center; padding-left: 6px; font-size: 10px;
+    font-weight: 600; color: #fff; white-space: nowrap;
+  }
+  .eff-row .eff-val { width: 72px; font-size: 11px; color: var(--text); flex-shrink: 0; }
+  .eff-legend { display: flex; gap: 14px; font-size: 10px; color: var(--text-muted); margin-top: 10px; }
+  .eff-legend span { display: flex; align-items: center; gap: 4px; }
+  .eff-legend .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+
   @media (max-width: 768px) {
     .grid-2, .year-compare-row { grid-template-columns: 1fr; }
     .year-overview { grid-template-columns: repeat(2, 1fr); }
@@ -433,6 +468,12 @@
   </div>
 </div>
 
+<!-- ===== 异常波动预警 ===== -->
+<div class="alert-bar" id="anomalyBar" style="display:none">
+  <span class="alert-icon" id="anomalyIcon"></span>
+  <span class="alert-list" id="anomalyList"></span>
+</div>
+
 <!-- 年份筛选 + KPI -->
 <div class="year-filter-bar" id="yearFilterBar">
   <span style="font-size:13px;color:var(--text-secondary);margin-right:8px;">🔍 筛选年份：</span>
@@ -478,6 +519,17 @@
         <span>⬇️ 远低于均值（&lt;0.3x）</span>
       </div>
     </div>
+    <div class="card" id="cityEfficiencyCard">
+      <h3>⚡ 城市费用效率排行 <span style="font-weight:400;font-size:11px;color:var(--text-muted);margin-left:6px;">人均年费用（万元/人）</span></h3>
+      <div class="eff-bar-wrap" id="effBarWrap"></div>
+      <div class="eff-legend">
+        <span><span class="dot" style="background:#ef4444"></span> 高效（人均低）</span>
+        <span><span class="dot" style="background:#f59e0b"></span> 正常</span>
+        <span><span class="dot" style="background:#94a3b8"></span> 偏贵</span>
+      </div>
+    </div>
+  </div>
+  <div class="grid-2">
     <div class="card">
       <h3>📊 每日出款趋势（近90天）</h3>
       <div class="chart-container" style="height:280px"><canvas id="dailyChart"></canvas></div>
@@ -1189,10 +1241,153 @@ function toggleCrossDetail(header, bodyId) {
   }
 }
 
+// ============ 异常波动预警 ============
+function renderAnomalyAlert(data) {
+  const bar = document.getElementById('anomalyBar');
+  const listEl = document.getElementById('anomalyList');
+  const iconEl = document.getElementById('anomalyIcon');
+
+  const monthly = data.expenses.monthlyTrend || [];
+  if (monthly.length < 6) { bar.style.display = 'none'; return; }
+
+  // 按类别聚合月度数据（从 byYear 获取）
+  const byYear = data.expenses.byYear || {};
+  const years = data.expenses.availableYears || [];
+  if (years.length < 2) { bar.style.display = 'none'; return; }
+
+  // 对每个类别，检查最近一个月是否超出历史均值 2 倍标准差
+  const anomalies = [];
+  const categoryMonthly = {}; // { catName: [amounts...] }
+
+  for (const yr of years) {
+    const yd = byYear[String(yr)];
+    if (!yd || !yd.monthlyTrend) continue;
+    // byYear 里的 monthlyTrend 没有按类别拆分，我们得从原始数据推
+  }
+
+  // 简化方案：按 totalAmount 维度检测
+  // 取最近 12 个月（或所有历史月份）计算均值+标准差
+  const amounts = monthly.map(m => m.amount);
+  const recent = amounts.slice(-6); // 最近 6 个月
+  const baseline = amounts.slice(0, -1); // 除最后一个月外的所有
+
+  if (baseline.length < 3) { bar.style.display = 'none'; return; }
+
+  const mean = baseline.reduce((a, b) => a + b, 0) / baseline.length;
+  const variance = baseline.reduce((s, v) => s + Math.pow(v - mean, 2), 0) / baseline.length;
+  const std = Math.sqrt(variance);
+  const threshold = mean + 2 * std;
+
+  const lastMonth = monthly[monthly.length - 1];
+  if (lastMonth.amount > threshold && threshold > 0) {
+    anomalies.push({
+      label: lastMonth.label,
+      amount: lastMonth.amount,
+      mean: mean,
+      std: std,
+      ratio: ((lastMonth.amount / mean - 1) * 100).toFixed(0)
+    });
+  }
+
+  // 再按类别检查（从 categoryDistribution 推）
+  const catDist = data.expenses.categoryDistribution || [];
+  const currentYearData = byYear[String(years[years.length - 1])];
+  if (currentYearData && currentYearData.categoryDistribution) {
+    for (const cat of currentYearData.categoryDistribution) {
+      // 找到对应历史类别数据
+      let histAmounts = [];
+      for (let i = 0; i < years.length - 1; i++) {
+        const yd = byYear[String(years[i])];
+        if (!yd || !yd.categoryDistribution) continue;
+        const hcat = yd.categoryDistribution.find(c => c.name === cat.name);
+        if (hcat) histAmounts.push(hcat.amount);
+      }
+      if (histAmounts.length >= 2) {
+        const m2 = histAmounts.reduce((a, b) => a + b, 0) / histAmounts.length;
+        const v2 = histAmounts.reduce((s, v) => s + Math.pow(v - m2, 2), 0) / histAmounts.length;
+        const s2 = Math.sqrt(v2);
+        if (cat.amount > m2 + 2 * s2 && s2 > 0) {
+          anomalies.push({
+            label: cat.name,
+            amount: cat.amount,
+            mean: m2,
+            std: s2,
+            ratio: ((cat.amount / m2 - 1) * 100).toFixed(0)
+          });
+        }
+      }
+    }
+  }
+
+  if (anomalies.length === 0) {
+    bar.className = 'alert-bar none';
+    iconEl.textContent = '✅';
+    listEl.innerHTML = '<span class="alert-tag">各项费用均在正常范围</span>';
+    bar.style.display = 'flex';
+    return;
+  }
+
+  bar.className = 'alert-bar';
+  iconEl.textContent = '🚨';
+  listEl.innerHTML = anomalies.map(a => {
+    const label = a.label.length > 6 ? a.label : a.label;
+    return `<span class="alert-tag">${label} 异常 +${a.ratio}%</span>`;
+  }).join('') + '<span style="font-size:11px;color:var(--text-muted);margin-left:4px;">超出历史均值 2 倍标准差</span>';
+  bar.style.display = 'flex';
+}
+
+// ============ 城市费用效率指数 ============
+function renderCityEfficiency(data) {
+  const cities = data.expenses.cityDistribution || [];
+  const pcByCity = {};
+  if (data.computers && data.computers.byCity) {
+    for (const c of data.computers.byCity) {
+      pcByCity[c.name] = c.count;
+    }
+  }
+
+  // 计算每个城市的人均年费用
+  // 电脑数 ≈ 人数 × 0.8（假设人均 1.25 台电脑），取电脑数作为人数近似
+  const rows = [];
+  for (const c of cities) {
+    const pcs = pcByCity[c.name] || 1;
+    const perCapita = c.amount / pcs; // 元/人
+    rows.push({ city: c.name, amount: c.amount, pcs: pcs, perCapita: perCapita });
+  }
+
+  // 按人均费用排序（低=高效）
+  rows.sort((a, b) => a.perCapita - b.perCapita);
+
+  const maxPC = Math.max(...rows.map(r => r.perCapita));
+  const median = rows.length > 0 ? rows[Math.floor(rows.length / 2)].perCapita : 0;
+
+  const wrap = document.getElementById('effBarWrap');
+  wrap.innerHTML = rows.map(r => {
+    const pct = maxPC > 0 ? (r.perCapita / maxPC * 100) : 0;
+    // 颜色：低于中位数 30% = 绿色（高效），高于中位数 50% = 红色（偏贵）
+    let color = '#f59e0b'; // 正常
+    if (median > 0) {
+      if (r.perCapita < median * 0.7) color = '#10b981'; // 高效
+      else if (r.perCapita > median * 1.5) color = '#ef4444'; // 偏贵
+    }
+    return `<div class="eff-row">
+      <span class="eff-city">${r.city}</span>
+      <span class="eff-track"><span class="eff-fill" style="width:${pct}%;background:${color}">${r.pcs}台</span></span>
+      <span class="eff-val">${(r.perCapita / 10000).toFixed(2)}万/人</span>
+    </div>`;
+  }).join('');
+}
+
 function render(data) {
   allData = data;
   const e = getExpenseData(data);
   const c = data.computers;
+
+  // === 异常波动预警 ===
+  renderAnomalyAlert(data);
+
+  // === 城市费用效率指数 ===
+  renderCityEfficiency(data);
 
   // === 年度总览（始终渲染全量数据） ===
   renderYearOverview(data);
