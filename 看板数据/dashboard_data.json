@@ -5,7 +5,7 @@
     "avgMonthly": 1336218.68,
     "thisMonthTotal": 0,
     "thisMonthCount": 0,
-    "todayAmount": 0.0,
+    "todayAmount": 0,
     "monthlyTrend": [
       {
         "label": "2023-01",
@@ -3492,8 +3492,8 @@
         "totalCount": 685,
         "avgMonthly": 341754.2,
         "filledMonths": 8,
-        "thisMonthTotal": 0.0,
-        "todayAmount": 0.0,
+        "thisMonthTotal": 0,
+        "todayAmount": 0,
         "monthlyTrend": [
           {
             "label": "2026-01",
@@ -6394,6 +6394,6 @@
       }
     ]
   },
-  "lastUpdated": "2026-06-01 18:23",
+  "lastUpdated": "2026-06-02 09:02",
   "source": "feishu"
 }
