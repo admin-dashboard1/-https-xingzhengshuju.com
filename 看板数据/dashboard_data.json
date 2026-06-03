@@ -6295,6 +6295,575 @@
       ]
     }
   },
+  "deposits": {
+    "totalAmount": 21524309.99,
+    "totalCount": 198,
+    "returnedAmount": 3419129.81,
+    "returnedCount": 44,
+    "unreturnedAmount": 17817580.94,
+    "unreturnedCount": 143,
+    "partialAmount": 287599.24,
+    "partialCount": 11,
+    "returnRate": 15.9,
+    "byType": [
+      {
+        "name": "房租押金",
+        "amount": 21083691.38,
+        "count": 83
+      },
+      {
+        "name": "装修保证金",
+        "amount": 174347.5,
+        "count": 6
+      },
+      {
+        "name": "物业押金",
+        "amount": 134115.53,
+        "count": 8
+      },
+      {
+        "name": "电费押金",
+        "amount": 73235.58,
+        "count": 11
+      },
+      {
+        "name": "打印机押金",
+        "amount": 30000.0,
+        "count": 10
+      },
+      {
+        "name": "其他押金",
+        "amount": 15900.0,
+        "count": 5
+      },
+      {
+        "name": "复印机押金",
+        "amount": 4000.0,
+        "count": 1
+      },
+      {
+        "name": "BIC卡押金",
+        "amount": 3400.0,
+        "count": 1
+      },
+      {
+        "name": "通讯服务押金",
+        "amount": 3200.0,
+        "count": 1
+      },
+      {
+        "name": "桶装水押金",
+        "amount": 2420.0,
+        "count": 10
+      },
+      {
+        "name": "None",
+        "amount": 0.0,
+        "count": 62
+      }
+    ],
+    "byCity": [
+      {
+        "name": "印尼",
+        "amount": 15494284.0,
+        "count": 1
+      },
+      {
+        "name": "上海",
+        "amount": 1879595.61,
+        "count": 20
+      },
+      {
+        "name": "北京",
+        "amount": 903879.07,
+        "count": 9
+      },
+      {
+        "name": "杭州",
+        "amount": 868823.78,
+        "count": 6
+      },
+      {
+        "name": "深圳",
+        "amount": 510372.44,
+        "count": 4
+      },
+      {
+        "name": "广州",
+        "amount": 410706.0,
+        "count": 8
+      },
+      {
+        "name": "成都",
+        "amount": 327476.46,
+        "count": 9
+      },
+      {
+        "name": "苏州",
+        "amount": 296126.62,
+        "count": 9
+      },
+      {
+        "name": "武汉",
+        "amount": 174626.14,
+        "count": 8
+      },
+      {
+        "name": "厦门",
+        "amount": 134712.0,
+        "count": 8
+      },
+      {
+        "name": "西安",
+        "amount": 88131.88,
+        "count": 4
+      },
+      {
+        "name": "南京",
+        "amount": 83877.2,
+        "count": 3
+      },
+      {
+        "name": "大连",
+        "amount": 81736.65,
+        "count": 4
+      },
+      {
+        "name": "天津",
+        "amount": 79334.15,
+        "count": 3
+      },
+      {
+        "name": "青岛",
+        "amount": 30600.0,
+        "count": 3
+      },
+      {
+        "name": "无锡",
+        "amount": 29880.8,
+        "count": 10
+      },
+      {
+        "name": "重庆",
+        "amount": 23651.19,
+        "count": 6
+      },
+      {
+        "name": "福州",
+        "amount": 23520.0,
+        "count": 4
+      },
+      {
+        "name": "郑州",
+        "amount": 20000.0,
+        "count": 1
+      },
+      {
+        "name": "宁波",
+        "amount": 13300.0,
+        "count": 5
+      },
+      {
+        "name": "济南",
+        "amount": 12852.0,
+        "count": 2
+      },
+      {
+        "name": "越南",
+        "amount": 8431.0,
+        "count": 1
+      },
+      {
+        "name": "香港",
+        "amount": 8200.0,
+        "count": 1
+      },
+      {
+        "name": "石家庄",
+        "amount": 5500.0,
+        "count": 1
+      },
+      {
+        "name": "合肥",
+        "amount": 4000.0,
+        "count": 1
+      },
+      {
+        "name": "长沙",
+        "amount": 3293.0,
+        "count": 2
+      },
+      {
+        "name": "None",
+        "amount": 3200.0,
+        "count": 63
+      },
+      {
+        "name": "南宁",
+        "amount": 3200.0,
+        "count": 1
+      },
+      {
+        "name": "常熟",
+        "amount": 1000.0,
+        "count": 1
+      }
+    ],
+    "byStatus": [
+      {
+        "name": "未退回",
+        "amount": 17817580.94,
+        "count": 80
+      },
+      {
+        "name": "已退回",
+        "amount": 3419129.81,
+        "count": 44
+      },
+      {
+        "name": "部分退回",
+        "amount": 287599.24,
+        "count": 11
+      },
+      {
+        "name": "None",
+        "amount": 0.0,
+        "count": 63
+      }
+    ],
+    "unreturnedList": [
+      {
+        "type": "房租押金",
+        "city": "印尼",
+        "payer": "PT JOYOWO GEO INDONE",
+        "payee": "PT IWG Management In",
+        "contractStart": "2025-12-01",
+        "contractEnd": "2026-11-30",
+        "payDate": "2025-11-25",
+        "amount": 15494284.0,
+        "person": "曹洁"
+      },
+      {
+        "type": "房租押金",
+        "city": "杭州",
+        "payer": "杭州今元网络（集团）有限公司",
+        "payee": "浙江传化化学集团有限公司",
+        "contractStart": "2025-03-20",
+        "contractEnd": "2028-03-19",
+        "payDate": "2025-07-31",
+        "amount": 350000.0,
+        "person": "毕木兰"
+      },
+      {
+        "type": "房租押金",
+        "city": "上海",
+        "payer": "上海梧桐范式数字科技有限公司",
+        "payee": "上海市北高新欣云投资有限公司",
+        "contractStart": "2024-10-01",
+        "contractEnd": "2026-08-14",
+        "payDate": "2024-11-29",
+        "amount": 236697.94,
+        "person": "张悦"
+      },
+      {
+        "type": "房租押金",
+        "city": "上海",
+        "payer": "上海今元人才科技有限公司",
+        "payee": "上海市北高新欣云投资有限公司",
+        "contractStart": "2024-10-01",
+        "contractEnd": "2026-08-14",
+        "payDate": "2024-11-18",
+        "amount": 236697.94,
+        "person": "张悦"
+      },
+      {
+        "type": "房租押金",
+        "city": "北京",
+        "payer": "杭州今元标矩科技有限公司",
+        "payee": "北京汉威大厦物业有限公司",
+        "contractStart": "2026-03-01",
+        "contractEnd": "2028-03-30",
+        "payDate": "",
+        "amount": 168902.87,
+        "person": "巫雨凡"
+      },
+      {
+        "type": "房租押金",
+        "city": "深圳",
+        "payer": "深圳今元人才科技有限公司",
+        "payee": "深圳市广海投资有限公司",
+        "contractStart": "2025-11-15",
+        "contractEnd": "2028-11-14",
+        "payDate": "2025-09-26",
+        "amount": 168438.0,
+        "person": "李菲"
+      },
+      {
+        "type": "房租押金",
+        "city": "苏州",
+        "payer": "江苏今元人才科技有限公司",
+        "payee": "安徽展舟科技有限公司",
+        "contractStart": "2025-04-15",
+        "contractEnd": "2026-04-14",
+        "payDate": "2023-08-17",
+        "amount": 70136.08,
+        "person": "张悦"
+      },
+      {
+        "type": "房租押金",
+        "city": "广州",
+        "payer": "江苏今元人才科技有限公司",
+        "payee": "广州市金诺实业发展有限公司",
+        "contractStart": "2026-05-09",
+        "contractEnd": "2027-05-08",
+        "payDate": "2023-05-04",
+        "amount": 69930.0,
+        "person": "李菲"
+      },
+      {
+        "type": "房租押金",
+        "city": "成都",
+        "payer": "杭州今元标矩科技有限公司",
+        "payee": "成都中海海熙商业管理有限公司",
+        "contractStart": "2026-07-01",
+        "contractEnd": "2029-06-30",
+        "payDate": "",
+        "amount": 69802.56,
+        "person": "李菲"
+      },
+      {
+        "type": "房租押金",
+        "city": "苏州",
+        "payer": "杭州今元标矩科技有限公司",
+        "payee": "安徽展舟科技有限公司",
+        "contractStart": "2025-04-15",
+        "contractEnd": "2026-04-14",
+        "payDate": "2023-08-25",
+        "amount": 66827.23,
+        "person": "张悦"
+      },
+      {
+        "type": "房租押金",
+        "city": "成都",
+        "payer": "江苏今元人才科技有限公司",
+        "payee": "成都诚悦时代物业服务有限公司",
+        "contractStart": "2024-04-01",
+        "contractEnd": "2025-03-31",
+        "payDate": "2024-04-03",
+        "amount": 60573.4,
+        "person": "李菲"
+      },
+      {
+        "type": "房租押金",
+        "city": "成都",
+        "payer": "江苏今元人才科技有限公司",
+        "payee": "成都中海海熙商业管理有限公司",
+        "contractStart": "2026-07-01",
+        "contractEnd": "2029-06-30",
+        "payDate": "",
+        "amount": 58635.36,
+        "person": "李菲"
+      },
+      {
+        "type": "房租押金",
+        "city": "武汉",
+        "payer": "江苏今元人才科技有限公司",
+        "payee": "湖北世聚信息咨询有限公司",
+        "contractStart": "2025-04-01",
+        "contractEnd": "2027-04-15",
+        "payDate": "2025-03-27",
+        "amount": 49978.14,
+        "person": "毕木兰"
+      },
+      {
+        "type": "房租押金",
+        "city": "成都",
+        "payer": "杭州今元标矩科技有限公司",
+        "payee": "成都诚悦时代物业有限公司",
+        "contractStart": "2024-04-08",
+        "contractEnd": "2025-04-07",
+        "payDate": "2024-08-09",
+        "amount": 47763.36,
+        "person": "李菲"
+      },
+      {
+        "type": "房租押金",
+        "city": "西安",
+        "payer": "杭州今元标矩科技有限公司",
+        "payee": "姚鹏（有租商业控股（西安）有限公司）",
+        "contractStart": "2025-08-02",
+        "contractEnd": "2027-08-01",
+        "payDate": "2025-08-02",
+        "amount": 42990.94,
+        "person": "张悦"
+      },
+      {
+        "type": "房租押金",
+        "city": "西安",
+        "payer": "杭州今元标矩科技有限公司",
+        "payee": "姚鹏（有租商业控股（西安）有限公司）",
+        "contractStart": "2023-07-30",
+        "contractEnd": "2025-08-01",
+        "payDate": "2023-07-28",
+        "amount": 42990.94,
+        "person": "巫雨凡"
+      },
+      {
+        "type": "房租押金",
+        "city": "南京",
+        "payer": "南京今元人才人力资源有限公司",
+        "payee": "南京威智置业有限公司",
+        "contractStart": "2025-03-18",
+        "contractEnd": "2027-03-17",
+        "payDate": "2022-03-18",
+        "amount": 41835.08,
+        "person": "张悦"
+      },
+      {
+        "type": "房租押金",
+        "city": "广州",
+        "payer": "杭州今元标矩科技有限公司天河分公司",
+        "payee": "广州市金诺实业发展有限公司",
+        "contractStart": "2026-05-09",
+        "contractEnd": "2027-05-08",
+        "payDate": "2023-05-06",
+        "amount": 41642.0,
+        "person": "李菲"
+      },
+      {
+        "type": "房租押金",
+        "city": "南京",
+        "payer": "杭州今元标矩科技有限公司南京分公司",
+        "payee": "南京威智置业有限公司",
+        "contractStart": "2025-03-18",
+        "contractEnd": "2027-03-17",
+        "payDate": "2022-03-15",
+        "amount": 36062.12,
+        "person": "张悦"
+      },
+      {
+        "type": "物业押金",
+        "city": "深圳",
+        "payer": "深圳今元人才科技有限公司",
+        "payee": "深圳市广海投资有限公司",
+        "contractStart": "2025-11-15",
+        "contractEnd": "2028-11-14",
+        "payDate": "2025-10-21",
+        "amount": 35933.44,
+        "person": "李菲"
+      },
+      {
+        "type": "房租押金",
+        "city": "广州",
+        "payer": "杭州今元标矩科技有限公司广州分公司",
+        "payee": "广州市金诺实业发展有限公司",
+        "contractStart": "2026-05-09",
+        "contractEnd": "2027-05-08",
+        "payDate": "2023-05-06",
+        "amount": 35150.0,
+        "person": "李菲"
+      },
+      {
+        "type": "房租押金",
+        "city": "武汉",
+        "payer": "武汉柚出海科技有限公司",
+        "payee": "武汉光谷人力资源产业园发展有限公司",
+        "contractStart": "2024-04-15",
+        "contractEnd": "2027-04-14",
+        "payDate": "2024-06-03",
+        "amount": 34293.0,
+        "person": "张悦"
+      },
+      {
+        "type": "房租押金",
+        "city": "厦门",
+        "payer": "厦门今元人才科技有限公司",
+        "payee": "厦门海港建设发展有限公司",
+        "contractStart": "2026-08-03",
+        "contractEnd": "2029-08-02",
+        "payDate": "2026-05-22",
+        "amount": 26580.0,
+        "person": "李菲"
+      },
+      {
+        "type": "房租押金",
+        "city": "厦门",
+        "payer": "厦门今元数智科技有限公司",
+        "payee": "厦门海港建设发展有限公司",
+        "contractStart": "2026-08-03",
+        "contractEnd": "2029-08-02",
+        "payDate": "2026-05-25",
+        "amount": 26580.0,
+        "person": "李菲"
+      },
+      {
+        "type": "房租押金",
+        "city": "厦门",
+        "payer": "江苏今元人才科技有限公司",
+        "payee": "厦门希尼亚企业管理咨询有限公司",
+        "contractStart": "2025-08-03",
+        "contractEnd": "2026-08-02",
+        "payDate": "2025-03-04",
+        "amount": 22284.0,
+        "person": "李菲"
+      },
+      {
+        "type": "物业押金",
+        "city": "成都",
+        "payer": "杭州今元标矩科技有限公司",
+        "payee": "成都中海海熙商业管理有限公司",
+        "contractStart": "2026-07-01",
+        "contractEnd": "2029-06-30",
+        "payDate": "",
+        "amount": 21328.56,
+        "person": "李菲"
+      },
+      {
+        "type": "物业押金",
+        "city": "天津",
+        "payer": "江苏今元人才科技有限公司",
+        "payee": "北京金融街第一太平戴维斯物业管理有限公司",
+        "contractStart": "2022-01-16",
+        "contractEnd": "2026-01-15",
+        "payDate": "2022-03-28",
+        "amount": 21118.44,
+        "person": "巫雨凡"
+      },
+      {
+        "type": "房租押金",
+        "city": "郑州",
+        "payer": "杭州今元标矩科技有限公司",
+        "payee": "王璐",
+        "contractStart": "2025-04-01",
+        "contractEnd": "2027-03-31",
+        "payDate": "2023-04-01",
+        "amount": 20000.0,
+        "person": "尹钠锘"
+      },
+      {
+        "type": "电费押金",
+        "city": "上海",
+        "payer": "上海梧桐范式数字科技有限公司",
+        "payee": "上海市北高新集团物业管理有限公司",
+        "contractStart": "2024-10-01",
+        "contractEnd": "2026-08-14",
+        "payDate": "2024-02-22",
+        "amount": 20000.0,
+        "person": "张悦"
+      },
+      {
+        "type": "电费押金",
+        "city": "上海",
+        "payer": "上海今元人才科技有限公司",
+        "payee": "上海市北高新集团物业管理有限公司",
+        "contractStart": "2024-10-01",
+        "contractEnd": "2026-08-14",
+        "payDate": "2024-12-23",
+        "amount": 20000.0,
+        "person": "张悦"
+      }
+    ]
+  },
   "computers": {
     "total": 1565,
     "inUse": 1319,
@@ -6394,2298 +6963,6 @@
       }
     ]
   },
-  "unitPrice": {
-    "categories": [
-      {
-        "name": "房租费",
-        "cities": [
-          {
-            "city": "杭州",
-            "total": 7728870.57,
-            "count": 48,
-            "unitPrice": 161018.14
-          },
-          {
-            "city": "上海",
-            "total": 5838004.83,
-            "count": 33,
-            "unitPrice": 176909.24
-          },
-          {
-            "city": "北京",
-            "total": 3763879.12,
-            "count": 32,
-            "unitPrice": 117621.22
-          },
-          {
-            "city": "广州",
-            "total": 2945530.3,
-            "count": 99,
-            "unitPrice": 29752.83
-          },
-          {
-            "city": "深圳",
-            "total": 2312961.6,
-            "count": 74,
-            "unitPrice": 31256.24
-          },
-          {
-            "city": "成都",
-            "total": 1716389.72,
-            "count": 25,
-            "unitPrice": 68655.59
-          },
-          {
-            "city": "南京",
-            "total": 1445087.91,
-            "count": 19,
-            "unitPrice": 76057.26
-          },
-          {
-            "city": "青岛",
-            "total": 1439173.57,
-            "count": 19,
-            "unitPrice": 75745.98
-          },
-          {
-            "city": "武汉",
-            "total": 1140940.3,
-            "count": 34,
-            "unitPrice": 33557.07
-          },
-          {
-            "city": "苏州",
-            "total": 784421.69,
-            "count": 23,
-            "unitPrice": 34105.29
-          },
-          {
-            "city": "大连",
-            "total": 689947.06,
-            "count": 7,
-            "unitPrice": 98563.87
-          },
-          {
-            "city": "天津",
-            "total": 638771.57,
-            "count": 11,
-            "unitPrice": 58070.14
-          },
-          {
-            "city": "西安",
-            "total": 344575.37,
-            "count": 4,
-            "unitPrice": 86143.84
-          },
-          {
-            "city": "厦门",
-            "total": 289692.0,
-            "count": 9,
-            "unitPrice": 32188.0
-          },
-          {
-            "city": "东莞",
-            "total": 216929.06,
-            "count": 61,
-            "unitPrice": 3556.21
-          },
-          {
-            "city": "无锡",
-            "total": 207524.18,
-            "count": 9,
-            "unitPrice": 23058.24
-          },
-          {
-            "city": "福田",
-            "total": 206525.0,
-            "count": 8,
-            "unitPrice": 25815.62
-          },
-          {
-            "city": "重庆",
-            "total": 153887.94,
-            "count": 8,
-            "unitPrice": 19235.99
-          },
-          {
-            "city": "石家庄",
-            "total": 138600.0,
-            "count": 3,
-            "unitPrice": 46200.0
-          },
-          {
-            "city": "宁波",
-            "total": 129372.0,
-            "count": 9,
-            "unitPrice": 14374.67
-          },
-          {
-            "city": "福州",
-            "total": 127560.0,
-            "count": 8,
-            "unitPrice": 15945.0
-          },
-          {
-            "city": "济南",
-            "total": 126672.0,
-            "count": 2,
-            "unitPrice": 63336.0
-          },
-          {
-            "city": "合肥",
-            "total": 119704.84,
-            "count": 14,
-            "unitPrice": 8550.35
-          },
-          {
-            "city": "郑州",
-            "total": 106000.0,
-            "count": 1,
-            "unitPrice": 106000.0
-          },
-          {
-            "city": "佛山",
-            "total": 93469.0,
-            "count": 22,
-            "unitPrice": 4248.59
-          },
-          {
-            "city": "台州",
-            "total": 88000.0,
-            "count": 4,
-            "unitPrice": 22000.0
-          },
-          {
-            "city": "张家港",
-            "total": 68800.0,
-            "count": 3,
-            "unitPrice": 22933.33
-          },
-          {
-            "city": "南宁",
-            "total": 66882.0,
-            "count": 17,
-            "unitPrice": 3934.24
-          },
-          {
-            "city": "惠州",
-            "total": 64402.0,
-            "count": 14,
-            "unitPrice": 4600.14
-          },
-          {
-            "city": "泰州",
-            "total": 64400.0,
-            "count": 5,
-            "unitPrice": 12880.0
-          },
-          {
-            "city": "长沙",
-            "total": 64130.28,
-            "count": 3,
-            "unitPrice": 21376.76
-          },
-          {
-            "city": "南通",
-            "total": 63600.0,
-            "count": 3,
-            "unitPrice": 21200.0
-          },
-          {
-            "city": "江苏",
-            "total": 57866.0,
-            "count": 5,
-            "unitPrice": 11573.2
-          },
-          {
-            "city": "沈阳",
-            "total": 56044.4,
-            "count": 3,
-            "unitPrice": 18681.47
-          },
-          {
-            "city": "梅州",
-            "total": 52506.0,
-            "count": 31,
-            "unitPrice": 1693.74
-          },
-          {
-            "city": "呼和浩特",
-            "total": 48204.75,
-            "count": 3,
-            "unitPrice": 16068.25
-          },
-          {
-            "city": "镇江",
-            "total": 48175.0,
-            "count": 3,
-            "unitPrice": 16058.33
-          },
-          {
-            "city": "宜兴",
-            "total": 44412.0,
-            "count": 3,
-            "unitPrice": 14804.0
-          },
-          {
-            "city": "南海",
-            "total": 37781.0,
-            "count": 8,
-            "unitPrice": 4722.62
-          },
-          {
-            "city": "江阴",
-            "total": 37682.0,
-            "count": 2,
-            "unitPrice": 18841.0
-          },
-          {
-            "city": "潍坊",
-            "total": 36752.56,
-            "count": 3,
-            "unitPrice": 12250.85
-          },
-          {
-            "city": "汕头",
-            "total": 36600.0,
-            "count": 8,
-            "unitPrice": 4575.0
-          },
-          {
-            "city": "南昌",
-            "total": 36000.0,
-            "count": 3,
-            "unitPrice": 12000.0
-          },
-          {
-            "city": "川渝",
-            "total": 36000.0,
-            "count": 2,
-            "unitPrice": 18000.0
-          },
-          {
-            "city": "中山",
-            "total": 35040.0,
-            "count": 10,
-            "unitPrice": 3504.0
-          },
-          {
-            "city": "越南",
-            "total": 31680.0,
-            "count": 1,
-            "unitPrice": 31680.0
-          },
-          {
-            "city": "湛江",
-            "total": 30000.0,
-            "count": 6,
-            "unitPrice": 5000.0
-          },
-          {
-            "city": "江门",
-            "total": 29250.0,
-            "count": 6,
-            "unitPrice": 4875.0
-          },
-          {
-            "city": "珠海",
-            "total": 27000.0,
-            "count": 3,
-            "unitPrice": 9000.0
-          },
-          {
-            "city": "金柚康康",
-            "total": 25000.0,
-            "count": 1,
-            "unitPrice": 25000.0
-          },
-          {
-            "city": "连云港",
-            "total": 24000.0,
-            "count": 2,
-            "unitPrice": 12000.0
-          },
-          {
-            "city": "襄阳",
-            "total": 19800.0,
-            "count": 2,
-            "unitPrice": 9900.0
-          },
-          {
-            "city": "香港",
-            "total": 18268.7,
-            "count": 5,
-            "unitPrice": 3653.74
-          },
-          {
-            "city": "温州",
-            "total": 18000.0,
-            "count": 3,
-            "unitPrice": 6000.0
-          },
-          {
-            "city": "慈溪",
-            "total": 16800.0,
-            "count": 1,
-            "unitPrice": 16800.0
-          },
-          {
-            "city": "清远",
-            "total": 16000.0,
-            "count": 2,
-            "unitPrice": 8000.0
-          },
-          {
-            "city": "淮安",
-            "total": 15900.0,
-            "count": 3,
-            "unitPrice": 5300.0
-          },
-          {
-            "city": "金华",
-            "total": 12200.0,
-            "count": 4,
-            "unitPrice": 3050.0
-          },
-          {
-            "city": "宜昌",
-            "total": 12000.0,
-            "count": 1,
-            "unitPrice": 12000.0
-          },
-          {
-            "city": "济宁",
-            "total": 11096.0,
-            "count": 2,
-            "unitPrice": 5548.0
-          },
-          {
-            "city": "宿迁",
-            "total": 10450.0,
-            "count": 2,
-            "unitPrice": 5225.0
-          },
-          {
-            "city": "顺德",
-            "total": 9900.0,
-            "count": 2,
-            "unitPrice": 4950.0
-          },
-          {
-            "city": "保定",
-            "total": 9600.0,
-            "count": 2,
-            "unitPrice": 4800.0
-          },
-          {
-            "city": "盐城",
-            "total": 6000.0,
-            "count": 2,
-            "unitPrice": 3000.0
-          },
-          {
-            "city": "湖北",
-            "total": 5800.0,
-            "count": 2,
-            "unitPrice": 2900.0
-          },
-          {
-            "city": "湖州",
-            "total": 4800.0,
-            "count": 2,
-            "unitPrice": 2400.0
-          },
-          {
-            "city": "嘉兴",
-            "total": 3800.0,
-            "count": 1,
-            "unitPrice": 3800.0
-          },
-          {
-            "city": "坪山",
-            "total": 3200.0,
-            "count": 1,
-            "unitPrice": 3200.0
-          },
-          {
-            "city": "海口",
-            "total": 3000.0,
-            "count": 1,
-            "unitPrice": 3000.0
-          },
-          {
-            "city": "泉州",
-            "total": 2000.0,
-            "count": 1,
-            "unitPrice": 2000.0
-          },
-          {
-            "city": "威海",
-            "total": 1923.74,
-            "count": 1,
-            "unitPrice": 1923.74
-          },
-          {
-            "city": "临沂",
-            "total": 850.52,
-            "count": 1,
-            "unitPrice": 850.52
-          },
-          {
-            "city": "洛阳",
-            "total": 300.0,
-            "count": 1,
-            "unitPrice": 300.0
-          }
-        ],
-        "grandTotal": 34116386.58
-      },
-      {
-        "name": "物业费",
-        "cities": [
-          {
-            "city": "上海",
-            "total": 1323004.32,
-            "count": 34,
-            "unitPrice": 38911.89
-          },
-          {
-            "city": "杭州",
-            "total": 1039922.9,
-            "count": 43,
-            "unitPrice": 24184.25
-          },
-          {
-            "city": "北京",
-            "total": 684374.26,
-            "count": 15,
-            "unitPrice": 45624.95
-          },
-          {
-            "city": "深圳",
-            "total": 503173.36,
-            "count": 107,
-            "unitPrice": 4702.55
-          },
-          {
-            "city": "成都",
-            "total": 425241.86,
-            "count": 38,
-            "unitPrice": 11190.58
-          },
-          {
-            "city": "广州",
-            "total": 362758.66,
-            "count": 97,
-            "unitPrice": 3739.78
-          },
-          {
-            "city": "天津",
-            "total": 245224.12,
-            "count": 15,
-            "unitPrice": 16348.27
-          },
-          {
-            "city": "南京",
-            "total": 234188.97,
-            "count": 19,
-            "unitPrice": 12325.74
-          },
-          {
-            "city": "苏州",
-            "total": 226029.69,
-            "count": 21,
-            "unitPrice": 10763.32
-          },
-          {
-            "city": "大连",
-            "total": 148793.76,
-            "count": 4,
-            "unitPrice": 37198.44
-          },
-          {
-            "city": "青岛",
-            "total": 117864.85,
-            "count": 15,
-            "unitPrice": 7857.66
-          },
-          {
-            "city": "武汉",
-            "total": 88505.63,
-            "count": 18,
-            "unitPrice": 4916.98
-          },
-          {
-            "city": "无锡",
-            "total": 66057.9,
-            "count": 8,
-            "unitPrice": 8257.24
-          },
-          {
-            "city": "重庆",
-            "total": 55256.4,
-            "count": 50,
-            "unitPrice": 1105.13
-          },
-          {
-            "city": "西安",
-            "total": 53403.16,
-            "count": 4,
-            "unitPrice": 13350.79
-          },
-          {
-            "city": "厦门",
-            "total": 35478.0,
-            "count": 9,
-            "unitPrice": 3942.0
-          },
-          {
-            "city": "东莞",
-            "total": 22412.9,
-            "count": 54,
-            "unitPrice": 415.05
-          },
-          {
-            "city": "沈阳",
-            "total": 18083.52,
-            "count": 3,
-            "unitPrice": 6027.84
-          },
-          {
-            "city": "石家庄",
-            "total": 17678.88,
-            "count": 14,
-            "unitPrice": 1262.78
-          },
-          {
-            "city": "常熟",
-            "total": 15094.2,
-            "count": 1,
-            "unitPrice": 15094.2
-          },
-          {
-            "city": "济南",
-            "total": 13780.8,
-            "count": 2,
-            "unitPrice": 6890.4
-          },
-          {
-            "city": "宜兴",
-            "total": 13588.0,
-            "count": 3,
-            "unitPrice": 4529.33
-          },
-          {
-            "city": "合肥",
-            "total": 12188.16,
-            "count": 8,
-            "unitPrice": 1523.52
-          },
-          {
-            "city": "江阴",
-            "total": 11214.0,
-            "count": 3,
-            "unitPrice": 3738.0
-          },
-          {
-            "city": "临沂",
-            "total": 7434.0,
-            "count": 3,
-            "unitPrice": 2478.0
-          },
-          {
-            "city": "南宁",
-            "total": 6569.8,
-            "count": 13,
-            "unitPrice": 505.37
-          },
-          {
-            "city": "济宁",
-            "total": 6424.0,
-            "count": 1,
-            "unitPrice": 6424.0
-          },
-          {
-            "city": "潍坊",
-            "total": 4244.0,
-            "count": 1,
-            "unitPrice": 4244.0
-          },
-          {
-            "city": "江门",
-            "total": 4200.0,
-            "count": 7,
-            "unitPrice": 600.0
-          },
-          {
-            "city": "台州",
-            "total": 1872.0,
-            "count": 1,
-            "unitPrice": 1872.0
-          },
-          {
-            "city": "镇江",
-            "total": 1857.0,
-            "count": 3,
-            "unitPrice": 619.0
-          },
-          {
-            "city": "淄博",
-            "total": 1836.0,
-            "count": 1,
-            "unitPrice": 1836.0
-          },
-          {
-            "city": "福田",
-            "total": 1625.0,
-            "count": 18,
-            "unitPrice": 90.28
-          },
-          {
-            "city": "湖北",
-            "total": 384.19,
-            "count": 1,
-            "unitPrice": 384.19
-          },
-          {
-            "city": "安徽",
-            "total": 382.47,
-            "count": 1,
-            "unitPrice": 382.47
-          },
-          {
-            "city": "马鞍山",
-            "total": 370.44,
-            "count": 1,
-            "unitPrice": 370.44
-          },
-          {
-            "city": "江苏",
-            "total": 78.0,
-            "count": 1,
-            "unitPrice": 78.0
-          }
-        ],
-        "grandTotal": 5770595.2
-      },
-      {
-        "name": "租赁费",
-        "cities": [
-          {
-            "city": "全国",
-            "total": 1648757.4,
-            "count": 53,
-            "unitPrice": 31108.63
-          },
-          {
-            "city": "杭州",
-            "total": 430688.43,
-            "count": 62,
-            "unitPrice": 6946.59
-          },
-          {
-            "city": "石家庄",
-            "total": 108468.8,
-            "count": 13,
-            "unitPrice": 8343.75
-          },
-          {
-            "city": "广州",
-            "total": 93686.98,
-            "count": 6,
-            "unitPrice": 15614.5
-          },
-          {
-            "city": "武汉",
-            "total": 82395.71,
-            "count": 12,
-            "unitPrice": 6866.31
-          },
-          {
-            "city": "泰安",
-            "total": 64945.28,
-            "count": 6,
-            "unitPrice": 10824.21
-          },
-          {
-            "city": "上海",
-            "total": 57527.98,
-            "count": 64,
-            "unitPrice": 898.87
-          },
-          {
-            "city": "南京",
-            "total": 51930.0,
-            "count": 11,
-            "unitPrice": 4720.91
-          },
-          {
-            "city": "威海",
-            "total": 50490.7,
-            "count": 5,
-            "unitPrice": 10098.14
-          },
-          {
-            "city": "珠海",
-            "total": 45000.0,
-            "count": 5,
-            "unitPrice": 9000.0
-          },
-          {
-            "city": "临沂",
-            "total": 32228.57,
-            "count": 4,
-            "unitPrice": 8057.14
-          },
-          {
-            "city": "山东",
-            "total": 31599.36,
-            "count": 1,
-            "unitPrice": 31599.36
-          },
-          {
-            "city": "南昌",
-            "total": 27000.0,
-            "count": 3,
-            "unitPrice": 9000.0
-          },
-          {
-            "city": "天津",
-            "total": 26414.0,
-            "count": 4,
-            "unitPrice": 6603.5
-          },
-          {
-            "city": "北京",
-            "total": 24591.5,
-            "count": 6,
-            "unitPrice": 4098.58
-          },
-          {
-            "city": "潍坊",
-            "total": 22464.41,
-            "count": 3,
-            "unitPrice": 7488.14
-          },
-          {
-            "city": "深圳",
-            "total": 17817.0,
-            "count": 8,
-            "unitPrice": 2227.12
-          },
-          {
-            "city": "济南",
-            "total": 15747.0,
-            "count": 3,
-            "unitPrice": 5249.0
-          },
-          {
-            "city": "苏州",
-            "total": 15454.0,
-            "count": 19,
-            "unitPrice": 813.37
-          },
-          {
-            "city": "青岛",
-            "total": 13200.0,
-            "count": 11,
-            "unitPrice": 1200.0
-          },
-          {
-            "city": "福田",
-            "total": 11035.0,
-            "count": 1,
-            "unitPrice": 11035.0
-          },
-          {
-            "city": "长沙",
-            "total": 8982.0,
-            "count": 1,
-            "unitPrice": 8982.0
-          },
-          {
-            "city": "西安",
-            "total": 8573.4,
-            "count": 4,
-            "unitPrice": 2143.35
-          },
-          {
-            "city": "清远",
-            "total": 8000.0,
-            "count": 1,
-            "unitPrice": 8000.0
-          },
-          {
-            "city": "肇庆",
-            "total": 7600.0,
-            "count": 2,
-            "unitPrice": 3800.0
-          },
-          {
-            "city": "香港",
-            "total": 6898.05,
-            "count": 2,
-            "unitPrice": 3449.03
-          },
-          {
-            "city": "厦门",
-            "total": 6825.0,
-            "count": 7,
-            "unitPrice": 975.0
-          },
-          {
-            "city": "宁波",
-            "total": 6800.0,
-            "count": 21,
-            "unitPrice": 323.81
-          },
-          {
-            "city": "郑州",
-            "total": 5709.0,
-            "count": 1,
-            "unitPrice": 5709.0
-          },
-          {
-            "city": "成都",
-            "total": 4950.0,
-            "count": 6,
-            "unitPrice": 825.0
-          },
-          {
-            "city": "马鞍山",
-            "total": 3150.0,
-            "count": 1,
-            "unitPrice": 3150.0
-          },
-          {
-            "city": "大连",
-            "total": 1994.0,
-            "count": 1,
-            "unitPrice": 1994.0
-          },
-          {
-            "city": "金柚康康",
-            "total": 1130.0,
-            "count": 5,
-            "unitPrice": 226.0
-          },
-          {
-            "city": "南宁",
-            "total": 288.0,
-            "count": 1,
-            "unitPrice": 288.0
-          }
-        ],
-        "grandTotal": 2942341.57
-      },
-      {
-        "name": "快递费",
-        "cities": [
-          {
-            "city": "苏州",
-            "total": 773722.1,
-            "count": 74,
-            "unitPrice": 10455.7
-          },
-          {
-            "city": "全国",
-            "total": 602184.6,
-            "count": 117,
-            "unitPrice": 5146.88
-          },
-          {
-            "city": "杭州",
-            "total": 588949.5,
-            "count": 87,
-            "unitPrice": 6769.53
-          },
-          {
-            "city": "上海",
-            "total": 301045.38,
-            "count": 127,
-            "unitPrice": 2370.44
-          },
-          {
-            "city": "深圳",
-            "total": 125831.5,
-            "count": 39,
-            "unitPrice": 3226.45
-          },
-          {
-            "city": "北京",
-            "total": 110619.87,
-            "count": 74,
-            "unitPrice": 1494.86
-          },
-          {
-            "city": "南京",
-            "total": 85930.59,
-            "count": 112,
-            "unitPrice": 767.24
-          },
-          {
-            "city": "成都",
-            "total": 36212.84,
-            "count": 75,
-            "unitPrice": 482.84
-          },
-          {
-            "city": "广州",
-            "total": 35369.89,
-            "count": 71,
-            "unitPrice": 498.17
-          },
-          {
-            "city": "武汉",
-            "total": 21785.95,
-            "count": 55,
-            "unitPrice": 396.11
-          },
-          {
-            "city": "青岛",
-            "total": 21089.14,
-            "count": 27,
-            "unitPrice": 781.08
-          },
-          {
-            "city": "西安",
-            "total": 17247.57,
-            "count": 58,
-            "unitPrice": 297.37
-          },
-          {
-            "city": "厦门",
-            "total": 12490.48,
-            "count": 33,
-            "unitPrice": 378.5
-          },
-          {
-            "city": "天津",
-            "total": 11718.45,
-            "count": 33,
-            "unitPrice": 355.1
-          },
-          {
-            "city": "大连",
-            "total": 11205.1,
-            "count": 25,
-            "unitPrice": 448.2
-          },
-          {
-            "city": "郑州",
-            "total": 7950.86,
-            "count": 6,
-            "unitPrice": 1325.14
-          },
-          {
-            "city": "合肥",
-            "total": 6109.0,
-            "count": 35,
-            "unitPrice": 174.54
-          },
-          {
-            "city": "常熟",
-            "total": 4403.0,
-            "count": 3,
-            "unitPrice": 1467.67
-          },
-          {
-            "city": "石家庄",
-            "total": 3999.79,
-            "count": 22,
-            "unitPrice": 181.81
-          },
-          {
-            "city": "北京、成都、大连、天津、广州、济南、南京、南宁、宁波、青岛、深圳、无锡、西安、长沙、重庆",
-            "total": 3821.0,
-            "count": 1,
-            "unitPrice": 3821.0
-          },
-          {
-            "city": "无锡",
-            "total": 3098.43,
-            "count": 24,
-            "unitPrice": 129.1
-          },
-          {
-            "city": "安徽、北京、福建、广东、河南、湖北、辽宁、山东、陕西、四川、天津、重庆",
-            "total": 2672.7,
-            "count": 1,
-            "unitPrice": 2672.7
-          },
-          {
-            "city": "福厦",
-            "total": 2446.5,
-            "count": 11,
-            "unitPrice": 222.41
-          },
-          {
-            "city": "上海、江苏",
-            "total": 2333.79,
-            "count": 1,
-            "unitPrice": 2333.79
-          },
-          {
-            "city": "济青",
-            "total": 1776.58,
-            "count": 1,
-            "unitPrice": 1776.58
-          },
-          {
-            "city": "南宁",
-            "total": 1614.15,
-            "count": 7,
-            "unitPrice": 230.59
-          },
-          {
-            "city": "沈阳",
-            "total": 1500.45,
-            "count": 10,
-            "unitPrice": 150.05
-          },
-          {
-            "city": "宁波",
-            "total": 1201.9,
-            "count": 14,
-            "unitPrice": 85.85
-          },
-          {
-            "city": "川渝",
-            "total": 1166.48,
-            "count": 7,
-            "unitPrice": 166.64
-          },
-          {
-            "city": "金柚康康",
-            "total": 922.4,
-            "count": 5,
-            "unitPrice": 184.48
-          },
-          {
-            "city": "五区",
-            "total": 851.38,
-            "count": 1,
-            "unitPrice": 851.38
-          },
-          {
-            "city": "长沙",
-            "total": 836.68,
-            "count": 8,
-            "unitPrice": 104.59
-          },
-          {
-            "city": "成",
-            "total": 424.25,
-            "count": 1,
-            "unitPrice": 424.25
-          },
-          {
-            "city": "重庆",
-            "total": 365.6,
-            "count": 7,
-            "unitPrice": 52.23
-          },
-          {
-            "city": "四川",
-            "total": 70.0,
-            "count": 1,
-            "unitPrice": 70.0
-          },
-          {
-            "city": "济南",
-            "total": 52.5,
-            "count": 1,
-            "unitPrice": 52.5
-          },
-          {
-            "city": "海外",
-            "total": 36.0,
-            "count": 1,
-            "unitPrice": 36.0
-          }
-        ],
-        "grandTotal": 2803056.4
-      },
-      {
-        "name": "办公费",
-        "cities": [
-          {
-            "city": "杭州",
-            "total": 760075.98,
-            "count": 233,
-            "unitPrice": 3262.13
-          },
-          {
-            "city": "上海",
-            "total": 199969.77,
-            "count": 159,
-            "unitPrice": 1257.67
-          },
-          {
-            "city": "全国",
-            "total": 139145.16,
-            "count": 43,
-            "unitPrice": 3235.93
-          },
-          {
-            "city": "广州",
-            "total": 128474.33,
-            "count": 102,
-            "unitPrice": 1259.55
-          },
-          {
-            "city": "北京",
-            "total": 103179.56,
-            "count": 78,
-            "unitPrice": 1322.81
-          },
-          {
-            "city": "深圳",
-            "total": 96750.59,
-            "count": 106,
-            "unitPrice": 912.74
-          },
-          {
-            "city": "成都",
-            "total": 48065.67,
-            "count": 76,
-            "unitPrice": 632.44
-          },
-          {
-            "city": "武汉",
-            "total": 45322.22,
-            "count": 64,
-            "unitPrice": 708.16
-          },
-          {
-            "city": "南京",
-            "total": 39195.81,
-            "count": 60,
-            "unitPrice": 653.26
-          },
-          {
-            "city": "西安",
-            "total": 32458.77,
-            "count": 26,
-            "unitPrice": 1248.41
-          },
-          {
-            "city": "印尼",
-            "total": 24964.74,
-            "count": 5,
-            "unitPrice": 4992.95
-          },
-          {
-            "city": "青岛",
-            "total": 24778.49,
-            "count": 47,
-            "unitPrice": 527.2
-          },
-          {
-            "city": "天津",
-            "total": 22243.63,
-            "count": 60,
-            "unitPrice": 370.73
-          },
-          {
-            "city": "重庆",
-            "total": 21493.83,
-            "count": 46,
-            "unitPrice": 467.26
-          },
-          {
-            "city": "苏州",
-            "total": 20098.03,
-            "count": 31,
-            "unitPrice": 648.32
-          },
-          {
-            "city": "厦门",
-            "total": 16448.71,
-            "count": 33,
-            "unitPrice": 498.45
-          },
-          {
-            "city": "石家庄",
-            "total": 14643.27,
-            "count": 29,
-            "unitPrice": 504.94
-          },
-          {
-            "city": "大连",
-            "total": 13544.29,
-            "count": 33,
-            "unitPrice": 410.43
-          },
-          {
-            "city": "济南",
-            "total": 9411.27,
-            "count": 22,
-            "unitPrice": 427.79
-          },
-          {
-            "city": "郑州",
-            "total": 8915.4,
-            "count": 28,
-            "unitPrice": 318.41
-          },
-          {
-            "city": "无锡",
-            "total": 7285.46,
-            "count": 14,
-            "unitPrice": 520.39
-          },
-          {
-            "city": "合肥",
-            "total": 5752.34,
-            "count": 24,
-            "unitPrice": 239.68
-          },
-          {
-            "city": "昆明",
-            "total": 4500.0,
-            "count": 3,
-            "unitPrice": 1500.0
-          },
-          {
-            "city": "越南",
-            "total": 4497.0,
-            "count": 1,
-            "unitPrice": 4497.0
-          },
-          {
-            "city": "常熟",
-            "total": 3974.09,
-            "count": 5,
-            "unitPrice": 794.82
-          },
-          {
-            "city": "川渝",
-            "total": 3000.0,
-            "count": 1,
-            "unitPrice": 3000.0
-          },
-          {
-            "city": "贵阳",
-            "total": 3000.0,
-            "count": 1,
-            "unitPrice": 3000.0
-          },
-          {
-            "city": "沈阳",
-            "total": 2303.69,
-            "count": 17,
-            "unitPrice": 135.51
-          },
-          {
-            "city": "福州",
-            "total": 2202.8,
-            "count": 6,
-            "unitPrice": 367.13
-          },
-          {
-            "city": "上海、杭州",
-            "total": 2141.32,
-            "count": 2,
-            "unitPrice": 1070.66
-          },
-          {
-            "city": "南宁",
-            "total": 1862.75,
-            "count": 9,
-            "unitPrice": 206.97
-          },
-          {
-            "city": "南京、苏州",
-            "total": 1390.0,
-            "count": 1,
-            "unitPrice": 1390.0
-          },
-          {
-            "city": "金柚国际",
-            "total": 1307.0,
-            "count": 1,
-            "unitPrice": 1307.0
-          },
-          {
-            "city": "江西",
-            "total": 1200.0,
-            "count": 2,
-            "unitPrice": 600.0
-          },
-          {
-            "city": "宁波",
-            "total": 1197.24,
-            "count": 7,
-            "unitPrice": 171.03
-          },
-          {
-            "city": "台州",
-            "total": 1193.16,
-            "count": 1,
-            "unitPrice": 1193.16
-          },
-          {
-            "city": "沧州、邯郸、邢台、临汾",
-            "total": 1180.0,
-            "count": 1,
-            "unitPrice": 1180.0
-          },
-          {
-            "city": "禅城",
-            "total": 1000.0,
-            "count": 1,
-            "unitPrice": 1000.0
-          },
-          {
-            "city": "四川",
-            "total": 950.0,
-            "count": 1,
-            "unitPrice": 950.0
-          },
-          {
-            "city": "杭州、郑州",
-            "total": 891.32,
-            "count": 1,
-            "unitPrice": 891.32
-          },
-          {
-            "city": "连云港",
-            "total": 840.0,
-            "count": 2,
-            "unitPrice": 420.0
-          },
-          {
-            "city": "广州、深圳、厦门、成都、重庆",
-            "total": 831.44,
-            "count": 1,
-            "unitPrice": 831.44
-          },
-          {
-            "city": "大连、济南、青岛",
-            "total": 630.0,
-            "count": 2,
-            "unitPrice": 315.0
-          },
-          {
-            "city": "兰州",
-            "total": 570.0,
-            "count": 2,
-            "unitPrice": 285.0
-          },
-          {
-            "city": "长沙",
-            "total": 545.95,
-            "count": 6,
-            "unitPrice": 90.99
-          },
-          {
-            "city": "宁波、合肥、南宁、福州、沈阳、长沙、石家庄",
-            "total": 530.56,
-            "count": 1,
-            "unitPrice": 530.56
-          },
-          {
-            "city": "杭州、武汉、金华",
-            "total": 517.09,
-            "count": 1,
-            "unitPrice": 517.09
-          },
-          {
-            "city": "南宁、福州",
-            "total": 500.0,
-            "count": 1,
-            "unitPrice": 500.0
-          },
-          {
-            "city": "吴江",
-            "total": 400.0,
-            "count": 1,
-            "unitPrice": 400.0
-          },
-          {
-            "city": "张家口",
-            "total": 400.0,
-            "count": 2,
-            "unitPrice": 200.0
-          },
-          {
-            "city": "菏泽",
-            "total": 360.0,
-            "count": 1,
-            "unitPrice": 360.0
-          },
-          {
-            "city": "北京、合肥、珠海、杭州",
-            "total": 355.02,
-            "count": 1,
-            "unitPrice": 355.02
-          },
-          {
-            "city": "宜昌",
-            "total": 300.0,
-            "count": 1,
-            "unitPrice": 300.0
-          },
-          {
-            "city": "广州、成都",
-            "total": 290.66,
-            "count": 1,
-            "unitPrice": 290.66
-          },
-          {
-            "city": "宿迁",
-            "total": 250.0,
-            "count": 1,
-            "unitPrice": 250.0
-          },
-          {
-            "city": "西安、南宁",
-            "total": 238.95,
-            "count": 1,
-            "unitPrice": 238.95
-          },
-          {
-            "city": "焦作，新乡，驻马店，平顶山",
-            "total": 215.0,
-            "count": 1,
-            "unitPrice": 215.0
-          },
-          {
-            "city": "襄阳",
-            "total": 200.0,
-            "count": 1,
-            "unitPrice": 200.0
-          },
-          {
-            "city": "河南",
-            "total": 200.0,
-            "count": 1,
-            "unitPrice": 200.0
-          },
-          {
-            "city": "金柚康康",
-            "total": 180.0,
-            "count": 1,
-            "unitPrice": 180.0
-          },
-          {
-            "city": "天河",
-            "total": 140.0,
-            "count": 1,
-            "unitPrice": 140.0
-          },
-          {
-            "city": "江阴",
-            "total": 140.0,
-            "count": 1,
-            "unitPrice": 140.0
-          },
-          {
-            "city": "青岛、苏州、郑州、北京",
-            "total": 136.18,
-            "count": 1,
-            "unitPrice": 136.18
-          },
-          {
-            "city": "武汉柚出海",
-            "total": 127.0,
-            "count": 2,
-            "unitPrice": 63.5
-          },
-          {
-            "city": "四区",
-            "total": 70.0,
-            "count": 1,
-            "unitPrice": 70.0
-          },
-          {
-            "city": "马来西亚",
-            "total": 67.51,
-            "count": 1,
-            "unitPrice": 67.51
-          },
-          {
-            "city": "赤峰",
-            "total": 53.1,
-            "count": 1,
-            "unitPrice": 53.1
-          },
-          {
-            "city": "呼和浩特",
-            "total": 51.36,
-            "count": 1,
-            "unitPrice": 51.36
-          },
-          {
-            "city": "南通",
-            "total": 50.0,
-            "count": 1,
-            "unitPrice": 50.0
-          },
-          {
-            "city": "合肥、福州",
-            "total": 37.15,
-            "count": 1,
-            "unitPrice": 37.15
-          },
-          {
-            "city": "江苏",
-            "total": 30.0,
-            "count": 1,
-            "unitPrice": 30.0
-          },
-          {
-            "city": "广东",
-            "total": 20.0,
-            "count": 1,
-            "unitPrice": 20.0
-          }
-        ],
-        "grandTotal": 1829284.66
-      },
-      {
-        "name": "水电费",
-        "cities": [
-          {
-            "city": "杭州",
-            "total": 510186.63,
-            "count": 94,
-            "unitPrice": 5427.52
-          },
-          {
-            "city": "武汉",
-            "total": 126896.1,
-            "count": 28,
-            "unitPrice": 4532.0
-          },
-          {
-            "city": "北京",
-            "total": 118844.79,
-            "count": 55,
-            "unitPrice": 2160.81
-          },
-          {
-            "city": "青岛",
-            "total": 115977.55,
-            "count": 27,
-            "unitPrice": 4295.46
-          },
-          {
-            "city": "上海",
-            "total": 114432.55,
-            "count": 73,
-            "unitPrice": 1567.57
-          },
-          {
-            "city": "广州",
-            "total": 99318.19,
-            "count": 93,
-            "unitPrice": 1067.94
-          },
-          {
-            "city": "南京",
-            "total": 94853.7,
-            "count": 76,
-            "unitPrice": 1248.08
-          },
-          {
-            "city": "成都",
-            "total": 94412.18,
-            "count": 52,
-            "unitPrice": 1815.62
-          },
-          {
-            "city": "厦门",
-            "total": 32792.0,
-            "count": 26,
-            "unitPrice": 1261.23
-          },
-          {
-            "city": "深圳",
-            "total": 31881.37,
-            "count": 34,
-            "unitPrice": 937.69
-          },
-          {
-            "city": "西安",
-            "total": 28407.2,
-            "count": 18,
-            "unitPrice": 1578.18
-          },
-          {
-            "city": "济南",
-            "total": 27590.4,
-            "count": 5,
-            "unitPrice": 5518.08
-          },
-          {
-            "city": "沈阳",
-            "total": 25732.0,
-            "count": 18,
-            "unitPrice": 1429.56
-          },
-          {
-            "city": "石家庄",
-            "total": 25477.8,
-            "count": 16,
-            "unitPrice": 1592.36
-          },
-          {
-            "city": "天津",
-            "total": 21060.82,
-            "count": 41,
-            "unitPrice": 513.68
-          },
-          {
-            "city": "苏州",
-            "total": 20881.94,
-            "count": 31,
-            "unitPrice": 673.61
-          },
-          {
-            "city": "大连",
-            "total": 17093.89,
-            "count": 23,
-            "unitPrice": 743.21
-          },
-          {
-            "city": "无锡",
-            "total": 13748.0,
-            "count": 17,
-            "unitPrice": 808.71
-          },
-          {
-            "city": "合肥",
-            "total": 11707.2,
-            "count": 19,
-            "unitPrice": 616.17
-          },
-          {
-            "city": "郑州",
-            "total": 7000.0,
-            "count": 5,
-            "unitPrice": 1400.0
-          },
-          {
-            "city": "重庆",
-            "total": 6091.11,
-            "count": 24,
-            "unitPrice": 253.8
-          },
-          {
-            "city": "南宁",
-            "total": 2404.77,
-            "count": 12,
-            "unitPrice": 200.4
-          },
-          {
-            "city": "常熟",
-            "total": 1513.58,
-            "count": 2,
-            "unitPrice": 756.79
-          },
-          {
-            "city": "南海",
-            "total": 519.0,
-            "count": 7,
-            "unitPrice": 74.14
-          },
-          {
-            "city": "佛山",
-            "total": 354.0,
-            "count": 7,
-            "unitPrice": 50.57
-          },
-          {
-            "city": "福田",
-            "total": 177.88,
-            "count": 3,
-            "unitPrice": 59.29
-          }
-        ],
-        "grandTotal": 1549354.65
-      },
-      {
-        "name": "房租保证金",
-        "cities": [
-          {
-            "city": "杭州",
-            "total": 367650.16,
-            "count": 4,
-            "unitPrice": 91912.54
-          },
-          {
-            "city": "上海",
-            "total": 306834.02,
-            "count": 2,
-            "unitPrice": 153417.01
-          },
-          {
-            "city": "北京",
-            "total": 242073.74,
-            "count": 2,
-            "unitPrice": 121036.87
-          },
-          {
-            "city": "广州",
-            "total": 176068.0,
-            "count": 3,
-            "unitPrice": 58689.33
-          },
-          {
-            "city": "深圳",
-            "total": 144191.0,
-            "count": 5,
-            "unitPrice": 28838.2
-          },
-          {
-            "city": "成都",
-            "total": 63573.4,
-            "count": 2,
-            "unitPrice": 31786.7
-          },
-          {
-            "city": "武汉",
-            "total": 49978.14,
-            "count": 1,
-            "unitPrice": 49978.14
-          },
-          {
-            "city": "厦门",
-            "total": 22284.0,
-            "count": 1,
-            "unitPrice": 22284.0
-          },
-          {
-            "city": "珠海",
-            "total": 18000.0,
-            "count": 3,
-            "unitPrice": 6000.0
-          },
-          {
-            "city": "福田",
-            "total": 18000.0,
-            "count": 1,
-            "unitPrice": 18000.0
-          },
-          {
-            "city": "福州",
-            "total": 14000.0,
-            "count": 2,
-            "unitPrice": 7000.0
-          },
-          {
-            "city": "惠州",
-            "total": 11660.0,
-            "count": 2,
-            "unitPrice": 5830.0
-          },
-          {
-            "city": "苏州",
-            "total": 11540.0,
-            "count": 2,
-            "unitPrice": 5770.0
-          },
-          {
-            "city": "南京",
-            "total": 9273.0,
-            "count": 2,
-            "unitPrice": 4636.5
-          },
-          {
-            "city": "东莞",
-            "total": 7600.0,
-            "count": 1,
-            "unitPrice": 7600.0
-          },
-          {
-            "city": "宜昌",
-            "total": 6000.0,
-            "count": 1,
-            "unitPrice": 6000.0
-          },
-          {
-            "city": "襄阳",
-            "total": 5400.0,
-            "count": 1,
-            "unitPrice": 5400.0
-          },
-          {
-            "city": "湛江",
-            "total": 4000.0,
-            "count": 1,
-            "unitPrice": 4000.0
-          },
-          {
-            "city": "江门",
-            "total": 3300.0,
-            "count": 1,
-            "unitPrice": 3300.0
-          },
-          {
-            "city": "顺德",
-            "total": 3300.0,
-            "count": 1,
-            "unitPrice": 3300.0
-          },
-          {
-            "city": "青岛",
-            "total": 3000.0,
-            "count": 1,
-            "unitPrice": 3000.0
-          },
-          {
-            "city": "宁波",
-            "total": 2800.0,
-            "count": 1,
-            "unitPrice": 2800.0
-          },
-          {
-            "city": "重庆",
-            "total": 2623.19,
-            "count": 1,
-            "unitPrice": 2623.19
-          },
-          {
-            "city": "泰州",
-            "total": 2000.0,
-            "count": 1,
-            "unitPrice": 2000.0
-          },
-          {
-            "city": "临沂",
-            "total": 1250.0,
-            "count": 1,
-            "unitPrice": 1250.0
-          }
-        ],
-        "grandTotal": 1496398.65
-      },
-      {
-        "name": "IT费用",
-        "cities": [
-          {
-            "city": "杭州",
-            "total": 221954.7,
-            "count": 23,
-            "unitPrice": 9650.2
-          },
-          {
-            "city": "北京",
-            "total": 187187.98,
-            "count": 6,
-            "unitPrice": 31198.0
-          },
-          {
-            "city": "上海",
-            "total": 144257.0,
-            "count": 11,
-            "unitPrice": 13114.27
-          },
-          {
-            "city": "青岛",
-            "total": 67224.0,
-            "count": 7,
-            "unitPrice": 9603.43
-          },
-          {
-            "city": "广州",
-            "total": 66107.97,
-            "count": 13,
-            "unitPrice": 5085.23
-          },
-          {
-            "city": "大连",
-            "total": 36000.0,
-            "count": 2,
-            "unitPrice": 18000.0
-          },
-          {
-            "city": "深圳",
-            "total": 34124.41,
-            "count": 12,
-            "unitPrice": 2843.7
-          },
-          {
-            "city": "武汉",
-            "total": 18598.0,
-            "count": 3,
-            "unitPrice": 6199.33
-          },
-          {
-            "city": "合肥",
-            "total": 16736.0,
-            "count": 32,
-            "unitPrice": 523.0
-          },
-          {
-            "city": "石家庄",
-            "total": 16296.0,
-            "count": 7,
-            "unitPrice": 2328.0
-          },
-          {
-            "city": "成都",
-            "total": 14818.4,
-            "count": 7,
-            "unitPrice": 2116.91
-          },
-          {
-            "city": "南京",
-            "total": 12898.0,
-            "count": 18,
-            "unitPrice": 716.56
-          },
-          {
-            "city": "天津",
-            "total": 10000.0,
-            "count": 2,
-            "unitPrice": 5000.0
-          },
-          {
-            "city": "重庆",
-            "total": 9294.62,
-            "count": 14,
-            "unitPrice": 663.9
-          },
-          {
-            "city": "川渝",
-            "total": 7252.0,
-            "count": 28,
-            "unitPrice": 259.0
-          },
-          {
-            "city": "西安",
-            "total": 7180.0,
-            "count": 5,
-            "unitPrice": 1436.0
-          },
-          {
-            "city": "厦门",
-            "total": 5070.0,
-            "count": 6,
-            "unitPrice": 845.0
-          },
-          {
-            "city": "苏州",
-            "total": 4860.0,
-            "count": 4,
-            "unitPrice": 1215.0
-          },
-          {
-            "city": "无锡",
-            "total": 4388.91,
-            "count": 8,
-            "unitPrice": 548.61
-          },
-          {
-            "city": "南宁",
-            "total": 3557.31,
-            "count": 10,
-            "unitPrice": 355.73
-          },
-          {
-            "city": "沈阳",
-            "total": 3540.0,
-            "count": 5,
-            "unitPrice": 708.0
-          },
-          {
-            "city": "济南",
-            "total": 2982.92,
-            "count": 10,
-            "unitPrice": 298.29
-          },
-          {
-            "city": "福州",
-            "total": 2272.0,
-            "count": 16,
-            "unitPrice": 142.0
-          },
-          {
-            "city": "常熟",
-            "total": 897.0,
-            "count": 3,
-            "unitPrice": 299.0
-          },
-          {
-            "city": "川",
-            "total": 259.0,
-            "count": 1,
-            "unitPrice": 259.0
-          }
-        ],
-        "grandTotal": 897756.22
-      },
-      {
-        "name": "邮电通讯费",
-        "cities": [
-          {
-            "city": "杭州",
-            "total": 216546.94,
-            "count": 93,
-            "unitPrice": 2328.46
-          },
-          {
-            "city": "上海",
-            "total": 146840.54,
-            "count": 50,
-            "unitPrice": 2936.81
-          },
-          {
-            "city": "北京",
-            "total": 50559.0,
-            "count": 22,
-            "unitPrice": 2298.14
-          },
-          {
-            "city": "全国",
-            "total": 29500.0,
-            "count": 6,
-            "unitPrice": 4916.67
-          },
-          {
-            "city": "南京",
-            "total": 28969.49,
-            "count": 80,
-            "unitPrice": 362.12
-          },
-          {
-            "city": "重庆",
-            "total": 21676.81,
-            "count": 26,
-            "unitPrice": 833.72
-          },
-          {
-            "city": "大连",
-            "total": 20100.0,
-            "count": 23,
-            "unitPrice": 873.91
-          },
-          {
-            "city": "武汉",
-            "total": 14582.29,
-            "count": 69,
-            "unitPrice": 211.34
-          },
-          {
-            "city": "深圳",
-            "total": 10244.84,
-            "count": 9,
-            "unitPrice": 1138.32
-          },
-          {
-            "city": "成都",
-            "total": 10194.1,
-            "count": 9,
-            "unitPrice": 1132.68
-          },
-          {
-            "city": "苏州",
-            "total": 8615.91,
-            "count": 22,
-            "unitPrice": 391.63
-          },
-          {
-            "city": "青岛",
-            "total": 6666.0,
-            "count": 13,
-            "unitPrice": 512.77
-          },
-          {
-            "city": "厦门",
-            "total": 6539.38,
-            "count": 9,
-            "unitPrice": 726.6
-          },
-          {
-            "city": "天津",
-            "total": 5003.81,
-            "count": 61,
-            "unitPrice": 82.03
-          },
-          {
-            "city": "无锡",
-            "total": 4653.0,
-            "count": 19,
-            "unitPrice": 244.89
-          },
-          {
-            "city": "沈阳",
-            "total": 2699.5,
-            "count": 7,
-            "unitPrice": 385.64
-          },
-          {
-            "city": "郑州",
-            "total": 2545.84,
-            "count": 16,
-            "unitPrice": 159.12
-          },
-          {
-            "city": "南宁",
-            "total": 2223.0,
-            "count": 7,
-            "unitPrice": 317.57
-          },
-          {
-            "city": "济南",
-            "total": 2189.0,
-            "count": 7,
-            "unitPrice": 312.71
-          },
-          {
-            "city": "宁波",
-            "total": 1949.92,
-            "count": 15,
-            "unitPrice": 129.99
-          },
-          {
-            "city": "西安",
-            "total": 1823.3,
-            "count": 2,
-            "unitPrice": 911.65
-          },
-          {
-            "city": "长沙",
-            "total": 1800.0,
-            "count": 8,
-            "unitPrice": 225.0
-          },
-          {
-            "city": "广州",
-            "total": 1199.07,
-            "count": 8,
-            "unitPrice": 149.88
-          },
-          {
-            "city": "成",
-            "total": 912.0,
-            "count": 1,
-            "unitPrice": 912.0
-          },
-          {
-            "city": "无锡、南京、苏州",
-            "total": 840.0,
-            "count": 1,
-            "unitPrice": 840.0
-          },
-          {
-            "city": "石家庄",
-            "total": 697.68,
-            "count": 7,
-            "unitPrice": 99.67
-          },
-          {
-            "city": "苏州、福州、长沙",
-            "total": 548.88,
-            "count": 1,
-            "unitPrice": 548.88
-          },
-          {
-            "city": "福州",
-            "total": 438.59,
-            "count": 3,
-            "unitPrice": 146.2
-          },
-          {
-            "city": "常熟",
-            "total": 399.0,
-            "count": 2,
-            "unitPrice": 199.5
-          },
-          {
-            "city": "合肥",
-            "total": 200.0,
-            "count": 2,
-            "unitPrice": 100.0
-          }
-        ],
-        "grandTotal": 601157.89
-      },
-      {
-        "name": "招聘费",
-        "cities": [
-          {
-            "city": "杭州",
-            "total": 216361.5,
-            "count": 109,
-            "unitPrice": 1984.97
-          },
-          {
-            "city": "上海",
-            "total": 42829.0,
-            "count": 4,
-            "unitPrice": 10707.25
-          },
-          {
-            "city": "厦门",
-            "total": 34870.0,
-            "count": 2,
-            "unitPrice": 17435.0
-          },
-          {
-            "city": "全国",
-            "total": 26357.3,
-            "count": 8,
-            "unitPrice": 3294.66
-          },
-          {
-            "city": "深圳",
-            "total": 16000.0,
-            "count": 1,
-            "unitPrice": 16000.0
-          },
-          {
-            "city": "北京",
-            "total": 13912.8,
-            "count": 1,
-            "unitPrice": 13912.8
-          },
-          {
-            "city": "南京",
-            "total": 11387.0,
-            "count": 1,
-            "unitPrice": 11387.0
-          },
-          {
-            "city": "郑州",
-            "total": 2001.92,
-            "count": 1,
-            "unitPrice": 2001.92
-          },
-          {
-            "city": "金柚国际",
-            "total": 500.0,
-            "count": 1,
-            "unitPrice": 500.0
-          },
-          {
-            "city": "广州",
-            "total": 331.5,
-            "count": 1,
-            "unitPrice": 331.5
-          }
-        ],
-        "grandTotal": 364551.02
-      }
-    ],
-    "topCities": [
-      "杭州",
-      "上海",
-      "北京",
-      "广州",
-      "深圳",
-      "全国",
-      "成都",
-      "南京",
-      "苏州",
-      "青岛",
-      "武汉",
-      "天津"
-    ]
-  },
-  "lastUpdated": "2026-06-03 16:31",
+  "lastUpdated": "2026-06-03 18:40",
   "source": "feishu"
 }

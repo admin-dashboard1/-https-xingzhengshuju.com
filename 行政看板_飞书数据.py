@@ -9,14 +9,15 @@ import os
 import subprocess
 import sys
 from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # ============ 配置 ============
 LARK_CLI = "/Users/duolaameng/.workbuddy/binaries/node/versions/22.12.0/bin/lark-cli"
 SPREADSHEET_TOKEN = "MTUls4SkvhMybJtK9EjcChqonnc"
 SHEET_ID = "6d1b5c"
-EXCEL_FILE = "/Users/duolaameng/Desktop/文件/作业-小五/资产管理台账字段.xlsx"
-OUTPUT_DIR = "/Users/duolaameng/Desktop/文件/作业-小五/看板数据"
+SHEET_ID_DEPOSIT = "XqgwFi"
+EXCEL_FILE = "/Users/duolaameng/Desktop/工作/作业-小五/资产管理台账字段.xlsx"
+OUTPUT_DIR = "/Users/duolaameng/Desktop/工作/作业-小五/看板数据"
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, "dashboard_data.json")
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -162,6 +163,207 @@ def fetch_feishu_expenses():
 
     print(f"  ✅ 从飞书读取 {len(records)} 条费用记录")
     return records
+
+
+def _excel_date_to_str(raw_val):
+    """将 Excel 序列号转换为日期字符串"""
+    if raw_val is None:
+        return ""
+    try:
+        num = float(raw_val)
+        if 40000 < num < 60000:
+            base = datetime(1899, 12, 30)
+            real_date = base + timedelta(days=int(num))
+            return real_date.strftime("%Y-%m-%d")
+        return str(raw_val)[:10]
+    except (ValueError, OverflowError):
+        return str(raw_val)[:10]
+
+
+def fetch_feishu_deposits():
+    """从飞书电子表格 sheet2 拉取押金台账数据"""
+    print("📡 从飞书拉取押金台账数据...")
+
+    # 获取表格信息，找 sheet2 的行数
+    info = run_lark("sheets", "+info", "--spreadsheet-token", SPREADSHEET_TOKEN)
+    if not info or not info.get("ok"):
+        print("  ❌ 无法获取飞书表格信息")
+        return []
+
+    row_count = 200  # 默认
+    for s in info["data"]["sheets"]["sheets"]:
+        if s.get("sheet_id") == SHEET_ID_DEPOSIT:
+            row_count = s["grid_properties"]["row_count"]
+            break
+
+    # 读取全部数据（从第3行开始，前2行为信息和表头）
+    range_str = f"A3:M{row_count}"
+    data = run_lark(
+        "sheets", "+read",
+        "--spreadsheet-token", SPREADSHEET_TOKEN,
+        "--sheet-id", SHEET_ID_DEPOSIT,
+        "--range", range_str
+    )
+
+    if not data or not data.get("ok"):
+        print("  ❌ 无法读取押金台账数据")
+        return []
+
+    values = data["data"]["valueRange"].get("values", [])
+    records = []
+
+    # 列映射: A=更新日期, B=负责人, C=押金类别, D=城市, E=付款主体
+    # F=收款主体, G=合同开始, H=合同截止, I=押金支付日期, J=金额
+    # K=凭证, L=押金条, M=退回情况
+    for row in values:
+        if not row or len(row) < 3:
+            continue
+
+        def col(i, default=None):
+            return row[i] if i < len(row) else default
+
+        dep_type = str(col(2, "")).strip()
+        if not dep_type:
+            continue
+
+        amount = 0
+        raw_amt = col(9)
+        if raw_amt is not None:
+            try:
+                amount = float(raw_amt)
+            except (ValueError, TypeError):
+                pass
+
+        status = str(col(12, "")).strip()
+        # 统一退回状态
+        status_map = {
+            "未退回": "未退回",
+            "全部退回": "已退回",
+            "已退回": "已退回",
+            "部分退回": "部分退回",
+        }
+        status_norm = status_map.get(status, status)
+
+        rec = {
+            "updateDate": _excel_date_to_str(col(0)),
+            "person": str(col(1, "")).strip(),
+            "type": dep_type,
+            "city": str(col(3, "")).strip(),
+            "payer": str(col(4, "")).strip(),
+            "payee": str(col(5, "")).strip(),
+            "contractStart": _excel_date_to_str(col(6)),
+            "contractEnd": _excel_date_to_str(col(7)),
+            "payDate": _excel_date_to_str(col(8)),
+            "amount": round(amount, 2),
+            "status": status_norm,
+            "statusRaw": status,
+        }
+        records.append(rec)
+
+    print(f"  ✅ 从飞书读取 {len(records)} 条押金记录")
+    return records
+
+
+def aggregate_deposits(records):
+    """聚合押金数据"""
+    if not records:
+        return {
+            "totalAmount": 0,
+            "totalCount": 0,
+            "returnedAmount": 0,
+            "returnedCount": 0,
+            "unreturnedAmount": 0,
+            "unreturnedCount": 0,
+            "partialAmount": 0,
+            "partialCount": 0,
+            "returnRate": 0,
+            "byType": [],
+            "byCity": [],
+            "byStatus": [],
+            "unreturnedList": [],
+        }
+
+    by_type = defaultdict(lambda: {"amount": 0.0, "count": 0})
+    by_city = defaultdict(lambda: {"amount": 0.0, "count": 0})
+    by_status = defaultdict(lambda: {"amount": 0.0, "count": 0})
+
+    total_amount = 0.0
+    returned_amount = 0.0
+    unreturned_amount = 0.0
+    partial_amount = 0.0
+    returned_count = 0
+    unreturned_count = 0
+    partial_count = 0
+
+    unreturned_list = []
+
+    for r in records:
+        amt = r["amount"]
+        total_amount += amt
+        by_type[r["type"]]["amount"] += amt
+        by_type[r["type"]]["count"] += 1
+        by_city[r["city"]]["amount"] += amt
+        by_city[r["city"]]["count"] += 1
+        by_status[r["status"]]["amount"] += amt
+        by_status[r["status"]]["count"] += 1
+
+        if r["status"] == "已退回":
+            returned_amount += amt
+            returned_count += 1
+        elif r["status"] == "部分退回":
+            partial_amount += amt
+            partial_count += 1
+        else:
+            unreturned_amount += amt
+            unreturned_count += 1
+            unreturned_list.append(r)
+
+    total_count = len(records)
+    return_rate = round(returned_amount / total_amount * 100, 1) if total_amount > 0 else 0
+
+    # 未退回按金额降序
+    unreturned_list.sort(key=lambda x: -x["amount"])
+
+    return {
+        "totalAmount": round(total_amount, 2),
+        "totalCount": total_count,
+        "returnedAmount": round(returned_amount, 2),
+        "returnedCount": returned_count,
+        "unreturnedAmount": round(unreturned_amount, 2),
+        "unreturnedCount": unreturned_count,
+        "partialAmount": round(partial_amount, 2),
+        "partialCount": partial_count,
+        "returnRate": return_rate,
+        "byType": sorted(
+            [{"name": k, "amount": round(v["amount"], 2), "count": v["count"]}
+             for k, v in by_type.items()],
+            key=lambda x: -x["amount"]
+        ),
+        "byCity": sorted(
+            [{"name": k, "amount": round(v["amount"], 2), "count": v["count"]}
+             for k, v in by_city.items()],
+            key=lambda x: -x["amount"]
+        ),
+        "byStatus": sorted(
+            [{"name": k, "amount": round(v["amount"], 2), "count": v["count"]}
+             for k, v in by_status.items()],
+            key=lambda x: -x["amount"]
+        ),
+        "unreturnedList": [
+            {
+                "type": r["type"],
+                "city": r["city"],
+                "payer": r["payer"][:20],
+                "payee": r["payee"][:20],
+                "contractStart": r["contractStart"],
+                "contractEnd": r["contractEnd"],
+                "payDate": r["payDate"],
+                "amount": r["amount"],
+                "person": r["person"],
+            }
+            for r in unreturned_list[:30]
+        ],
+    }
 
 
 def process_computers_from_excel():
@@ -608,29 +810,35 @@ def main():
     # 1. 从飞书拉取费用数据
     expenses = fetch_feishu_expenses()
 
-    # 2. 从本地 Excel 读取电脑和固定资产
+    # 2. 从飞书拉取押金台账数据
+    deposits = fetch_feishu_deposits()
+
+    # 3. 从本地 Excel 读取电脑和固定资产
     print("📋 从本地 Excel 读取资产数据...")
     computers = process_computers_from_excel()
     print(f"  ✅ {len(computers)} 条电脑记录")
     assets = process_fixed_assets_from_excel()
     print(f"  ✅ {len(assets)} 条固定资产记录")
 
-    # 3. 聚合
+    # 4. 聚合
     print("📊 聚合数据...")
     result = {
         "expenses": aggregate_expenses(expenses),
+        "deposits": aggregate_deposits(deposits),
         "computers": aggregate_computers(computers),
         "lastUpdated": datetime.now().strftime("%Y-%m-%d %H:%M"),
-        "source": "feishu",  # 标记数据来源
+        "source": "feishu",
     }
 
-    # 4. 输出 JSON
+    # 5. 输出 JSON
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
 
     print(f"\n✅ 数据已保存至: {OUTPUT_FILE}")
     print(f'   费用总额: ¥{result["expenses"]["totalAmount"]:,.2f}')
     print(f'   费用记录: {result["expenses"]["totalCount"]} 条')
+    print(f'   押金总额: ¥{result["deposits"]["totalAmount"]:,.2f}')
+    print(f'   押金记录: {result["deposits"]["totalCount"]} 条')
     print(f'   电脑总数: {result["computers"]["total"]} 台')
     print(f'   数据来源: 飞书实时')
     print(f'   更新时间: {result["lastUpdated"]}')
