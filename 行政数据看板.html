@@ -5,7 +5,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>行政管理数据看板 · 实时版</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+// Chart.js 加载失败时使用备用 CDN
+if (typeof Chart === 'undefined') {
+  var s = document.createElement('script');
+  s.src = 'https://unpkg.com/chart.js@4.4.1/dist/chart.umd.min.js';
+  s.onload = function() { console.log('✅ Chart.js loaded from unpkg fallback'); };
+  s.onerror = function() { console.error('❌ Chart.js 所有 CDN 均加载失败'); };
+  document.head.appendChild(s);
+}
+</script>
 <style>
   :root {
     --primary: #6366f1; --primary-light: #818cf8; --primary-glow: rgba(99,102,241,0.2);
@@ -2078,17 +2088,46 @@ window.ASSET_ANALYSIS = {"totalQty":1496,"selfQty":342,"rentQty":932,"byoQty":21
 </script>
 <script>
 // GitHub Pages 模式：直接使用嵌入数据初始化
-(function initEmbedded() {
-  if (window.EMBEDDED_DATA) {
-    render(window.EMBEDDED_DATA);
-    dataLoaded = true;
-    if (window.EMBEDDED_DATA.lastUpdated) lastDataTimestamp = window.EMBEDDED_DATA.lastUpdated;
-    var updateEl = document.getElementById('updateTime');
-    if (updateEl) {
-      updateEl.innerHTML = '<span class="pulse-dot" style="animation:pulse 2s infinite;background:var(--success)"></span> 最后更新: ' + (window.EMBEDDED_DATA.lastUpdated || '内嵌数据');
+(function() {
+  function doRender() {
+    try {
+      if (!window.EMBEDDED_DATA) {
+        showError('EMBEDDED_DATA 未定义');
+        return;
+      }
+      render(window.EMBEDDED_DATA);
+      window.dataLoaded = true;
+      if (window.EMBEDDED_DATA.lastUpdated) window.lastDataTimestamp = window.EMBEDDED_DATA.lastUpdated;
+      var updateEl = document.getElementById('updateTime');
+      if (updateEl) {
+        updateEl.innerHTML = '<span class="pulse-dot" style="animation:pulse 2s infinite;background:var(--success)"></span> 最后更新: ' + (window.EMBEDDED_DATA.lastUpdated || '内嵌数据');
+      }
+      if (typeof checkStaleness === 'function') checkStaleness();
+      if (typeof startRefreshLoop === 'function') {
+        try { startRefreshLoop(); } catch(e) {}
+      }
+      console.log('✅ 看板渲染完成');
+    } catch(e) {
+      showError('渲染失败: ' + e.message);
+      console.error('渲染失败:', e);
     }
-    checkStaleness();
-    try { startRefreshLoop(); } catch(e) {}
+  }
+
+  function showError(msg) {
+    var el = document.getElementById('updateTime');
+    if (el) el.textContent = '❌ ' + msg;
+    // 同时在页面顶部显示错误
+    var div = document.createElement('div');
+    div.style.cssText = 'background:#fee;color:#c00;padding:12px;margin:8px;border-radius:8px;font-size:14px;';
+    div.textContent = '⚠️ ' + msg;
+    document.body.insertBefore(div, document.body.firstChild);
+  }
+
+  // 等待 DOM 就绪
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', doRender);
+  } else {
+    doRender();
   }
 })();
 </script>
