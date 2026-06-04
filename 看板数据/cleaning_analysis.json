@@ -1,808 +1,475 @@
 {
-  "totalAmount": 579780.29,
-  "totalCount": 193,
-  "avgPerRecord": 3004.04,
+  "totalAmount": 259800.0,
+  "totalMonthly": 21650.0,
+  "totalCount": 16,
+  "avgPerRecord": 1353.12,
   "byCity": [
     {
       "name": "杭州",
-      "amount": 420381.82,
-      "count": 13
-    },
-    {
-      "name": "上海",
-      "amount": 42650.0,
-      "count": 39
-    },
-    {
-      "name": "深圳",
-      "amount": 31200.0,
-      "count": 36
+      "city": "杭州",
+      "amount": 10800.0,
+      "annual": 129600.0,
+      "region": "",
+      "frequency": "每天"
     },
     {
       "name": "北京",
-      "amount": 29225.0,
-      "count": 27
+      "city": "北京",
+      "amount": 1600.0,
+      "annual": 19200.0,
+      "region": "二区",
+      "frequency": "每天"
     },
     {
-      "name": "武汉",
-      "amount": 15785.47,
-      "count": 13
-    },
-    {
-      "name": "成都",
-      "amount": 12800.0,
-      "count": 15
+      "name": "上海",
+      "city": "上海",
+      "amount": 1600.0,
+      "annual": 19200.0,
+      "region": "四区",
+      "frequency": "每天"
     },
     {
       "name": "南京",
-      "amount": 7495.0,
-      "count": 4
+      "city": "南京",
+      "amount": 880.0,
+      "annual": 10560.0,
+      "region": "",
+      "frequency": "一周2次"
     },
     {
-      "name": "郑州",
-      "amount": 4100.0,
-      "count": 11
+      "name": "深圳",
+      "city": "深圳",
+      "amount": 800.0,
+      "annual": 9600.0,
+      "region": "五区",
+      "frequency": "每天"
     },
     {
-      "name": "苏州",
-      "amount": 3510.0,
-      "count": 4
+      "name": "广州",
+      "city": "广州",
+      "amount": 800.0,
+      "annual": 9600.0,
+      "region": "",
+      "frequency": "每天"
     },
     {
-      "name": "无锡",
-      "amount": 3400.0,
-      "count": 7
+      "name": "成都",
+      "city": "成都",
+      "amount": 800.0,
+      "annual": 9600.0,
+      "region": "六区",
+      "frequency": "每天"
+    },
+    {
+      "name": "武汉柚出海",
+      "city": "武汉柚出海",
+      "amount": 800.0,
+      "annual": 9600.0,
+      "region": "",
+      "frequency": "一周一次"
     },
     {
       "name": "青岛",
-      "amount": 3150.0,
-      "count": 5
+      "city": "青岛",
+      "amount": 750.0,
+      "annual": 9000.0,
+      "region": "",
+      "frequency": "5"
+    },
+    {
+      "name": "苏州",
+      "city": "苏州",
+      "amount": 720.0,
+      "annual": 8640.0,
+      "region": "",
+      "frequency": "一周2次"
+    },
+    {
+      "name": "武汉",
+      "city": "武汉",
+      "amount": 600.0,
+      "annual": 7200.0,
+      "region": "",
+      "frequency": "每周3次"
+    },
+    {
+      "name": "郑州",
+      "city": "郑州",
+      "amount": 400.0,
+      "annual": 4800.0,
+      "region": "三区",
+      "frequency": "每周2-3次"
+    },
+    {
+      "name": "无锡",
+      "city": "无锡",
+      "amount": 400.0,
+      "annual": 4800.0,
+      "region": "",
+      "frequency": "一周一次"
     },
     {
       "name": "厦门",
-      "amount": 2358.0,
-      "count": 6
+      "city": "厦门",
+      "amount": 400.0,
+      "annual": 4800.0,
+      "region": "",
+      "frequency": "2~3次/周"
     },
     {
-      "name": "重庆",
-      "amount": 1375.0,
-      "count": 5
-    },
-    {
-      "name": "天津",
-      "amount": 900.0,
-      "count": 3
-    },
-    {
-      "name": "西安",
-      "amount": 820.0,
-      "count": 1
+      "name": "大连",
+      "city": "大连",
+      "amount": 200.0,
+      "annual": 2400.0,
+      "region": "一区",
+      "frequency": "46085"
     },
     {
       "name": "济南",
-      "amount": 500.0,
-      "count": 3
+      "city": "济南",
+      "amount": 100.0,
+      "annual": 1200.0,
+      "region": "",
+      "frequency": "1"
+    }
+  ],
+  "byRegion": [
+    {
+      "name": "",
+      "amount": 16250.0,
+      "count": 10
     },
     {
-      "name": "未知",
-      "amount": 130.0,
+      "name": "二区",
+      "amount": 1600.0,
+      "count": 1
+    },
+    {
+      "name": "四区",
+      "amount": 1600.0,
+      "count": 1
+    },
+    {
+      "name": "五区",
+      "amount": 800.0,
+      "count": 1
+    },
+    {
+      "name": "六区",
+      "amount": 800.0,
+      "count": 1
+    },
+    {
+      "name": "三区",
+      "amount": 400.0,
+      "count": 1
+    },
+    {
+      "name": "一区",
+      "amount": 200.0,
       "count": 1
     }
   ],
   "byYear": [
     {
-      "year": "2023",
-      "amount": 153959.82,
-      "count": 35,
-      "changePct": 0
-    },
-    {
-      "year": "2024",
-      "amount": 176325.0,
-      "count": 52,
-      "changePct": 14.5
-    },
-    {
-      "year": "2025",
-      "amount": 205095.47,
-      "count": 88,
-      "changePct": 16.3
-    },
-    {
       "year": "2026",
-      "amount": 44400.0,
-      "count": 18,
-      "changePct": -78.4
+      "amount": 259800.0,
+      "count": 16,
+      "changePct": 0
     }
   ],
   "monthlyTrend": [
     {
-      "label": "2023-01",
-      "amount": 32400.0,
-      "count": 1
-    },
-    {
-      "label": "2023-02",
-      "amount": 1600.0,
-      "count": 1
-    },
-    {
-      "label": "2023-03",
-      "amount": 800.0,
-      "count": 1
-    },
-    {
-      "label": "2023-04",
-      "amount": 2900.0,
-      "count": 3
-    },
-    {
-      "label": "2023-05",
-      "amount": 4958.0,
-      "count": 5
-    },
-    {
-      "label": "2023-06",
-      "amount": 32881.82,
-      "count": 3
-    },
-    {
-      "label": "2023-07",
-      "amount": 33700.0,
-      "count": 3
-    },
-    {
-      "label": "2023-08",
-      "amount": 3020.0,
-      "count": 4
-    },
-    {
-      "label": "2023-09",
-      "amount": 2700.0,
-      "count": 4
-    },
-    {
-      "label": "2023-10",
-      "amount": 34600.0,
-      "count": 4
-    },
-    {
-      "label": "2023-11",
-      "amount": 2200.0,
-      "count": 3
-    },
-    {
-      "label": "2023-12",
-      "amount": 2200.0,
-      "count": 3
-    },
-    {
-      "label": "2024-01",
-      "amount": 34600.0,
-      "count": 4
-    },
-    {
-      "label": "2024-02",
-      "amount": 3700.0,
-      "count": 4
-    },
-    {
-      "label": "2024-03",
-      "amount": 1400.0,
-      "count": 2
-    },
-    {
-      "label": "2024-04",
-      "amount": 36200.0,
-      "count": 4
-    },
-    {
-      "label": "2024-05",
-      "amount": 3700.0,
-      "count": 4
-    },
-    {
-      "label": "2024-06",
-      "amount": 5400.0,
-      "count": 6
-    },
-    {
-      "label": "2024-07",
-      "amount": 35550.0,
-      "count": 5
-    },
-    {
-      "label": "2024-08",
-      "amount": 6400.0,
-      "count": 4
-    },
-    {
-      "label": "2024-09",
-      "amount": 6300.0,
-      "count": 6
-    },
-    {
-      "label": "2024-10",
-      "amount": 36400.0,
-      "count": 5
-    },
-    {
-      "label": "2024-11",
-      "amount": 2500.0,
-      "count": 3
-    },
-    {
-      "label": "2024-12",
-      "amount": 4175.0,
-      "count": 5
-    },
-    {
-      "label": "2025-01",
-      "amount": 38700.0,
-      "count": 7
-    },
-    {
-      "label": "2025-02",
-      "amount": 3200.0,
-      "count": 3
-    },
-    {
-      "label": "2025-03",
-      "amount": 4000.0,
-      "count": 4
-    },
-    {
-      "label": "2025-04",
-      "amount": 35700.0,
-      "count": 5
-    },
-    {
-      "label": "2025-05",
-      "amount": 2950.0,
-      "count": 6
-    },
-    {
-      "label": "2025-06",
-      "amount": 14385.47,
-      "count": 9
-    },
-    {
-      "label": "2025-07",
-      "amount": 38450.0,
-      "count": 9
-    },
-    {
-      "label": "2025-08",
-      "amount": 7830.0,
-      "count": 11
-    },
-    {
-      "label": "2025-09",
-      "amount": 10320.0,
-      "count": 11
-    },
-    {
-      "label": "2025-10",
-      "amount": 42960.0,
-      "count": 12
-    },
-    {
-      "label": "2025-11",
-      "amount": 2900.0,
-      "count": 5
-    },
-    {
-      "label": "2025-12",
-      "amount": 3700.0,
-      "count": 6
-    },
-    {
       "label": "2026-01",
-      "amount": 4200.0,
-      "count": 6
+      "amount": 21650.0,
+      "count": 16
     },
     {
       "label": "2026-02",
-      "amount": 3700.0,
-      "count": 5
+      "amount": 21650.0,
+      "count": 16
     },
     {
       "label": "2026-03",
-      "amount": 36500.0,
-      "count": 7
+      "amount": 21650.0,
+      "count": 16
+    },
+    {
+      "label": "2026-04",
+      "amount": 21650.0,
+      "count": 16
+    },
+    {
+      "label": "2026-05",
+      "amount": 21650.0,
+      "count": 16
+    },
+    {
+      "label": "2026-06",
+      "amount": 21650.0,
+      "count": 16
+    },
+    {
+      "label": "2026-07",
+      "amount": 21650.0,
+      "count": 16
+    },
+    {
+      "label": "2026-08",
+      "amount": 21650.0,
+      "count": 16
+    },
+    {
+      "label": "2026-09",
+      "amount": 21650.0,
+      "count": 16
+    },
+    {
+      "label": "2026-10",
+      "amount": 21650.0,
+      "count": 16
+    },
+    {
+      "label": "2026-11",
+      "amount": 21650.0,
+      "count": 16
+    },
+    {
+      "label": "2026-12",
+      "amount": 21650.0,
+      "count": 16
     }
   ],
   "cityAvgPrice": [
     {
       "name": "杭州",
-      "avgAmount": 32337.06,
-      "count": 13
-    },
-    {
-      "name": "上海",
-      "avgAmount": 1093.59,
-      "count": 39
-    },
-    {
-      "name": "深圳",
-      "avgAmount": 866.67,
-      "count": 36
+      "avgAmount": 10800.0,
+      "count": 1
     },
     {
       "name": "北京",
-      "avgAmount": 1082.41,
-      "count": 27
+      "avgAmount": 1600.0,
+      "count": 1
     },
     {
-      "name": "武汉",
-      "avgAmount": 1214.27,
-      "count": 13
-    },
-    {
-      "name": "成都",
-      "avgAmount": 853.33,
-      "count": 15
+      "name": "上海",
+      "avgAmount": 1600.0,
+      "count": 1
     },
     {
       "name": "南京",
-      "avgAmount": 1873.75,
-      "count": 4
+      "avgAmount": 880.0,
+      "count": 1
     },
     {
-      "name": "郑州",
-      "avgAmount": 372.73,
-      "count": 11
+      "name": "深圳",
+      "avgAmount": 800.0,
+      "count": 1
     },
     {
-      "name": "苏州",
-      "avgAmount": 877.5,
-      "count": 4
+      "name": "广州",
+      "avgAmount": 800.0,
+      "count": 1
     },
     {
-      "name": "无锡",
-      "avgAmount": 485.71,
-      "count": 7
+      "name": "成都",
+      "avgAmount": 800.0,
+      "count": 1
+    },
+    {
+      "name": "武汉柚出海",
+      "avgAmount": 800.0,
+      "count": 1
     },
     {
       "name": "青岛",
-      "avgAmount": 630.0,
-      "count": 5
+      "avgAmount": 750.0,
+      "count": 1
+    },
+    {
+      "name": "苏州",
+      "avgAmount": 720.0,
+      "count": 1
+    },
+    {
+      "name": "武汉",
+      "avgAmount": 600.0,
+      "count": 1
+    },
+    {
+      "name": "郑州",
+      "avgAmount": 400.0,
+      "count": 1
+    },
+    {
+      "name": "无锡",
+      "avgAmount": 400.0,
+      "count": 1
     },
     {
       "name": "厦门",
-      "avgAmount": 393.0,
-      "count": 6
+      "avgAmount": 400.0,
+      "count": 1
     },
     {
-      "name": "重庆",
-      "avgAmount": 275.0,
-      "count": 5
-    },
-    {
-      "name": "天津",
-      "avgAmount": 300.0,
-      "count": 3
-    },
-    {
-      "name": "西安",
-      "avgAmount": 820.0,
+      "name": "大连",
+      "avgAmount": 200.0,
       "count": 1
     },
     {
       "name": "济南",
-      "avgAmount": 166.67,
-      "count": 3
-    },
-    {
-      "name": "未知",
-      "avgAmount": 130.0,
+      "avgAmount": 100.0,
       "count": 1
     }
   ],
   "details": [
     {
-      "date": "2026-03-19",
-      "city": "无锡",
-      "category": "办公费/清洁费",
-      "amount": 400.0,
-      "purpose": "申请无锡一月份保洁费，50元1小时，2小时起，共四次，先票后款",
-      "status": "已归档"
-    },
-    {
-      "date": "2026-03-12",
-      "city": "厦门",
-      "category": "办公费/清洁费",
-      "amount": 400.0,
-      "purpose": "厦门保洁阿姨2.11~3.10清洁费400元",
-      "status": "已归档"
-    },
-    {
-      "date": "2026-03-09",
-      "city": "上海",
-      "category": "办公费/清洁费",
-      "amount": 1500.0,
-      "purpose": "现申请支付上海2026年2月保洁费1500元，为个人阿姨，无票支出",
-      "status": "已归档"
-    },
-    {
-      "date": "2026-03-09",
       "city": "杭州",
-      "category": "办公费/清洁费",
-      "amount": 32400.0,
-      "purpose": "现申请支付浙江商会大厦保洁服务费32400元，费用明细如下： \n1.浙江商会大厦21F-23F三层共有3个保洁阿姨，月满",
-      "status": "已归档"
+      "region": "",
+      "amount": 10800.0,
+      "annual": 129600.0,
+      "payment": "公对公打款",
+      "hasTicket": "有",
+      "note": ""
     },
     {
-      "date": "2026-03-06",
-      "city": "郑州",
-      "category": "办公费/清洁费",
-      "amount": 400.0,
-      "purpose": "现申请支付郑州2月保洁费用400元，为个人阿姨，无票支出",
-      "status": "已归档"
+      "city": "北京",
+      "region": "二区",
+      "amount": 1600.0,
+      "annual": 19200.0,
+      "payment": "对公打款",
+      "hasTicket": "有",
+      "note": ""
     },
     {
-      "date": "2026-03-06",
-      "city": "武汉",
-      "category": "办公费/清洁费",
-      "amount": 600.0,
-      "purpose": "现申请武汉申请支付2月保洁费600元，阿姨个人无票。",
-      "status": "已归档"
-    },
-    {
-      "date": "2026-03-06",
-      "city": "深圳",
-      "category": "办公费/清洁费",
-      "amount": 800.0,
-      "purpose": "深圳保洁阿姨2月清洁费800元",
-      "status": "已归档"
-    },
-    {
-      "date": "2026-02-11",
-      "city": "厦门",
-      "category": "办公费/清洁费",
-      "amount": 400.0,
-      "purpose": "厦门保洁阿姨1.11~2.10清洁费400元",
-      "status": "已归档"
-    },
-    {
-      "date": "2026-02-06",
-      "city": "武汉",
-      "category": "办公费/清洁费",
-      "amount": 600.0,
-      "purpose": "现申请武汉申请支付1月保洁费600元，阿姨个人无票。",
-      "status": "已归档"
-    },
-    {
-      "date": "2026-02-06",
-      "city": "郑州",
-      "category": "办公费/清洁费",
-      "amount": 400.0,
-      "purpose": "现申请支付郑州1月保洁费用400元，为个人阿姨，无票支出",
-      "status": "已归档"
-    },
-    {
-      "date": "2026-02-06",
-      "city": "深圳",
-      "category": "办公费/清洁费",
-      "amount": 800.0,
-      "purpose": "深圳保洁阿姨1月清洁费800元",
-      "status": "已归档"
-    },
-    {
-      "date": "2026-02-02",
       "city": "上海",
-      "category": "办公费/清洁费",
-      "amount": 1500.0,
-      "purpose": "现申请支付上海2026年1月保洁费1500元，为个人阿姨，无票支出",
-      "status": "已归档"
+      "region": "四区",
+      "amount": 1600.0,
+      "annual": 19200.0,
+      "payment": "公对私打款",
+      "hasTicket": "无",
+      "note": ""
     },
     {
-      "date": "2026-01-19",
-      "city": "厦门",
-      "category": "办公费/清洁费",
-      "amount": 400.0,
-      "purpose": "厦门保洁阿姨2025.12.11~2026.1.10清洁费400元",
-      "status": "已归档"
+      "city": "南京",
+      "region": "",
+      "amount": 880.0,
+      "annual": 10560.0,
+      "payment": "公对公打款",
+      "hasTicket": "有",
+      "note": ""
     },
     {
-      "date": "2026-01-14",
-      "city": "无锡",
-      "category": "办公费/清洁费",
-      "amount": 500.0,
-      "purpose": "申请无锡十二月份保洁费，50元1小时，2小时起，共五次，先票后款",
-      "status": "已归档"
-    },
-    {
-      "date": "2026-01-09",
       "city": "深圳",
-      "category": "办公费/清洁费",
+      "region": "五区",
       "amount": 800.0,
-      "purpose": "深圳保洁阿姨12月清洁费800元",
-      "status": "已归档"
+      "annual": 9600.0,
+      "payment": "公对私打款",
+      "hasTicket": "无",
+      "note": "手写收据，阿姨签字按手印"
     },
     {
-      "date": "2026-01-09",
-      "city": "郑州",
-      "category": "办公费/清洁费",
-      "amount": 400.0,
-      "purpose": "现申请支付郑州12月保洁费用400元，为个人阿姨，无票支出",
-      "status": "已归档"
-    },
-    {
-      "date": "2026-01-09",
-      "city": "武汉",
-      "category": "办公费/清洁费",
-      "amount": 600.0,
-      "purpose": "现申请武汉申请支付12月保洁费600元，阿姨个人无票。",
-      "status": "已归档"
-    },
-    {
-      "date": "2026-01-07",
-      "city": "上海",
-      "category": "办公费/清洁费",
-      "amount": 1500.0,
-      "purpose": "现申请支付上海12月保洁费1500元，为个人阿姨，无票支出",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-12-24",
-      "city": "厦门",
-      "category": "办公费/清洁费",
-      "amount": 400.0,
-      "purpose": "厦门保洁阿姨11.11~12.10清洁费400元",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-12-09",
-      "city": "深圳",
-      "category": "办公费/清洁费",
-      "amount": 400.0,
-      "purpose": "申请深圳分公司11月半月保洁费⽤400元，阿姨个人支出，无票。",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-12-09",
-      "city": "武汉",
-      "category": "办公费/清洁费",
-      "amount": 600.0,
-      "purpose": "现申请武汉申请支付11月保洁费600元，阿姨个人无票。",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-12-09",
-      "city": "郑州",
-      "category": "办公费/清洁费",
-      "amount": 400.0,
-      "purpose": "现申请支付郑州11月保洁费用400元，为个人阿姨，无票支出",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-12-08",
-      "city": "深圳",
-      "category": "办公费/清洁费",
-      "amount": 400.0,
-      "purpose": "深圳保洁阿姨11月清洁费400元，800元/月，新址11.13搬家后开始保洁工作",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-12-01",
-      "city": "上海",
-      "category": "办公费/清洁费",
-      "amount": 1500.0,
-      "purpose": "现申请支付上海11月保洁费1500元，为个人阿姨，无票支出",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-11-18",
-      "city": "厦门",
-      "category": "办公费/清洁费",
-      "amount": 400.0,
-      "purpose": "厦门保洁阿姨10.11~11.10清洁费400元。（阿姨400元/月，10月11日开始打扫）",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-11-12",
-      "city": "深圳",
-      "category": "快递费",
+      "city": "广州",
+      "region": "",
       "amount": 800.0,
-      "purpose": "申请深圳分公司10月保洁费⽤800元，阿姨个人支出，无票。",
-      "status": "已归档"
+      "annual": 9600.0,
+      "payment": "公对私打款",
+      "hasTicket": "无",
+      "note": ""
     },
     {
-      "date": "2025-11-07",
-      "city": "郑州",
-      "category": "办公费/清洁费",
-      "amount": 400.0,
-      "purpose": "现申请支付郑州10月保洁费用400元，为个人阿姨，无票支出",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-11-07",
-      "city": "武汉",
-      "category": "办公费/清洁费",
-      "amount": 600.0,
-      "purpose": "现申请武汉申请支付10月保洁费600元，阿姨个人无票。",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-11-07",
-      "city": "无锡",
-      "category": "办公费/清洁费",
-      "amount": 700.0,
-      "purpose": "申请无锡保洁费共计700元，50元1小时，2小时起，10月3次，11月预付4次，先款后票",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-10-31",
-      "city": "上海",
-      "category": "办公费/清洁费",
-      "amount": 1500.0,
-      "purpose": "现申请支付上海10月保洁费1500元，为个人阿姨，无票支出",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-10-31",
-      "city": "上海",
-      "category": "办公费/清洁费",
-      "amount": 1500.0,
-      "purpose": "现申请支付上海10月保洁费1500元，为个人阿姨，无票支出",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-10-24",
-      "city": "深圳",
-      "category": "办公费/清洁费",
+      "city": "成都",
+      "region": "六区",
       "amount": 800.0,
-      "purpose": "申请深圳分公司9月保洁费⽤800元，阿姨个人支出，无票。",
-      "status": "已归档"
+      "annual": 9600.0,
+      "payment": "公对公打款",
+      "hasTicket": "有",
+      "note": "每天收垃圾，每周吸地1次"
     },
     {
-      "date": "2025-10-22",
-      "city": "杭州",
-      "category": "办公费/清洁费",
-      "amount": 32400.0,
-      "purpose": "现申请支付浙江商会大厦保洁服务费32400元，费用明细如下：\n1.浙江商会大厦21F-23F三层共有3个保洁阿姨，月满勤",
-      "status": "已归档"
+      "city": "武汉柚出海",
+      "region": "",
+      "amount": 800.0,
+      "annual": 9600.0,
+      "payment": "公对公打款",
+      "hasTicket": "有",
+      "note": ""
     },
     {
-      "date": "2025-10-21",
       "city": "青岛",
-      "category": "办公费/清洁费",
+      "region": "",
       "amount": 750.0,
-      "purpose": "青岛保洁九月份明细:9.1号/9.8号/9.15号/9.22号/9.29号一共五次，一次150，一共750元",
-      "status": "已归档"
+      "annual": 9000.0,
+      "payment": "对公打款",
+      "hasTicket": "有",
+      "note": ""
     },
     {
-      "date": "2025-10-21",
       "city": "苏州",
-      "category": "办公费/清洁费",
-      "amount": 810.0,
-      "purpose": "苏州9月保洁810元",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-10-21",
-      "city": "无锡",
-      "category": "办公费/清洁费",
-      "amount": 300.0,
-      "purpose": "无锡保洁300元，打扫时间7月8号，7月15号，7月22号下午。",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-10-21",
-      "city": "郑州",
-      "category": "办公费/清洁费",
-      "amount": 400.0,
-      "purpose": "现申请支付郑州9月保洁费用400元，为个人阿姨，无票支出",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-10-21",
-      "city": "武汉",
-      "category": "办公费/清洁费",
-      "amount": 600.0,
-      "purpose": "现申请武汉申请支付9月保洁费600元，阿姨个人无票。",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-10-17",
-      "city": "北京",
-      "category": "办公费/清洁费",
-      "amount": 1600.0,
-      "purpose": "北京9月保洁费1600元.",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-10-13",
-      "city": "成都",
-      "category": "办公费/清洁费",
-      "amount": 800.0,
-      "purpose": "成都10月保洁费800元",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-10-09",
-      "city": "上海",
-      "category": "办公费/清洁费",
-      "amount": 1500.0,
-      "purpose": "现申请支付上海9月保洁费1500元，为个人阿姨，无票支出",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-09-29",
-      "city": "天津",
-      "category": "办公费/清洁费",
-      "amount": 300.0,
-      "purpose": "天津9月-12月季度保洁费300元",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-09-18",
-      "city": "北京",
-      "category": "办公费/清洁费",
-      "amount": 1600.0,
-      "purpose": "北京8月保洁费1600元.",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-09-17",
-      "city": "无锡",
-      "category": "办公费/清洁费",
-      "amount": 400.0,
-      "purpose": "申请无锡九月份保洁费，50元1小时，2小时起，每周4次，先款后票",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-09-16",
-      "city": "成都",
-      "category": "办公费/清洁费",
-      "amount": 1600.0,
-      "purpose": "成都7月和9月保洁费共计1600元",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-09-16",
-      "city": "青岛",
-      "category": "办公费/清洁费",
-      "amount": 600.0,
-      "purpose": "青岛8月办公室保洁费：8.4号/8.11号/8.18号/8.25号一共四次，一次150，一共600",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-09-16",
-      "city": "武汉",
-      "category": "办公费/清洁费",
-      "amount": 1800.0,
-      "purpose": "武汉柚出海7-8月保洁费共1800元",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-09-11",
-      "city": "上海",
-      "category": "办公费/清洁费",
-      "amount": 1500.0,
-      "purpose": "现申请支付上海8月保洁费1500元，为个人阿姨，无票支出",
-      "status": "已归档"
-    },
-    {
-      "date": "2025-09-10",
-      "city": "苏州",
-      "category": "办公费/清洁费",
+      "region": "",
       "amount": 720.0,
-      "purpose": "苏州8月保洁720元",
-      "status": "已归档"
+      "annual": 8640.0,
+      "payment": "公对公打款",
+      "hasTicket": "有",
+      "note": ""
     },
     {
-      "date": "2025-09-08",
-      "city": "深圳",
-      "category": "办公费/清洁费",
-      "amount": 800.0,
-      "purpose": "申请深圳分公司8月保洁费⽤800元，阿姨个人支出，无票。",
-      "status": "已归档"
+      "city": "武汉",
+      "region": "",
+      "amount": 600.0,
+      "annual": 7200.0,
+      "payment": "公对私打款",
+      "hasTicket": "无",
+      "note": ""
+    },
+    {
+      "city": "郑州",
+      "region": "三区",
+      "amount": 400.0,
+      "annual": 4800.0,
+      "payment": "公对私打款",
+      "hasTicket": "无",
+      "note": ""
+    },
+    {
+      "city": "无锡",
+      "region": "",
+      "amount": 400.0,
+      "annual": 4800.0,
+      "payment": "公对公打款",
+      "hasTicket": "有",
+      "note": ""
+    },
+    {
+      "city": "厦门",
+      "region": "",
+      "amount": 400.0,
+      "annual": 4800.0,
+      "payment": "公对私打款",
+      "hasTicket": "无",
+      "note": "手写收据，阿姨签字按手印"
+    },
+    {
+      "city": "大连",
+      "region": "一区",
+      "amount": 200.0,
+      "annual": 2400.0,
+      "payment": "对公打款",
+      "hasTicket": "有",
+      "note": "每月物业上门清洁，单次50元\n（室内清洁、倒垃圾、地毯吸尘）"
+    },
+    {
+      "city": "济南",
+      "region": "",
+      "amount": 100.0,
+      "annual": 1200.0,
+      "payment": "对公打款",
+      "hasTicket": "有",
+      "note": ""
     }
   ],
-  "lastUpdated": "2026-06-04 14:30",
-  "avgMonthly": 14866.16,
-  "cityCount": 17,
-  "yearCount": 4
+  "lastUpdated": "2026-06-04 18:07",
+  "avgMonthly": 21650.0,
+  "cityCount": 16,
+  "yearCount": 1
 }
