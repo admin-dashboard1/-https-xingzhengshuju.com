@@ -114,8 +114,62 @@ else:
 st.markdown("---")
 
 # ============ 重复费用检测 ============
+dup_groups = exp.get("dupCheck", {}).get("groups", [])
 if dup and dup.get("totalGroups", 0) > 0:
-    st.warning(f"⚠️ 疑似重复费用：共 **{dup['totalGroups']}** 组，涉及 **{dup['totalRecords']}** 条，重复金额 **¥{dup.get('totalAmount',0)/10000:.1f}万**")
+    st.warning(
+        f"⚠️ 疑似重复费用：共 **{dup['totalGroups']}** 组，涉及 **{dup['totalRecords']}** 条，"
+        f"重复金额 **¥{dup.get('totalAmount',0)/10000:.1f}万**  "
+        f"| 🔴 高 {dup.get('highGroups',0)} 🟡 中 {dup.get('mediumGroups',0)} 🟢 低 {dup.get('lowGroups',0)}  (展示前50组)"
+    )
+
+    # 按级别筛选
+    dup_level = st.selectbox("按级别筛选", ["全部", "🔴 高风险", "🟡 中风险", "🟢 低风险"], key="dup_level_filter")
+    level_map = {"🔴 高风险": "high", "🟡 中风险": "medium", "🟢 低风险": "low"}
+
+    filtered_groups = dup_groups
+    if dup_level != "全部":
+        filtered_groups = [g for g in dup_groups if g.get("level") == level_map[dup_level]]
+
+    # 分页
+    PAGE_SIZE = 20
+    total_pages = max(1, math.ceil(len(filtered_groups) / PAGE_SIZE))
+    if "dup_page" not in st.session_state:
+        st.session_state.dup_page = 0
+
+    pc = st.columns([1, 2, 1])
+    with pc[0]:
+        if st.button("⬅ 上一页", disabled=st.session_state.dup_page == 0, key="dup_prev"):
+            st.session_state.dup_page = max(0, st.session_state.dup_page - 1)
+            st.rerun()
+    with pc[1]:
+        st.markdown(f"<p style='text-align:center;color:{C['text_muted']};margin-top:8px'>第 {st.session_state.dup_page+1}/{total_pages} 页（共 {len(filtered_groups)} 组）</p>", unsafe_allow_html=True)
+    with pc[2]:
+        if st.button("下一页 ➡", disabled=st.session_state.dup_page >= total_pages - 1, key="dup_next"):
+            st.session_state.dup_page = min(total_pages - 1, st.session_state.dup_page + 1)
+            st.rerun()
+
+    start_idx = st.session_state.dup_page * PAGE_SIZE
+    page_groups = filtered_groups[start_idx:start_idx + PAGE_SIZE]
+
+    for gi, g in enumerate(page_groups):
+        idx = start_idx + gi + 1
+        level_emoji = {"high": "🔴", "medium": "🟡", "low": "🟢"}.get(g.get("level"), "⚪")
+        with st.expander(
+            f"#{idx} {level_emoji} 金额 ¥{g.get('amount',0):,.0f} × {g.get('count',0)} 条 = ¥{g.get('totalAmount',0):,.0f}  "
+            f"| {g.get('year','')}年{g.get('month','')}月",
+            expanded=(idx <= 5)
+        ):
+            items = g.get("items", [])
+            rows = []
+            for item in items:
+                rows.append({
+                    "日期": item.get("date", "")[:10],
+                    "城市": item.get("city", ""),
+                    "分类": item.get("category", ""),
+                    "金额": f"¥{item.get('amount',0):,.0f}",
+                    "用途": item.get("purpose", "")[:60],
+                })
+            st.dataframe(rows, use_container_width=True, hide_index=True)
 else:
     st.success("✅ 未发现疑似重复费用")
 
