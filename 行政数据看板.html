@@ -1672,21 +1672,24 @@ function render(data) {
   });
 
   // --- PC Status ---
-  const pcStatus = c.byStatus || [];
-  const pcColors = ['#059669','#d97706','#dc2626','#8b5cf6','#ea580c','#16a34a'];
-  const ctx5 = document.getElementById('pcStatusChart').getContext('2d');
-  if (charts.pcStatus) charts.pcStatus.destroy();
-  charts.pcStatus = new Chart(ctx5, {
-    type: 'doughnut',
-    data: {
-      labels: pcStatus.map(s => s.name),
-      datasets: [{ data: pcStatus.map(s => s.count), backgroundColor: pcColors.slice(0, pcStatus.length), borderWidth: 0 }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false, animation: { duration: 400 },
-      plugins: { legend: { position: 'right', labels: { font: {size: 11}, padding: 8, color: '#64748b' } }, tooltip: { callbacks: { label: ctx => ctx.label + ': ' + ctx.parsed + ' 台' } } }
-    }
-  });
+  const pcStatusCanvas = document.getElementById('pcStatusChart');
+  if (pcStatusCanvas) {
+    const pcStatus = c.byStatus || [];
+    const pcColors = ['#059669','#d97706','#dc2626','#8b5cf6','#ea580c','#16a34a'];
+    const ctx5 = pcStatusCanvas.getContext('2d');
+    if (charts.pcStatus) charts.pcStatus.destroy();
+    charts.pcStatus = new Chart(ctx5, {
+      type: 'doughnut',
+      data: {
+        labels: pcStatus.map(s => s.name),
+        datasets: [{ data: pcStatus.map(s => s.count), backgroundColor: pcColors.slice(0, pcStatus.length), borderWidth: 0 }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: { duration: 400 },
+        plugins: { legend: { position: 'right', labels: { font: {size: 11}, padding: 8, color: '#64748b' } }, tooltip: { callbacks: { label: ctx => ctx.label + ': ' + ctx.parsed + ' 台' } } }
+      }
+    });
+  }
 
   // --- PC City ---
   const pcCities = c.byCity || [];
