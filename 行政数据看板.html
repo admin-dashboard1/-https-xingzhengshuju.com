@@ -9071,11 +9071,11 @@ window.ASSET_ANALYSIS = {"totalQty": 1565, "selfQty": 343, "rentQty": 942, "byoQ
     document.body.insertBefore(div, document.body.firstChild);
   }
 
-  // 等待 DOM 就绪
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', doRender);
-  } else {
+  // 等待 DOM 就绪（确保所有 DOM 元素已解析）
+  if (document.readyState === 'complete') {
     doRender();
+  } else {
+    document.addEventListener('DOMContentLoaded', doRender);
   }
 })();
 </script>
