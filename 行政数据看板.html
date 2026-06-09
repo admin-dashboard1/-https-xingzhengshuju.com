@@ -463,24 +463,26 @@ if (typeof Chart === 'undefined') {
 <div class="year-overview" id="yearOverview"></div>
 
 <!-- ===== 重复费用警告 ===== -->
-<div class="dup-alert" id="dupAlert" style="display:none">
-  <button class="dup-toggle" id="dupToggle" onclick="toggleDupDetail()">展开详情 ▼</button>
-  <div class="dup-alert-header">
+<div class="dup-alert" id="dupAlert" style="display:none" data-state="collapsed">
+  <div class="dup-alert-header" onclick="toggleDupAlert()" style="cursor:pointer">
     <span class="icon">⚠️</span>
     <span class="title" id="dupTitle">疑似重复费用</span>
     <span class="badge badge-high" id="dupBadgeHigh">-</span>
     <span class="badge badge-medium" id="dupBadgeMedium">-</span>
+    <button class="dup-toggle" id="dupToggle" onclick="event.stopPropagation();toggleDupDetail()" style="display:none">展开详情 ▼</button>
   </div>
-  <div class="dup-summary" id="dupSummary"></div>
-  <div class="dup-detail" id="dupDetail">
-    <table class="dup-table">
-      <thead><tr>
-        <th style="width:60px">风险</th>
-        <th style="width:100px">金额</th>
-        <th>详情</th>
-      </tr></thead>
-      <tbody id="dupTableBody"></tbody>
-    </table>
+  <div class="dup-body" id="dupBody" style="display:none">
+    <div class="dup-summary" id="dupSummary"></div>
+    <div class="dup-detail" id="dupDetail">
+      <table class="dup-table">
+        <thead><tr>
+          <th style="width:60px">风险</th>
+          <th style="width:100px">金额</th>
+          <th>详情</th>
+        </tr></thead>
+        <tbody id="dupTableBody"></tbody>
+      </table>
+    </div>
   </div>
 </div>
 
@@ -502,11 +504,15 @@ if (typeof Chart === 'undefined') {
   <span class="alert-list" id="anomalyList"></span>
 </div>
 
-<!-- 年份筛选 + KPI -->
+<!-- 年份筛选 + 类别筛选 + KPI -->
 <div class="year-filter-bar" id="yearFilterBar">
   <span style="font-size:13px;color:var(--text-secondary);margin-right:8px;">🔍 筛选年份：</span>
   <button class="year-btn active" data-year="all" onclick="switchYear('all')">全部年份</button>
   <span id="yearBtns"></span>
+  <span style="margin-left:16px;font-size:13px;color:var(--text-secondary);margin-right:8px;">📂 费用类别：</span>
+  <select id="catFilter" onchange="switchCategory(this.value)" style="padding:6px 12px;border-radius:8px;border:1px solid rgba(148,163,184,0.3);font-size:13px;background:#fff;cursor:pointer">
+    <option value="all">全部类别</option>
+  </select>
 </div>
 
 <!-- KPI Cards -->
@@ -714,6 +720,7 @@ let refreshInterval = 5;
 let secondsLeft = refreshInterval * 60;
 let lastDataTimestamp = null;
 let currentYear = 'all';
+let currentCategory = 'all';
 let allData = null;
 
 const DATA_URL = './看板数据/dashboard_data.json';
@@ -871,6 +878,14 @@ function highlightYearCard(year) {
 
 // ============ 重复费用检测渲染 ============
 
+function toggleDupAlert() {
+  var body = document.getElementById('dupBody');
+  var alert = document.getElementById('dupAlert');
+  var show = body.style.display === 'none';
+  body.style.display = show ? 'block' : 'none';
+  alert.setAttribute('data-state', show ? 'expanded' : 'collapsed');
+}
+
 function toggleDupDetail() {
   const detail = document.getElementById('dupDetail');
   const toggle = document.getElementById('dupToggle');
@@ -956,6 +971,9 @@ function renderDupCheck(data) {
   document.getElementById('dupToggle').style.display = 'inline-block';
   document.getElementById('dupDetail').classList.remove('show');
   document.getElementById('dupToggle').textContent = '展开详情 ▼';
+  // Start collapsed
+  document.getElementById('dupBody').style.display = 'none';
+  document.getElementById('dupAlert').setAttribute('data-state', 'collapsed');
 }
 
 // ============ 年份对比图 ============
@@ -1045,10 +1063,31 @@ function renderYearCompareChart(data) {
 // ============ 渲染逻辑 ============
 
 function getExpenseData(data) {
+  var exp;
   if (currentYear === 'all' || !data.expenses.byYear || !data.expenses.byYear[currentYear]) {
-    return data.expenses;
+    exp = data.expenses;
+  } else {
+    exp = data.expenses.byYear[currentYear];
   }
-  return data.expenses.byYear[currentYear];
+  // Apply category level filter
+  if (currentCategory !== 'all' && exp) {
+    exp = filterByCategory(exp, currentCategory);
+  }
+  return exp;
+}
+
+function filterByCategory(exp, level) {
+  // Create a filtered copy
+  var filtered = JSON.parse(JSON.stringify(exp));
+  // Filter categoryDistribution
+  filtered.categoryDistribution = (exp.categoryDistribution||[]).filter(function(c){
+    return (c.name||'').split('/')[0] === level;
+  });
+  // Recalculate total from filtered categories
+  filtered.totalAmount = filtered.categoryDistribution.reduce(function(s,c){return s+(c.amount||0)},0);
+  filtered.totalCount = filtered.categoryDistribution.reduce(function(s,c){return s+(c.count||0)},0);
+  filtered.avgMonthly = filtered.filledMonths ? filtered.totalAmount/filtered.filledMonths : 0;
+  return filtered;
 }
 
 function initYearButtons(data) {
@@ -1069,6 +1108,34 @@ function switchYear(year) {
   // 更新总览卡片
   highlightYearCard(year);
   // 重新渲染
+  if (allData) render(allData);
+}
+
+// ======= 类别级别筛选 =======
+function initCategoryFilter(data) {
+  var cats = data.expenses.categoryDistribution || [];
+  var levels = {};
+  cats.forEach(function(c) {
+    var name = c.name || '';
+    // Extract top-level: everything before first "/" or the full name
+    var top = name.split('/')[0] || name;
+    if (!levels[top]) levels[top] = 0;
+    levels[top] += c.amount;
+  });
+  var sel = document.getElementById('catFilter');
+  // Sort by amount descending
+  var sorted = Object.keys(levels).sort(function(a,b){ return levels[b] - levels[a]; });
+  sorted.forEach(function(lv) {
+    var opt = document.createElement('option');
+    opt.value = lv;
+    var amtWan = (levels[lv]/10000).toFixed(1);
+    opt.textContent = lv + ' (¥' + amtWan + '万)';
+    sel.appendChild(opt);
+  });
+}
+
+function switchCategory(cat) {
+  currentCategory = cat;
   if (allData) render(allData);
 }
 
@@ -1508,6 +1575,7 @@ function render(data) {
   // 初始化年份按钮（仅首次）
   if (document.getElementById('yearBtns').children.length === 0) {
     initYearButtons(data);
+    initCategoryFilter(data);
   }
 
   // === KPI ===
